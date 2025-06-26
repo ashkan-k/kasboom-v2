@@ -1,0 +1,206 @@
+/*#region ----------------- Ideas */
+.ideas-header {
+  margin-top: 75px;
+  .idea-inner {
+    img {
+      width: 100%;
+    }
+  }
+}
+.idea-grid-layout {
+  margin-bottom: 70px;
+  .layout-inner {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+}
+
+.idea-big-banner {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-bottom: 80px;
+  .box-bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    padding: 90px 0;
+    position: relative;
+    z-index: 1;
+    .box-inner {
+      width: 70%;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: $borderRadius15;
+      border: 1px solid rgba($color: white, $alpha: 0.5);
+    }
+    h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: $text200;
+      text-align: center;
+      color: white;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 5px 10px rgba($color: #000000, $alpha: 0.3);
+    }
+    p {
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      text-align: center;
+      margin-bottom: 0;
+    }
+    .link {
+      text-align: center;
+      margin-top: 2rem;
+    }
+  }
+  .right-box {
+    background-image: url(/assets-v2/images/bg/index-1.jpg);
+  }
+  .left-box {
+    background-image: url(/assets-v2/images/bg/index-2.jpg);
+  }
+}
+.side-idea {
+  position: sticky;
+  top: 110px;
+  margin-top: 40px;
+}
+
+.idea-table-property {
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  box-shadow: $boxshadowSideLeft;
+  .title {
+    font-size: 15px;
+    font-weight: 600;
+    color: $text100;
+    padding: 0 0 15px 0;
+    position: relative;
+    .mdi {
+      font-size: 18px;
+      position: relative;
+      top: 2px;
+      margin-left: 5px;
+      color: $primary;
+    }
+  }
+  ul {
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .name,
+      .desc {
+        font-size: 14px;
+        font-weight: 400;
+      }
+      .name {
+        color: $text200;
+      }
+      .desc {
+        color: $text100;
+      }
+    }
+  }
+}
+
+.idea-info {
+  .name {
+    font-size: 18px;
+    font-weight: 600;
+    color: $text100;
+    margin-bottom: 1rem;
+    line-height: 30px;
+  }
+  .status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .status-list {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      li {
+        font-size: 15px;
+        font-weight: 500;
+        color: $text200;
+        margin-left: 30px;
+        .mdi {
+          font-size: 18px;
+          margin-left: 5px;
+          position: relative;
+          top: 2px;
+        }
+        &:last-child {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .idea-grid-layout .layout-inner {
+    grid-template-columns: 100%;
+    .card-idea {
+      padding: 0;
+      margin-bottom: 30px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .ideas-header {
+    margin-top: 55px;
+  }
+  .idea-big-banner {
+    display: grid;
+    grid-template-columns: 100%;
+  }
+}
+// @media (max-width: 575px) {
+//     .idea-mainContent .title .see-more,
+//     .idea-teammate .title .see-more {
+//         span {
+//             display: none;
+//         }
+//         .icon {
+//             width: 35px;
+//             height: 35px;
+//             background-color: $primary;
+//             border-radius: 50%;
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//             .mdi {
+//                 color: white;
+//                 top: unset;
+//             }
+//         }
+//     }
+// }
+// @media (max-width: 350px) {
+//     .idea-mainContent .title,
+//     .idea-teammate .title {
+//         h2 {
+//             font-size: 18px;
+//             padding-right: 0;
+//             &::after {
+//                 display: none;
+//             }
+//             &::before {
+//                 display: none;
+//             }
+//         }
+//     }
+// }
+/*#endregion -------------- Ideas */

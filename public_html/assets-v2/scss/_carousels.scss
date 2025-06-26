@@ -1,0 +1,471 @@
+/*#region ----------------- Carousel */
+.swiper {
+  &.swiper-workshop,
+  &.swiper-courses,
+  &.swiper-infographics,
+  &.swiper-ebooks,
+  &.swiper-courses-2 {
+    position: unset;
+    padding: 15px 30px 30px 30px;
+  }
+}
+
+.swiper-education-index {
+  .item {
+    img {
+      width: 100%;
+      border-radius: 15px;
+    }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    opacity: 0.7;
+    &::after {
+      font-size: 40px;
+      color: white;
+      font-family: "Material Design Icons";
+    }
+    &:hover {
+      opacity: 1;
+    }
+    &.swiper-button-disabled {
+      opacity: 0.3;
+    }
+  }
+  &.swiper-rtl .swiper-button-next {
+    left: 15px;
+    z-index: 100;
+    &::after {
+      content: "\F0141";
+    }
+  }
+  &.swiper-rtl .swiper-button-prev {
+    right: 15px;
+    z-index: 100;
+    &::after {
+      content: "\F0142";
+    }
+  }
+  .swiper-pagination-bullets {
+    bottom: 25px !important;
+  }
+  .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    opacity: 0.8;
+    transition: all 0.2s ease-in-out;
+    &.swiper-pagination-bullet-active {
+      width: 30px;
+      border-radius: 5px;
+      opacity: 1;
+    }
+  }
+}
+
+.swiper-landing-index {
+  .item {
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 40px;
+    height: 40px;
+    opacity: 0.5;
+    &::after {
+      font-size: 32px;
+      color: white;
+      font-family: "Material Design Icons";
+    }
+    &:hover {
+      opacity: 1;
+    }
+    &.swiper-button-disabled {
+      opacity: 0.3;
+    }
+  }
+  &.swiper-rtl .swiper-button-next {
+    left: 10px;
+    z-index: 100;
+    &::after {
+      content: "\F0141";
+    }
+  }
+  &.swiper-rtl .swiper-button-prev {
+    right: 10px;
+    z-index: 100;
+    &::after {
+      content: "\F0142";
+    }
+  }
+  .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    opacity: 1;
+    &.swiper-pagination-bullet-active {
+      width: 10px;
+      height: 10px;
+      background-color: rgba($color: white, $alpha: 0.5);
+    }
+  }
+}
+
+.swiper-courses,
+.swiper-workshop,
+.swiper-infographics,
+.swiper-ebooks,
+.swiper-courses-2 {
+  .swiper-button-prev,
+  .swiper-button-next {
+    background-color: white;
+    box-shadow: 0 0 11px 0 #d2d2d2;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    opacity: 1;
+    &::after {
+      font-size: 24px;
+      color: $text300;
+      font-family: $iconFont;
+    }
+    &:hover {
+      opacity: 1;
+    }
+    &.swiper-button-disabled {
+      opacity: 0.3;
+    }
+  }
+  &.swiper-rtl .swiper-button-next {
+    left: -30px;
+    z-index: 100;
+    &::after {
+      content: "\F004D";
+    }
+  }
+  &.swiper-rtl .swiper-button-prev {
+    right: -30px;
+    z-index: 100;
+    &::after {
+      content: "\F0054";
+    }
+  }
+}
+
+.swiper-comments {
+  position: unset !important;
+  padding: 20px !important;
+  .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background-color: $primary;
+    opacity: 0.8;
+    transition: all 0.2s ease-in-out;
+    &.swiper-pagination-bullet-active {
+      width: 30px;
+      border-radius: 5px;
+      opacity: 1;
+    }
+  }
+  .swiper-pagination {
+    bottom: -30px !important;
+  }
+  .swiper-slide {
+    .comment-body {
+      opacity: 0.5;
+      transition: all 0.4s ease-in-out;
+      transform: scale(0.8);
+      &::before {
+        opacity: 0;
+        transition: all 0.4s ease-in-out;
+      }
+      .comment-header {
+        .user-img {
+          transform: scale(0);
+          transition: all 0.4s ease-in-out;
+        }
+        .user-info {
+          padding-right: 0;
+          transition: all 0.4s ease-in-out;
+        }
+      }
+    }
+    &.swiper-slide-active {
+      .comment-body {
+        opacity: 1;
+        transform: scale(1);
+        &::before {
+          opacity: 1;
+        }
+        .comment-header {
+          .user-img {
+            transform: scale(1);
+          }
+          .user-info {
+            padding-right: 40px;
+          }
+        }
+      }
+    }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 38px;
+    height: 38px;
+    opacity: 1;
+    background-color: $primary;
+    border-radius: 50%;
+    &::after {
+      font-size: 24px;
+      color: white;
+      font-family: "Material Design Icons";
+    }
+    &:hover {
+      opacity: 1;
+      background-color: $secondary;
+    }
+    &.swiper-button-disabled {
+      opacity: 0.3;
+    }
+  }
+  &.swiper-rtl .swiper-button-next {
+    left: 250px;
+    z-index: 100;
+    &::after {
+      content: "\F0141";
+    }
+  }
+  &.swiper-rtl .swiper-button-prev {
+    right: 250px;
+    z-index: 100;
+    &::after {
+      content: "\F0142";
+    }
+  }
+}
+
+.swiper-course-thumb {
+  position: unset !important;
+  padding-bottom: 5px !important;
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 38px;
+    height: 38px;
+    opacity: 1;
+    background-color: white;
+    box-shadow: 0 3px 15px rgba($color: black, $alpha: 0.2);
+    border-radius: 50%;
+    &::after {
+      font-size: 24px;
+      color: $text200;
+      font-family: "Material Design Icons";
+    }
+    &:hover {
+      opacity: 1;
+      background-color: $secondary;
+    }
+    &.swiper-button-disabled {
+      opacity: 0.3;
+    }
+  }
+  &.swiper-rtl .swiper-button-next {
+    left: -5px;
+    z-index: 100;
+    &::after {
+      content: "\F0141";
+    }
+  }
+  &.swiper-rtl .swiper-button-prev {
+    right: -5px;
+    z-index: 100;
+    &::after {
+      content: "\F0142";
+    }
+  }
+}
+
+.swiper-certificate {
+  .item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      height: 150px;
+      border-radius: 3px;
+    }
+  }
+}
+
+.swiper-infographics {
+  &.swiper {
+    padding: 20px 0;
+  }
+}
+
+.swiper-landing-comment {
+  .swiper-wrapper {
+    margin-bottom: 20px;
+  }
+  .swiper-pagination-bullets {
+    bottom: 0 !important;
+  }
+  .swiper-slide {
+    .comment-item {
+      opacity: 0.5;
+      transition: all 0.4s ease-in-out;
+      .comment-info {
+        transform: scale(0);
+        transition: all 0.4s ease-in-out;
+      }
+    }
+    &.swiper-slide-active {
+      .comment-item {
+        opacity: 1;
+        .comment-info {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+  .swiper-comments {
+    &.swiper-rtl .swiper-button-next {
+      left: 150px;
+    }
+    &.swiper-rtl .swiper-button-prev {
+      right: 150px;
+    }
+  }
+}
+@media (max-width: 992px) {
+  .carousel-index {
+    margin-top: 30px;
+    .item {
+      padding: 0 15px;
+    }
+  }
+  .swiper-education-index {
+    &.swiper-rtl .swiper-button-next {
+      left: 10px;
+    }
+    &.swiper-rtl .swiper-button-prev {
+      right: 10px;
+    }
+    .swiper-pagination-bullets {
+      bottom: 10px !important;
+    }
+  }
+  .swiper-courses,
+  .swiper-ebooks,
+  .swiper-infographics {
+    &.swiper-rtl .swiper-button-next {
+      left: -5px;
+    }
+    &.swiper-rtl .swiper-button-prev {
+      right: -5px;
+    }
+  }
+  .swiper-comments {
+    &.swiper-rtl .swiper-button-next {
+      left: 5px;
+    }
+    &.swiper-rtl .swiper-button-prev {
+      right: 5px;
+    }
+    .swiper-slide {
+      &.swiper-slide-active .comment-body {
+        width: 80%;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .swiper {
+    &.swiper-courses {
+      position: unset;
+      padding: 10px 15px 15px 15px;
+    }
+  }
+  .swiper-landing-index {
+    .swiper-pagination {
+      bottom: -2px !important;
+    }
+    &.swiper-rtl {
+      .swiper-button-next {
+        left: 0;
+      }
+      .swiper-button-prev {
+        right: 0;
+      }
+    }
+  }
+  .swiper-courses,
+  .swiper-ebooks,
+  .swiper-infographics {
+    .swiper-button-prev,
+    .swiper-button-next {
+      width: 30px;
+      height: 30px;
+    }
+    &.swiper-rtl .swiper-button-next {
+      left: 5px;
+    }
+    &.swiper-rtl .swiper-button-prev {
+      right: 5px;
+    }
+  }
+  .swiper-comments {
+    .swiper-button-prev,
+    .swiper-button-next {
+      background-color: transparent;
+      &::after {
+        color: $primary;
+      }
+    }
+  }
+}
+@media (max-width: 575px) {
+  .swiper-comments {
+    padding: 20px 0 !important;
+    &.swiper-rtl .swiper-button-next {
+      left: 0;
+    }
+    &.swiper-rtl .swiper-button-prev {
+      right: 0;
+    }
+    .swiper-slide {
+      &.swiper-slide-active .comment-body {
+        width: 80%;
+        margin: 0 auto;
+      }
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  .swiper-courses,
+  .swiper-ebooks,
+  .swiper-infographics {
+    .swiper-button-prev,
+    .swiper-button-next {
+      width: 30px;
+      height: 30px;
+      &::after {
+        font-size: 16px;
+      }
+    }
+  }
+}
+/*#endregion -------------- Carousel */

@@ -1,0 +1,15 @@
+/*#region ----------------- X - Catch Error */
+$dangerColor: red;
+$secondaryColor: blue;
+$primaryColor: green;
+
+.bred {
+  border: 1px dashed $dangerColor;
+}
+.bgreen {
+  border: 1px dashed $primaryColor;
+}
+.bblue {
+  border: 1px dashed $secondaryColor;
+}
+/*#endregion -------------- X - Catch Error */

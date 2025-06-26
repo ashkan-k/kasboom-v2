@@ -1,0 +1,710 @@
+/*#region ----------------- RoadMap */
+.roadmap-content {
+  .roadmap-inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 900px;
+    margin: 0 auto;
+    .grid-item {
+      flex: 0 0 25%;
+      width: 25%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 10;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        width: 100%;
+        height: 2px;
+        border: 2px dashed $borderColor;
+        z-index: -1;
+      }
+      &:nth-child(4) {
+        &::before {
+          height: 100%;
+          width: 2px;
+          border: none;
+          border: 2px dashed $borderColor;
+        }
+      }
+      &:nth-child(8) {
+        &::before {
+          display: none;
+        }
+      }
+    }
+    .circle {
+      width: 120px;
+      height: 120px;
+      padding: 10px;
+      @include displayFlex(flex, center, center);
+      border-radius: $borderRadius15;
+      background-color: white;
+      font-size: 13px;
+      font-weight: 600;
+      color: $text200;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 7px 35px rgba($color: $text300, $alpha: 0.2);
+      transition: all 0.3s ease-in-out;
+      cursor: default;
+      &::before {
+        content: "";
+        position: absolute;
+        top: -15px;
+        width: 150px;
+        height: 100%;
+        z-index: -1;
+        border-radius: 18px;
+        background: linear-gradient(180deg, #e8f8fe 0%, white 100%);
+        transition: all 0.3s ease-in-out;
+      }
+      &:hover {
+        background-color: $primary;
+        color: white;
+        &::before {
+          width: 100%;
+          top: 0;
+          border-radius: 16px;
+        }
+      }
+      .number {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        font-size: 14px;
+        font-weight: 600;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: $secondaryLight;
+        @include displayFlex(flex, center, center);
+      }
+    }
+  }
+}
+
+.roadmap-section {
+  position: relative;
+  .section-inner {
+    padding-bottom: 1rem;
+  }
+}
+.roadmap-header {
+  padding: 1rem;
+  position: relative;
+  z-index: 30;
+  margin-top: 7rem;
+  background-color: white;
+  border-radius: 15px 15px 0 0;
+  box-shadow: 0 -5px 30px rgba($color: #000000, $alpha: 0.1);
+  .img-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: $borderRadius15;
+    position: relative;
+    margin: 0;
+    .img-inner {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.2s ease-in;
+    }
+  }
+  .overlay {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+    span {
+      font-size: 22px;
+      font-weight: 800;
+      color: white;
+    }
+  }
+}
+
+.roadmap-body {
+  background-color: white;
+  padding-top: 2rem;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 5px 0 30px rgba($color: $text200, $alpha: 0.05),
+    -5px 0 30px rgba($color: $text200, $alpha: 0.05);
+  .grid-layout {
+    display: grid;
+    grid-template-columns: 320px auto;
+    padding: 0 20px;
+    .side {
+      padding: 0 0 20px 20px;
+      .side-inner {
+        background-color: white;
+        position: sticky;
+        top: 40px;
+        border-radius: 15px;
+        padding: 25px 15px;
+        border: 1px solid $borderColor;
+        ul {
+          position: relative;
+          counter-reset: step;
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 15px;
+            width: 1px;
+            height: 100%;
+            border: 1px dashed $borderColor;
+          }
+          li {
+            margin-bottom: 15px;
+            position: relative;
+            font-size: 14px;
+            font-weight: 400;
+            display: block;
+            padding: 5px 50px 5px 5px;
+            cursor: pointer;
+            list-style-type: none;
+            transition: all 0.3s ease-in-out;
+            a {
+              display: block;
+              color: $text200;
+            }
+            &::before {
+              transition: all 0.3s ease-in-out;
+              content: counter(step);
+              counter-increment: step;
+              position: absolute;
+              top: 0;
+              right: 0;
+              width: 32px;
+              height: 32px;
+              border-radius: 50%;
+              background-color: white;
+              border: 2px solid $borderColor;
+              display: flex;
+              font-size: 15px;
+              font-weight: 600;
+              align-items: center;
+              justify-content: center;
+              color: $text200;
+            }
+            &:last-child {
+              margin-bottom: 0;
+            }
+            &.active {
+              color: $primary;
+              &::before {
+                background-color: $primary;
+                border-color: $primary;
+                color: white;
+              }
+            }
+            &:hover {
+              color: $primary;
+              &::before {
+                background-color: $primary;
+                border-color: $primary;
+                color: white;
+              }
+            }
+          }
+        }
+      }
+      .side-overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100vw;
+        height: 100%;
+        z-index: 1040;
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        display: none;
+      }
+    }
+    .main {
+      border-right: 1px solid $borderColor;
+      margin-bottom: 20px;
+    }
+  }
+  .show-slide {
+    display: none;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+  }
+  .text-section {
+    display: none;
+    animation: swipeRightsmall 0.3s ease-in-out;
+    &.active {
+      display: block;
+    }
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 2.5rem;
+      position: relative;
+      border-top: 1px solid $primary;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 70%;
+        height: 45px;
+        background: linear-gradient(
+          90deg,
+          white 0%,
+          rgba($color: $primary, $alpha: 0.1) 100%
+        );
+        border-radius: 0 0 0 15px;
+        z-index: 0;
+      }
+      h2 {
+        font-size: 19px;
+        font-weight: 700;
+        color: $primary;
+        margin-bottom: 0;
+        padding-right: 30px;
+        padding-top: 10px;
+        position: relative;
+      }
+      .shape {
+        display: none;
+        width: 10px;
+        height: 40px;
+        background-color: $primary;
+        margin-left: 20px;
+        border-radius: 5px 0 0 5px;
+      }
+    }
+    .inner-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: $text100;
+      margin: 1.5rem 0 1rem 0;
+      &.small {
+        font-size: 14px;
+      }
+    }
+    .text-inner {
+      padding: 2rem 3rem 1.5rem 2rem;
+      &.type-2 {
+        padding: 0.1rem 1.5rem 1rem 0;
+      }
+    }
+    .mini-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: $text100;
+      margin: 1rem 0 1.2rem 0;
+    }
+    p {
+      font-size: 14px;
+      font-weight: 400;
+      color: $text100;
+      opacity: 0.9;
+      line-height: 28px;
+      text-align: justify;
+    }
+    .property-list {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      li {
+        background-color: white;
+        padding-left: 40px;
+        margin-bottom: 2rem;
+        display: grid;
+        grid-template-columns: 34px auto;
+        align-items: center;
+        .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          background-color: white;
+          box-shadow: 0 5px 20px rgba($color: $primary, $alpha: 0.3);
+          font-size: 24px;
+          color: $primary;
+          .mdi {
+            position: relative;
+            top: 1px;
+          }
+        }
+        .text {
+          padding-right: 10px;
+          font-size: 14px;
+          font-weight: 400;
+          color: $text200;
+        }
+      }
+    }
+    .see-more {
+      text-align: left;
+      padding: 20px 0 10px 0;
+      &.align-center {
+        text-align: center;
+      }
+    }
+    .image-content {
+      margin: 2rem 0;
+      .img-container {
+        margin: 0 auto;
+        img {
+          width: 100%;
+          border-radius: 3px;
+        }
+        &.w-100 {
+          width: 100%;
+        }
+        &.w-90 {
+          width: 90%;
+        }
+        &.w-80 {
+          width: 80%;
+        }
+        &.w-70 {
+          width: 70%;
+        }
+        &.w-60 {
+          width: 60%;
+        }
+        &.w-50 {
+          width: 50%;
+        }
+        &.w-40 {
+          width: 40%;
+        }
+        &.w-30 {
+          width: 30%;
+        }
+      }
+      .figure-caption {
+        text-align: center;
+        font-size: 13px;
+        margin-top: 10px;
+        font-weight: 400;
+        color: $text200;
+      }
+    }
+    .text-list {
+      list-style: disc;
+      padding-right: 2rem;
+      margin-bottom: 1.5rem;
+      li {
+        font-size: 14px;
+        font-weight: 400;
+        color: $text100;
+        margin-bottom: 8px;
+        opacity: 0.9;
+      }
+      &.number {
+        list-style: decimal;
+      }
+    }
+    .slider-inner {
+      position: relative;
+    }
+    .table {
+      margin: 2rem 0 3rem 0;
+      border: 1px solid rgba($color: #000000, $alpha: 0.3);
+      > :not(caption) > * > * {
+        padding: 0.5rem 1rem;
+      }
+      thead {
+        tr {
+          th {
+            background-color: rgba($color: #000000, $alpha: 0.2) !important;
+            font-size: 13px;
+          }
+        }
+      }
+      tbody {
+        tr {
+          font-size: 13px;
+          font-weight: 400;
+          color: $text100;
+        }
+      }
+    }
+    .messages-form {
+      display: none;
+      border: 1px solid $borderColor;
+      padding: 30px;
+      border-radius: $borderRadius10;
+      &.active {
+        display: block;
+      }
+      .button-group {
+        text-align: center;
+      }
+      .btn {
+        margin-top: 1.5rem;
+      }
+    }
+  }
+  .buttons-control-steps {
+    position: relative;
+    padding: 0 1rem;
+    margin-top: 2rem;
+    display: none;
+    .buttons-inner {
+      padding: 2rem;
+      border: 1px solid $borderColor;
+      border-radius: 10px;
+      width: 100%;
+      height: 100%;
+    }
+    .btn-step {
+      font-size: 14px;
+      font-weight: 500;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      position: absolute;
+      top: 0.8rem;
+      color: $text200;
+      .name {
+        margin: 0 10px;
+        display: block;
+      }
+      .icon {
+        background-color: $primary;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
+      .mdi {
+        font-size: 22px;
+        position: relative;
+        top: 2px;
+      }
+      &.btn-next-step {
+        left: 2rem;
+      }
+      &.btn-prev-step {
+        right: 2rem;
+      }
+      &:hover {
+        background-color: $background100;
+      }
+    }
+  }
+  .section-media {
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+    margin-bottom: 2rem;
+    .media-inner {
+      display: grid;
+      grid-template-columns: 20% 20% 20% 20% 20%;
+      align-items: center;
+    }
+    .media {
+      a {
+        @include displayFlex(flex, center, center);
+        flex-direction: column;
+        &:hover {
+          .name {
+            color: $primary;
+          }
+        }
+      }
+      span {
+        display: block;
+      }
+      .icon {
+        width: 60px;
+        height: 60px;
+        @include displayFlex(flex, center, center);
+        background-color: rgba($color: $secondary, $alpha: 0.1);
+        border-radius: $borderRadius15;
+        color: $secondary;
+        .mdi {
+          font-size: 34px;
+        }
+      }
+      .name {
+        font-size: 13px;
+        font-weight: 400;
+        color: $text100;
+        margin-top: 10px;
+      }
+    }
+  }
+  .collapse-item {
+    padding: 2rem 2rem 1rem 2rem;
+    &:last-child {
+      margin-bottom: 3rem;
+    }
+    .btn-collapse {
+      height: 50px;
+      padding: 5px 3rem 5px 1rem;
+      background-color: white;
+      color: $text100;
+      font-weight: 600;
+      border-bottom: 1px solid $borderColor;
+      .icon {
+        right: 0;
+        left: unset;
+      }
+    }
+    .card {
+      border: none;
+      padding: 2rem 3rem 2rem 0;
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+  .roadmap-body .grid-layout {
+    grid-template-columns: 300px auto;
+    .side .side-inner ul li {
+      font-size: 12px;
+      padding-right: 40px;
+      &::before {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .roadmap-section {
+    position: relative;
+  }
+  .roadmap-body {
+    position: unset;
+    padding-top: 0.7rem;
+    .grid-layout {
+      grid-template-columns: 100%;
+      padding: 0;
+      .side {
+        padding: 0;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 100vh;
+        display: none;
+        z-index: 1060;
+        &.active {
+          display: block;
+        }
+        .side-inner {
+          padding: 40px 20px 40px 15px;
+          height: 100%;
+          border-radius: 0;
+          border: none;
+          z-index: 1050;
+          position: relative;
+          top: 0;
+        }
+        .side-overlay {
+          &.active {
+            display: block;
+          }
+        }
+      }
+      .main {
+        border-right: 0;
+      }
+    }
+    .show-slide {
+      display: block;
+    }
+    .buttons-control-steps {
+      display: block;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .roadmap-body .text-section .image-content .img-container {
+    &.w-100,
+    &.w-90,
+    &.w-80,
+    &.w-70,
+    &.w-60,
+    &.w-50,
+    &.w-40,
+    &.w-40,
+    &.w-30 {
+      width: 100%;
+    }
+  }
+}
+@media (max-width: 575px) {
+  .roadmap-body {
+    .text-section {
+      .title {
+        padding-top: 0.8rem;
+        h2 {
+          font-size: 17px;
+          padding-top: 0;
+        }
+      }
+      p {
+        font-size: 12px;
+      }
+      .text-list {
+        padding-right: 1.4rem;
+        li {
+          font-size: 12px;
+        }
+      }
+      .text-inner {
+        padding: 2.2rem 2.5rem 1rem 1rem;
+      }
+    }
+    .section-media {
+      margin-bottom: 0;
+      .media {
+        .icon {
+          width: 40px;
+          height: 40px;
+          .mdi {
+            font-size: 22px;
+          }
+        }
+        .name {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}
+
+/*#endregion -------------- RoadMap */

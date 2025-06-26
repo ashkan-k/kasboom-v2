@@ -1,0 +1,224 @@
+/*#region ----------------- About Us */
+.about-us {
+  padding: 0 0 70px 0;
+  position: relative;
+  background-color: white;
+  &::before {
+    content: "";
+    background-image: url(../images/barg-b.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 380px;
+    height: 100%;
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    z-index: 1;
+  }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+    margin-top: 50px;
+    .about-video {
+      .video-inner {
+        width: 500px;
+        border-radius: 15px;
+        position: relative;
+        z-index: 50;
+        .full-video {
+          width: 100%;
+          height: 100%;
+          border-radius: 10px;
+        }
+      }
+    }
+    .about-info {
+      .info-inner {
+        .desc {
+          font-size: 16px;
+          font-weight: 400;
+          color: $text100;
+          text-align: justify;
+          margin-bottom: 30px;
+          line-height: 26px;
+        }
+        .info-list {
+          padding-right: 20px;
+          li {
+            font-size: 14px;
+            font-weight: 400;
+            color: $text200;
+            margin-bottom: 15px;
+            position: relative;
+            padding-right: 30px;
+            &::before {
+              content: "";
+              background-image: url(../images/shapes/list-shape.svg);
+              background-repeat: no-repeat;
+              background-size: contain;
+              width: 18px;
+              height: 18px;
+              position: absolute;
+              top: 2px;
+              right: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.about-description {
+  .description-inner {
+    background-color: white;
+    padding: 50px 30px 0 30px;
+  }
+  .text {
+    p {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 30px;
+      text-align: justify;
+      margin-bottom: 0;
+      color: $text200;
+    }
+  }
+  .img-container {
+    position: relative;
+    top: 60px;
+    .img-inner {
+      width: 350px;
+      margin: 0 auto;
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// About For Page
+.kasbom-status {
+  padding: 8rem 0 7rem 0;
+  margin: 5rem 0;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: rgba($color: $secondary, $alpha: 0.1);
+    clip-path: polygon(
+      0 calc(0% + 50px),
+      100% 0%,
+      100% calc(100% - 50px),
+      0% 100%
+    );
+  }
+  .default-title {
+    margin-bottom: 3rem;
+  }
+}
+
+@media (max-width: 1400px) {
+  .about-us .about-inner .about-video {
+    .video-inner {
+      width: 450px;
+    }
+  }
+}
+@media (max-width: 1199px) {
+  .about-us .about-inner .about-video {
+    .video-inner {
+      width: 400px;
+    }
+  }
+  .about-description {
+    .img-container {
+      .img-inner {
+        width: 300px;
+      }
+    }
+  }
+}
+@media (max-width: 992px) {
+  .about-us {
+    &::before {
+      top: unset;
+      right: unset;
+      bottom: 6px;
+      left: 0;
+      transform: unset;
+      opacity: 0.2;
+      width: 250px;
+      height: 250px;
+    }
+    .about-inner {
+      grid-template-columns: 100%;
+      .about-video {
+        .video-inner {
+          width: 90%;
+          margin: 0 auto;
+          &::before {
+            display: none;
+          }
+        }
+      }
+      .about-info {
+        margin-top: 50px;
+      }
+    }
+  }
+  .kasbom-status {
+    padding: 5rem 0 4rem 0;
+  }
+}
+@media (max-width: 768px) {
+  .about-us .about-inner {
+    .about-video {
+      .video-inner {
+        width: 90%;
+      }
+    }
+    .about-info .info-inner {
+      h2 {
+        font-size: 22px;
+        text-align: center;
+      }
+      .desc {
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+  }
+  .about-description {
+    .img-container {
+      margin-top: 1rem;
+      top: 30px;
+      .img-inner {
+        width: 200px;
+      }
+    }
+  }
+  .kasbom-status {
+    margin: 4rem 0;
+  }
+}
+@media (max-width: 575px) {
+  .about-us {
+    &::before {
+      width: 300px;
+      height: 300px;
+    }
+  }
+}
+@media (max-width: 450px) {
+  .about-us::before {
+    display: none;
+  }
+}
+/*#endregion -------------- About Us */

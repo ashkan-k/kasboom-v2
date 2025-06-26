@@ -1,0 +1,161 @@
+/*#region ----------------- Page Navbar */
+.page-navbar {
+  background-color: #f8f8f9;
+  position: relative;
+  z-index: 500;
+  margin-top: 75px;
+  .nav-inner {
+    overflow-x: auto;
+    width: auto;
+    overflow-y: hidden;
+  }
+  .list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .item {
+      margin-left: 20px;
+      .item-link {
+        font-size: 14px;
+        font-weight: 400;
+        padding: 20px 0;
+        display: block;
+        cursor: pointer;
+        color: $text200;
+        text-align: center;
+        transition: all 0.2s ease;
+        position: relative;
+        white-space: nowrap;
+        &::before {
+          content: "";
+          position: absolute;
+          right: 50%;
+          bottom: -1px;
+          width: 0;
+          height: 2px;
+          transform: translateX(50%);
+          border-radius: 5px;
+          background-color: $primary;
+          transition: all 0.2s ease;
+        }
+        &:hover {
+          color: $primary;
+          transition: all 0.2s ease;
+          &::before {
+            width: 100%;
+          }
+        }
+        .mdi {
+          margin-right: 3px;
+          position: relative;
+          top: 2px;
+        }
+      }
+      &.active {
+        .item-link {
+          color: $primary;
+          &::before {
+            width: 100%;
+          }
+        }
+      }
+      &:hover {
+        .mega-menu {
+          opacity: 1;
+          visibility: visible;
+          transition: all 0.2s ease;
+        }
+      }
+    }
+  }
+  .mega-menu {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    background-color: white;
+    box-shadow: 0 15px 20px rgba($color: #000000, $alpha: 0.1);
+    width: 80%;
+    position: absolute;
+    top: 63px;
+    right: 50%;
+    transform: translateX(50%);
+    border-radius: 0 0 15px 15px;
+    padding: 20px 20px 0 20px;
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    .mega-list {
+      padding-right: 10px;
+      margin-bottom: 15px;
+      .title {
+        font-size: 14px;
+        font-weight: 600;
+        position: relative;
+        margin-bottom: 10px;
+        .sub-item-link {
+          color: $primary;
+        }
+        .mdi {
+          font-size: 17px;
+          position: relative;
+          top: 3px;
+          color: $primary;
+        }
+      }
+      .sub-item {
+        font-size: 14px;
+        font-weight: 300;
+        margin-bottom: 5px;
+        .sub-item-link {
+          color: $text200;
+          transition: all 0.2s ease;
+        }
+        &:hover {
+          .sub-item-link {
+            padding-right: 5px;
+            transition: all 0.2s ease;
+            color: $secondary;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 992px) {
+  .page-navbar .mega-menu .mega-list {
+    .title {
+      font-size: 13px;
+      font-weight: 600;
+      .mdi {
+        line-height: 0;
+      }
+    }
+    .sub-item {
+      font-size: 12px;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .page-navbar {
+    margin-top: 55px;
+    .mega-menu {
+      grid-template-columns: 50% 50%;
+      width: 90%;
+      height: 320px;
+      overflow-y: auto;
+      top: 61px;
+    }
+    .list .item .item-link {
+      font-size: 13px;
+    }
+  }
+}
+@media (max-width: 575px) {
+  .page-navbar {
+    .mega-menu {
+      grid-template-columns: 100%;
+      height: 320px;
+      overflow-y: auto;
+    }
+  }
+}
+/*#endregion -------------- Page Navbar */

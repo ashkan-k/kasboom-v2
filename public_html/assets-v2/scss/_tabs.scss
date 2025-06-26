@@ -1,0 +1,19 @@
+/*#region ----------------- Services */
+.nav-tabs {
+  &.tab-border {
+    .nav-link {
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-size: 14px;
+      font-weight: 400;
+      color: $text200;
+      &.active {
+        border-color: $primary;
+        font-weight: 600;
+        color: $text100;
+      }
+    }
+  }
+}
+
+/*#endregion -------------- Services */

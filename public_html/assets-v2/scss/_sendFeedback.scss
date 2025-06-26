@@ -1,0 +1,199 @@
+/*#region ----------------- Send Feedback */
+.send-feedback-content {
+  margin-top: 120px;
+  margin-bottom: 50px;
+
+  .inner-title {
+    position: relative;
+    z-index: 10;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 12px;
+      right: 0;
+      width: 100%;
+      height: 1px;
+      border: 1px dashed $borderColor;
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: $text100;
+      display: inline-block;
+      padding: 0 25px 0 15px;
+      background-color: white;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        right: 0;
+        width: 15px;
+        height: 15px;
+        z-index: 1;
+        border-radius: 50%;
+        background: linear-gradient(45deg, $secondary, $secondaryLight);
+      }
+    }
+    &.no-border {
+      &::before {
+        display: none;
+      }
+      h2 {
+        background-color: transparent;
+      }
+    }
+  }
+  .feedback-inner {
+    margin-top: 2rem;
+  }
+}
+.send-feedback {
+  padding: 20px;
+  background-color: $background200;
+  border-radius: $borderRadius15;
+  margin-bottom: 30px;
+  .feedback-range {
+    margin-top: 30px;
+    position: relative;
+    z-index: 20;
+    .advice-image {
+      display: grid;
+      grid-template-columns: 80px auto;
+      .image {
+        width: 70px;
+        height: 70px;
+        border-radius: $borderRadiusUser;
+        position: relative;
+        z-index: 1;
+        &::before {
+          content: "";
+          background-image: url(../images/default-user.svg);
+          background-repeat: no-repeat;
+          background-size: contain;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 0;
+          border-radius: $borderRadiusUser;
+          border: 3px solid white;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: $borderRadiusUser;
+          border: 3px solid white;
+        }
+      }
+      .info {
+        h6 {
+          font-size: 16px;
+          font-weight: 600;
+          color: $text100;
+        }
+        .area {
+          font-size: 14px;
+          font-weight: 400;
+          color: $text200;
+          margin-bottom: 5px;
+        }
+        .education {
+          font-size: 14px;
+          font-weight: 400;
+          color: $text200;
+        }
+      }
+    }
+    .range-card-body {
+      margin: 0 0 3rem 1rem;
+      .range-label {
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 15px;
+        color: #666768;
+        user-select: none;
+      }
+      .range-inner {
+        display: grid;
+        grid-template-columns: auto 80px;
+        .value-range {
+          font-size: 12px;
+          font-weight: 500;
+          color: $text200;
+          text-align: right;
+          padding-right: 30px;
+          position: relative;
+          top: -6px;
+        }
+      }
+      .noUi-target {
+        background-color: white;
+      }
+    }
+  }
+}
+.feedback-form {
+  padding: 30px 20px;
+  background-color: $background200;
+  border-radius: $borderRadius15;
+  .form-request {
+    position: relative;
+    z-index: 20;
+    .send-request {
+      margin: 2rem 0;
+    }
+  }
+  .request-tips {
+    margin-top: 2rem;
+    padding-right: 20px;
+    border-right: 1px solid $borderColor;
+    h5 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+    ol {
+      li {
+        font-size: 14px;
+        font-weight: 400;
+        color: $text200;
+        line-height: 26px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .title {
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 10;
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: $text100;
+    }
+    h6 {
+      font-size: 13px;
+      font-weight: 400;
+      color: $text200;
+      line-height: 25px;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .send-feedback-content {
+    margin-top: 40px;
+    .send-feedback .feedback-range .advice-image {
+      margin-bottom: 40px;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .send-feedback-content .send-feedback .feedback-range .range-card-body {
+    margin-left: 0;
+  }
+}
+/*#endregion -------------- Send Feedback */

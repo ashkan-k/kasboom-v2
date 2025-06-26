@@ -1,0 +1,139 @@
+/*#region ----------------- Alert Styles */
+.myalert {
+  padding: 20px 60px 20px 30px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  margin: 1.2rem 0;
+  .icon {
+    position: absolute;
+    top: -35px;
+    right: -25px;
+    z-index: 1;
+    .mdi {
+      font-size: 80px;
+    }
+  }
+  .text {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 26px;
+    text-align: justify;
+    position: relative;
+    z-index: 10;
+  }
+  &.alert-info {
+    background-color: rgba($color: #3ea9e5, $alpha: 0.2);
+    color: #3ea9e5;
+    .icon {
+      .mdi {
+        color: rgba($color: #3ea9e5, $alpha: 0.3);
+      }
+    }
+  }
+  &.alert-success {
+    background-color: rgba($color: $primary, $alpha: 0.2);
+    color: $primary;
+    .icon {
+      .mdi {
+        color: rgba($color: $primary, $alpha: 0.3);
+      }
+    }
+  }
+  &.alert-warning {
+    background-color: rgba($color: $gold, $alpha: 0.3);
+    color: darken($color: $gold, $amount: 8);
+    .icon {
+      .mdi {
+        color: rgba($color: $gold, $alpha: 0.4);
+      }
+    }
+  }
+  &.alert-danger {
+    background-color: rgba($color: $danger, $alpha: 0.2);
+    color: $danger;
+    .icon {
+      .mdi {
+        color: rgba($color: $danger, $alpha: 0.3);
+      }
+    }
+  }
+}
+
+#toastmessage-content {
+  min-width: 250px;
+  color: $text100;
+  position: fixed;
+  z-index: 1;
+  right: 30px;
+  bottom: 30px;
+  z-index: 999;
+  .alert {
+    margin-bottom: 0;
+    padding: 0;
+  }
+}
+
+.toast-content {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  background-color: white;
+  &.show {
+    display: block;
+    animation: fadein 0.5s;
+  }
+  .toast-header {
+    border-radius: 10px 10px 0 0;
+    color: white;
+    .mdi {
+      margin-left: 10px;
+      font-size: 18px;
+      line-height: 0;
+    }
+  }
+  .btn-close {
+    position: relative;
+    top: unset;
+    left: unset;
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+    background: transparent
+      url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e")
+      center/1em auto no-repeat;
+  }
+  .toast-body {
+    font-size: 14px;
+    font-weight: 400;
+    color: $text200;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: -20px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 992px) {
+  .myalert {
+    padding: 15px 50px 15px 25px;
+    .icon {
+      top: -30px;
+      left: -17px;
+      .mdi {
+        font-size: 65px;
+      }
+    }
+    .text {
+      font-size: 13px;
+      line-height: 22px;
+    }
+  }
+}
+/*#endregion -------------- Alert Styles */

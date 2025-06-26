@@ -1,0 +1,126 @@
+/*#region ----------------- Kasbom System */
+.kasbom-system {
+  padding-bottom: 70px;
+  position: relative;
+  &::before {
+    content: "";
+    width: 80%;
+    height: 1px;
+    position: absolute;
+    top: -2px;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: $borderColor;
+  }
+  .kasbom-inner {
+    margin-top: 50px;
+    .card-list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .item {
+        flex: 0 0 14.28%;
+        width: 14.28%;
+        a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          &:hover {
+            .item-header {
+              transition: all 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+              box-shadow: 0 3px 25px -5px rgba($color: $primary, $alpha: 0.7);
+              img {
+                width: 55px;
+                transition: all 0.2s ease;
+              }
+            }
+            .item-text {
+              h2 {
+                color: $primary;
+                transition: all 0.2s ease;
+              }
+            }
+          }
+          .item-header {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            img {
+              width: 60px;
+              transition: all 0.2s ease;
+            }
+          }
+          .item-text {
+            h2 {
+              font-size: 14px;
+              font-weight: 600;
+              color: $text200;
+              transition: all 0.2s ease;
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 992px) {
+  .kasbom-system {
+    .kasbom-inner {
+      .card-list {
+        flex-wrap: wrap;
+        .item {
+          flex: 0 0 33.33%;
+          width: 33.33%;
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 575px) {
+  .kasbom-system {
+    .kasbom-inner {
+      margin-top: 30px;
+      .card-list {
+        flex-wrap: wrap;
+        .item {
+          flex: 0 0 50%;
+          width: 50%;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 450px) {
+  .kasbom-system .kasbom-inner {
+    .card-list .item a {
+      .item-header {
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        img {
+          width: 50px;
+        }
+      }
+      .item-text {
+        h2 {
+          font-size: 12px;
+        }
+      }
+      &:hover {
+        .item-header {
+          img {
+            width: 45px;
+          }
+        }
+      }
+    }
+  }
+}
+/*#endregion -------------- Kasbom System */

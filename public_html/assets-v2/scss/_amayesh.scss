@@ -1,0 +1,554 @@
+/*#region ----------------- Amayesh */
+.amayesh-page {
+  margin-bottom: 50px;
+  .amayesh-map-content {
+    padding: 20px;
+    border-radius: 15px;
+    background-color: white;
+    .city-list {
+      .city-inner {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        .city-item {
+          margin-bottom: 20px;
+          border-radius: $borderRadius10;
+          padding: 7px;
+          margin-left: 20px;
+          transition: all 0.2s ease-in-out;
+          a {
+            display: grid;
+            grid-template-columns: 140px auto;
+            align-items: center;
+          }
+          &:hover {
+            background-color: rgba($color: $primary, $alpha: 0.1);
+            .city-image {
+              img {
+                transform: scale(1.1);
+              }
+            }
+            .city-name {
+              h2 {
+                color: $primary;
+              }
+            }
+          }
+          .city-image {
+            width: 130px;
+            overflow: hidden;
+            border-radius: 5px;
+            img {
+              width: 100%;
+              border-radius: 5px;
+              object-fit: cover;
+              transition: all 0.2s ease-in-out;
+            }
+          }
+          .city-name {
+            h2 {
+              margin-bottom: 0;
+              font-size: 16px;
+              color: $text100;
+            }
+          }
+        }
+      }
+    }
+    .map-content {
+      text-align: left;
+      top: 120px !important;
+      .map-tooltip {
+        position: fixed;
+        display: none;
+        border-radius: 3px;
+        background: rgba($color: #000000, $alpha: 0.8);
+        color: white;
+        margin: 0 !important;
+        padding: 3px 8px;
+        pointer-events: none;
+        box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        z-index: 200;
+        font-family: IRANYEKAN;
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .map-inner {
+        position: relative;
+        svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      #_x35_3 {
+        fill: red;
+      }
+      .citymap-name {
+        fill: rgba($color: $primary, $alpha: 0.2);
+        cursor: pointer;
+        &:hover {
+          fill: $secondary;
+        }
+      }
+      .map-sea,
+      .map-lake {
+        fill: $primary;
+      }
+      .map-island {
+        fill: white;
+      }
+      .map-line {
+        fill: white;
+      }
+    }
+  }
+}
+.amayesh-details-content {
+  margin: 100px 0 50px 0;
+  .amayesh-details {
+    background-color: white;
+    border-radius: 12px;
+    padding: 0 0 40px 40px;
+    margin-bottom: 30px;
+    p {
+      font-size: 14px;
+      font-weight: 400;
+      color: $text200;
+      text-align: justify;
+      line-height: 27px;
+    }
+    .ayamesh-carousel {
+      .item {
+        border-radius: $borderRadius15;
+        img {
+          border-radius: $borderRadius15;
+          width: 100%;
+        }
+      }
+    }
+    .amayesh-description {
+      margin-top: 1.5rem;
+    }
+  }
+  .amayesh-tabs {
+    background-color: white;
+    border-radius: 12px;
+    padding: 0 0 20px 40px;
+    .nav-link {
+      padding: 1rem 1.5rem;
+      color: $text300;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      border-bottom: 3px solid transparent;
+      .mdi {
+        font-size: 24px;
+        line-height: 0;
+        position: relative;
+        top: 4px;
+        margin-left: 5px;
+        color: $text300;
+      }
+      &.active {
+        color: $primary;
+        border-bottom-color: $primary;
+        .mdi {
+          color: $primary;
+        }
+      }
+    }
+    .tab-inner {
+      margin-top: 2.5rem;
+      padding: 0 10px;
+    }
+    .tab-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: $text100;
+      margin-bottom: 1rem;
+    }
+    .full-video {
+      width: 100%;
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+    p {
+      font-size: 14px;
+      font-weight: 400;
+      color: $text200;
+      text-align: justify;
+      line-height: 27px;
+    }
+    ol {
+      li {
+        font-size: 14px;
+        font-weight: 400;
+        color: $text200;
+        margin-bottom: 12px;
+        line-height: 27px;
+      }
+    }
+    .blog-tags {
+      display: grid;
+      grid-template-columns: 100px auto;
+      align-items: flex-start;
+      margin-top: 3rem;
+      ul {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        li {
+          margin: 0 0 10px 10px;
+          display: block;
+          font-size: 13px;
+          font-weight: 400;
+          color: $text200;
+          border: 1px solid $borderColor;
+          padding: 5px 10px;
+          border-radius: 5px;
+          transition: all 0.2s ease;
+          cursor: default;
+          &:hover {
+            border-color: $primary;
+            color: $primary;
+            transition: all 0.2s ease;
+          }
+        }
+      }
+    }
+    .share-blogs {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 40px;
+      .list-share {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        li {
+          margin: 0 0 10px 10px;
+          a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid $borderColor;
+            border-radius: 5px;
+            background-color: white;
+            font-size: 24px;
+            color: $text200;
+            &:hover {
+              color: $primary;
+              border-color: $primary;
+            }
+          }
+        }
+      }
+      .link-preview {
+        display: grid;
+        grid-template-columns: auto 30px;
+        align-items: center;
+        border: 1px solid $borderColor;
+        padding: 5px 10px 5px 5px;
+        border-radius: 5px;
+        .link {
+          padding-left: 10px;
+          font-size: 14px;
+          font-weight: 400;
+          text-align: left;
+        }
+        .icon {
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .btn-copy {
+            background-color: $background100;
+            border: none;
+            border-radius: 5px;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            color: $primary;
+            font-size: 20px;
+            &:hover {
+              background-color: $primary;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+  .related-courses {
+    margin-top: 4rem;
+  }
+  .amayesh-side {
+    position: sticky;
+    top: 110px;
+    .city-name {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      box-shadow: $boxshadowSideLeft;
+      h2 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .ostan-information {
+        ul {
+          li {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            .ostan-area {
+              color: $text200;
+            }
+          }
+        }
+      }
+      .city-map {
+        img {
+          width: 100%;
+          height: 250px;
+        }
+      }
+      .ostan-branch {
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        li {
+          padding: 5px 10px;
+          background-color: $background100;
+          margin: 0 0 7px 7px;
+          border-radius: 5px;
+          a {
+            font-size: 13px;
+            font-weight: 500;
+            color: $text200;
+          }
+          &:hover {
+            background-color: $primary;
+            a {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+    .side-advice {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: $boxshadowSideLeft;
+      .title {
+        font-size: 16px;
+        font-weight: 600;
+        color: $text100;
+        padding: 0 10px 10px 10px;
+      }
+      .side-inner {
+        .item {
+          a {
+            display: grid;
+            grid-template-columns: 58px auto;
+            align-items: center;
+            column-gap: 5px;
+            padding: 12px 0;
+          }
+
+          &:last-child {
+            border: none;
+            .info {
+              &::before {
+                display: none;
+              }
+            }
+          }
+          &:hover {
+            .info {
+              h4 {
+                color: $primary;
+              }
+            }
+          }
+          .side-pic {
+            width: 58px;
+            height: 58px;
+            overflow: hidden;
+            border-radius: $borderRadiusUser;
+            position: relative;
+            margin: 0;
+            .img-inner {
+              position: absolute;
+              top: 0;
+              right: 0;
+              width: 100%;
+              height: 100%;
+            }
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+          .info {
+            position: relative;
+            background-color: $background100;
+            padding: 10px;
+            border-radius: 25px 5px;
+            &::before {
+              content: "";
+              position: absolute;
+              bottom: -18px;
+              right: 0;
+              width: 100%;
+              // border-bottom: 1px solid lighten($color: $borderColor, $amount: 9);
+            }
+            h4 {
+              font-size: 13px;
+              font-weight: 600;
+              color: $text100;
+            }
+            h6 {
+              font-size: 12px;
+              font-weight: 500;
+              margin-bottom: 0;
+              color: $text200;
+            }
+          }
+        }
+      }
+      .see-more {
+        padding: 10px 10px 0 10px;
+        text-align: center;
+        a {
+          font-size: 13px;
+          font-weight: 400;
+          color: $primary;
+          .mdi {
+            font-size: 16px;
+            position: relative;
+            right: 3px;
+            top: 2px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .amayesh-page {
+    .amayesh-map-content {
+      .map-content {
+        display: none;
+      }
+    }
+  }
+  .amayesh-details-content {
+    .related-courses {
+      .courses-inner {
+        padding: 0;
+      }
+    }
+    .amayesh-details {
+      padding-left: 0;
+    }
+    .amayesh-tabs {
+      padding-left: 0;
+    }
+    .amayesh-side {
+      margin-top: 30px;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .amayesh-page {
+    .amayesh-background {
+      .big {
+        display: none;
+      }
+    }
+  }
+  .amayesh-details-content .amayesh-tabs {
+    .nav-item {
+      flex-grow: 1;
+      text-align: center;
+    }
+    .nav-link {
+      flex-grow: 1;
+      padding: 1rem 0.5rem;
+    }
+  }
+}
+@media (max-width: 640px) {
+  .amayesh-page .amayesh-map-content .city-list .city-inner {
+    grid-template-columns: 100%;
+  }
+}
+@media (max-width: 575px) {
+  .amayesh-details-content {
+    .amayesh-tabs {
+      .blog-tags {
+        grid-template-columns: 100%;
+        .tag-title {
+          margin-bottom: 1rem;
+        }
+      }
+      .share-blogs {
+        flex-direction: column;
+        .list-share {
+          align-items: center;
+          justify-content: center;
+          li {
+            margin: 5px;
+          }
+        }
+      }
+    }
+    .related-courses {
+      .title .see-more {
+        span {
+          display: none;
+        }
+        .icon {
+          width: 35px;
+          height: 35px;
+          background-color: $primary;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .mdi {
+            color: white;
+            top: unset;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 350px) {
+  .amayesh-details-content .related-courses .title {
+    h2 {
+      font-size: 18px;
+      &::after {
+        display: none;
+      }
+      &::before {
+        display: none;
+      }
+    }
+  }
+}
+/*#endregion -------------- Amayesh */

@@ -1,0 +1,68 @@
+/*#region ----------------- Message Content */
+.message-page-content {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba($color: $primary, $alpha: 0.1);
+  .message-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    .msg-box {
+      background-color: white;
+      width: 550px;
+      padding: 50px 30px;
+      border-radius: 15px;
+      box-shadow: 0 12px 12px 0 rgba(181, 181, 181, 0.11);
+      text-align: center;
+      position: relative;
+      .title {
+        font-size: 22px;
+        font-weight: 800;
+        color: $text100;
+        margin-bottom: 1.5rem;
+        line-height: 32px;
+      }
+      .desc {
+        font-size: 16px;
+        font-weight: 400;
+        color: $text200;
+        line-height: 26px;
+      }
+      .link-group {
+        margin-top: 3rem;
+        .btn {
+          &:first-child {
+            border-radius: 0 0 25px 0;
+          }
+          &:last-child {
+            border-radius: 25px 0 0 0;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 575px) {
+  .message-page-content {
+    .message-inner {
+      padding: 0 20px;
+      .msg-box {
+        width: 100%;
+        .link-group {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          .btn {
+            width: 100%;
+            margin-top: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+/*#endregion -------------- Message Content */

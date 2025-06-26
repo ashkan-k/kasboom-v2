@@ -1,0 +1,568 @@
+/*#region ----------------- Login Styles */
+.modal-code,
+.modal-signin,
+.modal-password {
+  display: none;
+  &.active {
+    display: block;
+    animation: swipeRightsmall 0.3s ease-in-out;
+  }
+  .message {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: $text200;
+    span {
+      font-size: 16px;
+      font-weight: 600;
+      color: $text100;
+      margin-top: 10px;
+      display: block;
+    }
+  }
+  .modal-footer {
+    margin-top: 2rem;
+    padding: 0;
+  }
+}
+.links-sign {
+  margin-top: 0.5rem;
+  @include displayFlex(flex, center, space-between);
+  .btn-send-code,
+  .btn-change-number {
+    font-size: 13px;
+    font-weight: 400;
+    color: $primary;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline dashed 1px $primary;
+  }
+}
+.input-group {
+  &.phone-number {
+    .form-control {
+      height: 48px;
+      width: 100%;
+      padding: 5px 15px 5px 60px;
+      text-align: left;
+      border-radius: 50px !important;
+      &:hover,
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    .group-text {
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50% !important;
+      @include displayFlex(flex, center, center);
+      font-size: 16px;
+      font-weight: 400;
+      color: $text200;
+      z-index: 10;
+      background-color: rgba($color: $primary, $alpha: 0.2);
+    }
+  }
+}
+.input-msg {
+  font-size: 13px;
+  font-weight: 400;
+  color: $text200;
+}
+.wrapper-login {
+  width: 100%;
+  height: 100vh;
+  // overflow: hidden;
+  background-image: url(../images/barg-b.svg);
+  background-repeat: no-repeat;
+  background-position: left top;
+  .login-content {
+    @include displayFlex(flex, center, center);
+    width: 100%;
+    height: 100%;
+  }
+  .grid-layout {
+    width: 850px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .grid-inner {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    background-color: white;
+    border-radius: $borderRadius15;
+    position: relative;
+    z-index: 100;
+    min-height: 435px;
+    box-shadow: 0 5px 25px -1px rgba($color: #000000, $alpha: 0.2);
+  }
+  .text {
+    position: absolute;
+    top: -75px;
+    right: 0;
+    padding: 0 20px;
+    width: 100%;
+    z-index: 1;
+    color: #d5d6d7;
+    user-select: none;
+    h2 {
+      font-size: 70px;
+      font-weight: 800;
+      margin-bottom: 0;
+      display: inline-block;
+      position: relative;
+      top: 10px;
+    }
+    .link {
+      position: absolute;
+      left: 20px;
+      top: 40px;
+      .btn-link {
+        background-color: transparent;
+        border: none;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: underline 1px dashed $primary !important;
+        .mdi {
+          font-size: 20px;
+          margin-left: 5px;
+          line-height: 0;
+          position: relative;
+          top: 3px;
+        }
+      }
+    }
+  }
+  .choose-sign {
+    width: 100%;
+    margin-top: 5rem;
+    text-align: center;
+    .icon {
+      width: 50px;
+      margin: 0 auto;
+      svg {
+        width: 100%;
+        fill: $text300;
+      }
+    }
+    h6 {
+      font-size: 14px;
+      font-weight: 400;
+      color: $text300;
+      margin-bottom: 0;
+      margin-top: 1rem;
+    }
+  }
+  .form-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: $text100;
+    margin: 1rem 0;
+    padding: 0 10px;
+  }
+  .form-row-inner {
+    padding: 1rem;
+    position: relative;
+    animation: swipeRightsmall 0.2s ease-in-out;
+    .inputgroup {
+      margin-top: 12px;
+      .myinput {
+        height: unset;
+        padding: 0.6rem 1rem;
+        font-size: 13px;
+      }
+      .icon {
+        height: 39px;
+        width: 39px;
+      }
+    }
+    .form-select {
+      height: 40px;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    .select-group {
+      padding: 0 5px;
+    }
+    .row {
+      margin: 0;
+    }
+    .col-lg-6,
+    .col-lg-12 {
+      padding: 0 5px;
+    }
+    .radio-group {
+      @include displayFlex(flex, center, flex-start);
+      margin-bottom: 0.7rem;
+      h6 {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 0;
+        color: $text100;
+      }
+      .radio-inner {
+        @include displayFlex(flex, center, center);
+        margin-right: 10px;
+      }
+      .form-check {
+        margin: 0 30px 0 0;
+      }
+    }
+    .form-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: $text100;
+      margin: 20px 0 0 0;
+    }
+    .date-content {
+      @include displayFlex(flex, center, center);
+      flex-wrap: wrap;
+      .select {
+        flex-grow: 0 0 33.33%;
+        width: 33.33%;
+        .form-select {
+          border-radius: 0;
+        }
+        &:first-child {
+          .form-select {
+            border-radius: 0 30px 30px 0;
+          }
+        }
+        &:last-child {
+          .form-select {
+            border-radius: 30px 0 0 30px;
+          }
+        }
+      }
+    }
+  }
+  .cards-sign-group {
+    padding: 1rem;
+    .msg-title {
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+      margin-top: 3rem;
+    }
+  }
+  .group-inner {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-top: 2rem;
+  }
+  .card-sign-choose {
+    padding: 10px;
+    user-select: none;
+    .card-inner {
+      background-color: #f2f2f2;
+      text-align: right;
+      padding: 1.5rem 1.5rem 4rem 1rem;
+      border-radius: 15px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease-in-out;
+      h6 {
+        margin-bottom: 0;
+        font-size: 14px;
+        color: $text100;
+      }
+      .link {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        font-size: 12px;
+        font-weight: 500;
+        color: white;
+        background-color: $primary;
+        padding: 1px 12px 2px 5px;
+        border-radius: 30px;
+        @include displayFlex(flex, center, center);
+        .mdi {
+          margin-right: 5px;
+          position: relative;
+          top: 2px;
+          font-size: 18px;
+        }
+      }
+    }
+    &:hover {
+      .card-inner {
+        background-color: $primary;
+        h6 {
+          color: white;
+        }
+        .link {
+          background-color: white;
+          color: $primary;
+        }
+      }
+    }
+  }
+  .back-btn {
+    padding: 1rem 0 1.5rem 0;
+    @include displayFlex(flex, center, space-between);
+    .btn-back-to-choose,
+    .btn-back-to-phonenumber {
+      background-color: $accent;
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: $secondary;
+      display: inline-block;
+      .mdi {
+        position: relative;
+        top: 3px;
+        font-size: 18px;
+        margin-right: 5px;
+        line-height: 0;
+      }
+      &:hover {
+        background-color: $primary;
+        color: white;
+      }
+    }
+    h2 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 0;
+      color: $text100;
+    }
+  }
+  .cards-sign-group,
+  .forms-group,
+  .form-row-inner {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+  .login-button {
+    text-align: center;
+    margin-top: 1.5rem;
+    .btn {
+      width: 200px;
+      padding: 0.6rem 1.2rem;
+    }
+  }
+  .link-back {
+    text-align: center;
+    margin-top: 2rem;
+    a {
+      font-size: 13px;
+      font-weight: 500;
+      color: $primary;
+    }
+    .mdi {
+      position: relative;
+      top: 3px;
+      margin-right: 5px;
+      font-size: 18px;
+    }
+  }
+  .sign-login,
+  .vertificate-code,
+  .login-page {
+    display: none;
+    height: 100%;
+    padding: 1rem;
+    &.active {
+      display: block;
+    }
+    form {
+      margin: 2rem 0;
+    }
+  }
+  .phone-number-form {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: $text200;
+    span {
+      font-size: 16px;
+      font-weight: 600;
+      color: $text100;
+      margin-top: 10px;
+      display: block;
+    }
+  }
+}
+
+.timer-content {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  .time-countdown {
+    font-size: 16px;
+    font-weight: 600;
+    color: $primary;
+  }
+  .time-msg {
+    font-size: 13px;
+    font-weight: 400;
+    color: $text200;
+  }
+}
+
+.swiper-login {
+  width: 100%;
+  height: 100%;
+  .swiper-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+  .swiper-slide {
+    .item {
+      width: 100%;
+      height: 100%;
+      border-radius: $borderRadius15;
+      .img-container {
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+        border-radius: $borderRadius15;
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .wrapper-login {
+    overflow: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    .login-content {
+      padding: 0 2rem;
+      margin-top: 5rem;
+      display: block;
+      align-items: flex-start;
+      justify-content: unset;
+    }
+    .grid-layout {
+      width: 100%;
+    }
+    .text {
+      top: -65px;
+      h2 {
+        font-size: 50px;
+        top: 21px;
+      }
+      .link {
+        top: 30px;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .wrapper-login {
+    .grid-inner {
+      grid-template-columns: 100%;
+    }
+    .bigImages {
+      display: none;
+    }
+    .group-inner {
+      margin-top: 1rem;
+    }
+  }
+}
+@media (max-width: 575px) {
+  .wrapper-login {
+    .text {
+      top: -43px;
+      padding: 0;
+      h2 {
+        font-size: 35px;
+        top: 11px;
+      }
+      .link {
+        top: 10px;
+        left: 10px;
+      }
+    }
+    .login-content {
+      padding: 0 1.2rem;
+    }
+    .form-login {
+      .link {
+        text-align: center !important;
+        margin-top: 10px;
+      }
+    }
+    .cards-sign-group .msg-title {
+      font-size: 13px;
+    }
+    .card-sign-choose .card-inner {
+      padding: 0.6rem 0.8rem 0.6rem 0.6rem;
+      h6 {
+        margin-bottom: 8px;
+        font-size: 13px;
+      }
+      .link {
+        position: relative;
+        left: 0;
+        bottom: 0;
+        width: 90px;
+        margin-right: auto;
+      }
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .wrapper-login {
+    .text h2 {
+      font-size: 26px;
+      top: 5px;
+    }
+    .back-btn {
+      flex-direction: column;
+      padding-top: 0;
+      h2 {
+        width: 100%;
+      }
+      .btn-back-to-phonenumber,
+      .btn-back-to-choose {
+        margin-right: auto;
+      }
+    }
+  }
+}
+@media (max-width: 400px) {
+  .wrapper-login {
+    .form-row-inner .date-content {
+      flex-direction: column;
+      margin-top: 1rem;
+      .select {
+        width: 100%;
+        flex: 0 0 100%;
+        .form-select {
+          border-radius: 0;
+          margin: 0;
+        }
+        &:first-child {
+          .form-select {
+            border-radius: 30px 30px 0 0;
+          }
+        }
+        &:last-child {
+          .form-select {
+            border-radius: 0 0 30px 30px;
+          }
+        }
+      }
+    }
+    .group-inner {
+      grid-template-columns: 100%;
+    }
+    .card-sign-choose {
+      padding: 10px 0;
+    }
+  }
+}
+/*#endregion -------------- Login Styles */

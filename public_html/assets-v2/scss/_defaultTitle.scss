@@ -1,0 +1,72 @@
+/*#region ----------------- Default Title */
+.default-title {
+  text-align: center;
+  position: relative;
+  padding: 0 0 2rem 0;
+  .title {
+    font-size: 22px;
+    font-weight: 800;
+    color: $text100;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+    &::before {
+      content: "";
+      position: absolute;
+      right: -28px;
+      top: 6px;
+      width: 18px;
+      height: 18px;
+      background: linear-gradient(45deg, $secondary, $secondaryLight);
+      border-radius: 50%;
+    }
+  }
+  .desc {
+    font-size: 16px;
+    font-weight: 500;
+    color: $text300;
+    line-height: 25px;
+    width: 60%;
+    margin: 0 auto;
+  }
+  &.align-right {
+    text-align: right;
+    .title {
+      &::before {
+        right: 0;
+        transform: unset;
+      }
+    }
+  }
+  &.right {
+    text-align: right;
+    padding-right: 1.5rem;
+  }
+  &.color-yalda {
+    .title {
+      color: $pinkDark;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .default-title {
+    .title {
+      font-size: 24px;
+    }
+    .desc {
+      font-size: 14px;
+      width: 80%;
+    }
+  }
+}
+@media (max-width: 575px) {
+  .default-title {
+    .title {
+      font-size: 20px;
+    }
+    .desc {
+      font-size: 12px;
+    }
+  }
+}
+/*#endregion -------------- Default Title */

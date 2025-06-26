@@ -1,0 +1,20 @@
+/*#region ----------------- Breadcrumb */
+.mybreadcrumb {
+  margin-top: 110px;
+  .breadcrumb-item {
+    font-size: 13px;
+    font-weight: 400;
+    color: $primary;
+    a {
+      color: $primary;
+      &:hover {
+        color: $secondary;
+      }
+    }
+    &.active {
+      color: $text200;
+    }
+  }
+}
+
+/*#endregion -------------- Breadcrumb */

@@ -1,0 +1,74 @@
+/*#region ----------------- Pagination */
+.my-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  .pagination {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    .next,
+    .prev {
+      .page-link {
+        width: auto;
+        .mdi {
+          position: relative;
+          top: 2px;
+        }
+      }
+      span {
+        font-size: 14px;
+        font-weight: 600;
+        color: $text300;
+      }
+    }
+    .next {
+      .page-link {
+        color: $text300;
+        padding: 0 10px 0 15px;
+        .mdi {
+          margin-left: 5px;
+          color: $primary;
+        }
+      }
+    }
+    .prev {
+      .page-link {
+        color: $text200;
+        padding: 0 15px 0 10px;
+        .mdi {
+          margin-right: 5px;
+          color: $primary;
+        }
+      }
+    }
+    .page-item {
+      &.active {
+        .page-link {
+          background-color: $primary;
+          color: white;
+          border-color: transparent;
+        }
+      }
+    }
+    .page-link {
+      background-color: white;
+      border-radius: 10px;
+      margin: 5px;
+      font-weight: 600;
+      width: 40px;
+      height: 40px;
+      @include displayFlex(flex, center, center);
+      color: $text200;
+      &:hover {
+        background-color: rgba($color: $primary, $alpha: 0.2);
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+/*#endregion -------------- Pagination */

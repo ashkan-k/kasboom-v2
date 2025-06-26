@@ -1,0 +1,227 @@
+/*#region ----------------- Inputs */
+.inputgroup {
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
+  &.grey {
+    .myinput {
+      background-color: lighten($color: $background100, $amount: 3);
+      &:focus,
+      &:hover {
+        background-color: white;
+      }
+    }
+  }
+  label {
+    position: absolute;
+    top: calc(50% - 23px);
+    right: 45px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    padding: 0 5px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #fff;
+    visibility: hidden;
+  }
+  .myinput {
+    width: 100%;
+    margin-left: auto;
+    display: flex;
+    &:not(:placeholder-shown) {
+      box-shadow: none;
+      border-color: $danger;
+    }
+    &:not(:placeholder-shown) + label {
+      -webkit-transform: translateY(-10px);
+      transform: translateY(-10px);
+      opacity: 1;
+      visibility: visible;
+    }
+    &:valid:not(:placeholder-shown) {
+      border-color: $primary;
+    }
+    &:valid:not(:placeholder-shown) + label {
+      color: $primary;
+    }
+    &:not(:valid):not(:focus) + label + .icon {
+      animation-name: shake-shake;
+      animation-duration: 0.3s;
+    }
+  }
+  .icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 48px;
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text200;
+    .mdi {
+      font-size: 24px;
+      position: relative;
+      right: 3px;
+    }
+  }
+  &.nopadding {
+    .myinput {
+      padding: 5px 15px;
+    }
+  }
+}
+
+.myinput {
+  font-size: 14px;
+  font-weight: 400;
+  padding-right: 50px;
+  height: 48px;
+  border: solid 1px $borderColor;
+  border-radius: 50px;
+  background: white;
+  box-sizing: border-box;
+  transition: all 0.3s linear;
+  color: $text200;
+  text-align: right;
+  &:focus {
+    border-color: $primary;
+    outline: 0;
+  }
+}
+.form-check-label {
+  font-size: 14px;
+  font-weight: 400;
+  color: $text200;
+  cursor: pointer;
+}
+
+.textarea-group {
+  margin-top: 20px;
+  &.grey {
+    .textarea {
+      background-color: lighten($color: $background100, $amount: 3);
+      &:focus,
+      &:hover {
+        background-color: white;
+      }
+    }
+  }
+  .textarea {
+    font-size: 14px;
+    font-weight: 400;
+    border: solid 1px $borderColor;
+    border-radius: 15px;
+    background: white;
+    transition: all 0.3s ease;
+    color: $text200;
+    text-align: right;
+    width: 100%;
+    resize: vertical;
+    padding: 15px;
+    &:focus,
+    &:hover {
+      border-color: $primary;
+    }
+  }
+}
+.form-select {
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  border-radius: 30px;
+  height: 48px;
+  font-size: 14px;
+  padding-right: 15px;
+  color: $text200;
+  &.grey {
+    background-color: lighten($color: $background100, $amount: 3);
+    &:focus,
+    &:hover {
+      background-color: white;
+      transition: all 0.3s ease;
+    }
+  }
+  &:focus,
+  &:hover {
+    box-shadow: none;
+    border-color: $primary;
+  }
+}
+.send-request {
+  margin-top: 20px;
+  text-align: center;
+}
+.radio-select-gender {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 100px auto;
+  align-items: center;
+  height: 42px;
+  .radio-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: $text200;
+  }
+  .gender-inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .form-check {
+      margin-left: 50px;
+      &:first-child {
+        margin-top: 0;
+      }
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+}
+.radio-checkbox-group {
+  @include displayFlex(flex, center, flex-start);
+  .form-check {
+    margin: 0 0 10px 30px;
+  }
+}
+.form-check {
+  margin-top: 20px;
+  cursor: pointer;
+  .form-check-input {
+    cursor: pointer;
+  }
+  .form-check-input:checked {
+    background-color: $primary;
+    border-color: $primary;
+  }
+}
+
+@keyframes shake-shake {
+  0% {
+    transform: translateX(-3px);
+  }
+  20% {
+    transform: translateX(3px);
+  }
+  40% {
+    transform: translateX(-3px);
+  }
+  60% {
+    transform: translateX(3px);
+  }
+  80% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+@media (max-width: 575px) {
+  .radio-select-gender {
+    grid-template-columns: 100%;
+    height: unset;
+    .radio-title {
+      margin-bottom: 1rem;
+    }
+  }
+}
+/*#endregion -------------- Inputs */

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fa" class="no-js" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#68c4b4" />
+    <meta name="msapplication-navbutton-color" content="#68c4b4">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#68c4b4">
+    <title>کسبوم ‍| نقشه راه</title>
+    <link rel="stylesheet" href="../css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="../scss/main.css">
+    <link rel="stylesheet" href="../plugin/swiperjs/swiper-bundle.min.css">
+
+    <!-- Font Icons -->
+    <link href="../css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../images/small-icon.png">
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/logo-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/logo-114x114.png">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="mynavbar">
+        <div class="container-lg">
+            <div class="navbar-inner">
+                <div class="nav-links">
+                    <button type="button" class="btn-services-menu">
+                        <i class="mdi mdi-dots-grid"></i>
+                        <span>سایر سرویس‌ها</span>
+                    </button>
+                    <ul>
+                        <li><a href="#"><i class="mdi mdi-pencil-circle-outline"></i>مدرس شوید</a></li>
+                    </ul>
+                </div>
+                <div class="nav-logo">
+                    <a href="index.html"><span></span></a>
+                </div>
+                <div class="nav-actions-group">
+                    <div class="item search-content">
+                        <div class="item-inner">
+                            <button type="button" class="btn-nav" id="btn-desktop-search">
+                                <span class="icon"><i class="mdi mdi-magnify"></i></span>
+                                <span class="text">جستجو</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="item users-content">
+                        <div class="item-inner">
+                            <div class="btn-nav active" data-bs-toggle="modal" data-bs-target="#modal-sign">
+                                <span class="icon"><i class="mdi mdi-account-outline"></i></span>
+                                <span class="text">حساب من</span>
+                            </div>
+                            <ul class="user-menu">
+                                <li><a href="user-profile.html"><i class="mdi mdi-account-circle-outline"></i>پنل
+                                        کاربری</a></li>
+                                <li><a href="#"><i class="mdi mdi-email-outline"></i>صندوق پیام</a>
+                                </li>
+                                <li><a href="#"><i class="mdi mdi-cog-outline"></i>تنظیمات کاربری</a></li>
+                                <li><a href="#" data-bs-toggle="modal" data-bs-target="#modal-exit"><i
+                                            class="mdi mdi-exit-to-app"></i>خروج</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-wrapper" id="sidebar-wrapper">
+                <!-- Sidebar Menu -->
+                <div id="sidebar-menu" class="">
+                    <div class="sidebar-header">
+                        <div class="sidebar-text">
+                            <h6>سرویس‌های کسبوم</h6>
+                        </div>
+                        <div class="sidebar-close">
+                            <button class="btn-close-menu anim-2s"><i class="mdi mdi-close"></i></button>
+                        </div>
+                    </div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <a href="#">
+                                <div class="icon">
+                                    <img src="images/icons/kasbom-services/online-learning.svg" alt="image">
+                                </div>
+                                <div class="text">آموزشگاه</div>
+                            </a>
+                        </div>
+                        <div class="service-item">
+                            <a href="#">
+                                <div class="icon">
+                                    <img src="images/icons/kasbom-services/chat.png" alt="image">
+                                </div>
+                                <div class="text">مشاوره</div>
+                            </a>
+                        </div>
+                        <div class="service-item">
+                            <a href="#">
+                                <div class="icon">
+                                    <img src="images/icons/kasbom-services/store.png" alt="image">
+                                </div>
+                                <div class="text">فروشگاه</div>
+                            </a>
+                        </div>
+                        <div class="service-item">
+                            <a href="#">
+                                <div class="icon">
+                                    <img src="images/icons/kasbom-services/idea.svg" alt="image">
+                                </div>
+                                <div class="text">ایده ها</div>
+                            </a>
+                        </div>
+                        <div class="service-item">
+                            <a href="#">
+                                <div class="icon">
+                                    <img src="images/icons/kasbom-services/news.svg" alt="image">
+                                </div>
+                                <div class="text">مجله</div>
+                            </a>
+                        </div>
+                        <div class="service-item">
+                            <a href="#">
+                                <div class="icon">
+                                    <img src="images/icons/kasbom-services/iran.svg" alt="image">
+                                </div>
+                                <div class="text">آمایش سرزمینی</div>
+                            </a>
+                        </div>
+                        <div class="service-item">
+                            <a href="#">
+                                <div class="icon">
+                                    <img src="images/icons/kasbom-services/direction.png" alt="image">
+                                </div>
+                                <div class="text">نقشه راه</div>
+                            </a>
+                        </div>
+                        <div class="service-item">
+                            <a href="#">
+                                <div class="icon">
+                                    <img src="images/icons/kasbom-services/supplier.svg" alt="image">
+                                </div>
+                                <div class="text">تامین کننده‌ها</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sidebar-text orange mt-4">
+                        <h6>لینک های مفید</h6>
+                    </div>
+                    <ul class="sidebar-list">
+                        <li class="item"><a href="#"><i class="mdi mdi-forum-outline"></i>درباره‌ی ما</a>
+                        <li class="item"><a href="#"><i class="mdi mdi-forum-outline"></i>دعوت به همکاری</a>
+                        <li class="item"><a href="#"><i class="mdi mdi-forum-outline"></i>تماس با ما</a>
+                    </ul>
+                </div>
+                <div class="overlay-sidebar"></div>
+            </div>
+        </div>
+    </header>
+    <!-- Desktop Search -->
+    <div id="desktop-search-content" class="">
+        <div class="search-inner">
+            <div class="search-input">
+                <input type="text" class="desktop-search-input" placeholder="جستجو در کسبوم">
+                <button type="button" class="btn-arrow-back">
+                    <span class="text">خروج از جستجو</span>
+                    <span class="icon">
+                        <i class="mdi mdi-arrow-left"></i>
+                    </span>
+                </button>
+                <button type="button" class="btn-clear"><i class="mdi mdi-close"></i></button>
+            </div>
+            <div class="list-result">
+                <ul class="tags">
+                    <li><a href="#">گوشی موبایل</a></li>
+                    <li><a href="#">سامسونگ M62</a></li>
+                    <li><a href="#">تلویزیون ال‌جی</a></li>
+                    <li><a href="#">پیراهن مردانه</a></li>
+                    <li><a href="#">نگهدارنده گوشی</a></li>
+                </ul>
+                <ul class="result">
+                    <li><a href="#"><i class="mdi mdi-shape-outline"></i><span>دسته بندی موبایل</span>A52</a></li>
+                    <li><a href="#"><i class="mdi mdi-shape-outline"></i><span>قاب و نگهدارنده مویابل</span>A52</a></li>
+                    <li><a href="#"><i class="mdi mdi-clock-outline"></i>تی شرت مردانه</a></li>
+                    <li><a href="#"><i class="mdi mdi-clock-outline"></i>کوشی موبایل</a></li>
+                    <li><a href="#"><i class="mdi mdi-clock-outline"></i>تی شرت مردانه</a></li>
+                    <li><a href="#"><i class="mdi mdi-shape-outline"></i><span>دسته بندی موبایل</span>A52</a></li>
+                    <li><a href="#"><i class="mdi mdi-shape-outline"></i><span>قاب و نگهدارنده مویابل</span>A52</a></li>
+                    <li><a href="#"><i class="mdi mdi-clock-outline"></i>تی شرت مردانه</a></li>
+                    <li><a href="#"><i class="mdi mdi-clock-outline"></i>کوشی موبایل</a></li>
+                    <li><a href="#"><i class="mdi mdi-clock-outline"></i>تی شرت مردانه</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="landing-page-header">
+        <div class="container">
+            <div class="row align-items-center text-center text-md-start">
+                <div class="col-lg-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                    <div class="text">
+                        <h1>نقشه راه</h1>
+                        <p>آنان که با دستانی گویا سخن می گویند و با ذره ای از باقیمانده شنوایی خود، به آوای هستی گوش
+                            جان می سپارند، هر دو آیتی از سپاسگزاری پروردگارند.
+                            تلاش همه جانبه برای احیا و تقویت توانمندی های مهارتی-شغلی افراد با اختلالات شنوایی از
+                            مسئولیت های اجتماعی مجموعه کسبومم است عرضه نماید.</p>
+                        <a href="#" class="btn btn-default icon-left">مشاهده دوره ها<i
+                                class="mdi mdi-arrow-left"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="image">
+                        <div class="img-inner">
+                            <img src="../images/bg/500x50000.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="landing-section border-radius mb-8">
+        <div class="container">
+            <div class="default-title type-2">
+                <h2 class="title">مراحل کارآفرینی</h2>
+            </div>
+            <div class="section-inner marginbotom-0">
+                <div class="roadmap-content">
+                    <div class="roadmap-inner">
+                        <div class="grid-item">
+                            <div class="circle">
+                                <div class="number">1</div>
+                                <span>وضعیت</span>
+                            </div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="circle">
+                                <div class="number">2</div>
+                                <span>قوانین</span>
+                            </div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="circle">
+                                <div class="number">3</div>
+                                <span>مهارت و پیش نیاز ها</span>
+                            </div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="circle">
+                                <div class="number">4</div>
+                                <span>آموزش</span>
+                            </div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="circle">
+                                <div class="number">5</div>
+                                <span>پشتیبان و تعاونی ها</span>
+                            </div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="circle">
+                                <div class="number">6</div>
+                                <span>طرح توجیهی</span>
+                            </div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="circle">
+                                <div class="number">7</div>
+                                <span>بازار</span>
+                            </div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="circle">
+                                <div class="number">8</div>
+                                <span>ریسک</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="strip-image"></div> -->
+    </div>
+    <div class="public-section pt-0">
+        <div class="container">
+            <div class="default-title type-2">
+                <h2 class="title">نقشه راه دوره ها</h2>
+            </div>
+            <div class="section-inner">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                        <div class="card-course mb-4" title="نام دوره">
+                            <a href="education-details.html">
+                                <div class="img-container">
+                                    <div class="img-inner">
+                                        <img src="../images/courses/1.jpg" alt="course-name" />
+                                    </div>
+                                </div>
+                                <div class="card-b">
+                                    <h2>آموزش پیشرفته چرم دوزی</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                        <div class="card-course mb-4" title="نام دوره">
+                            <a href="education-details.html">
+                                <div class="img-container">
+                                    <div class="img-inner">
+                                        <img src="../images/courses/2.jpg" alt="course-name" />
+                                    </div>
+                                </div>
+                                <div class="card-b">
+                                    <h2>آموزش پیشرفته چرم دوزی</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                        <div class="card-course mb-4" title="نام دوره">
+                            <a href="education-details.html">
+                                <div class="img-container">
+                                    <div class="img-inner">
+                                        <img src="../images/courses/3.jpg" alt="course-name" />
+                                    </div>
+                                </div>
+                                <div class="card-b">
+                                    <h2>آموزش پیشرفته چرم دوزی</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                        <div class="card-course mb-4" title="نام دوره">
+                            <a href="education-details.html">
+                                <div class="img-container">
+                                    <div class="img-inner">
+                                        <img src="../images/courses/05.jpg" alt="course-name" />
+                                    </div>
+                                </div>
+                                <div class="card-b">
+                                    <h2>آموزش پیشرفته چرم دوزی</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                        <div class="card-course mb-4" title="نام دوره">
+                            <a href="education-details.html">
+                                <div class="img-container">
+                                    <div class="img-inner">
+                                        <img src="../images/courses/1.jpg" alt="course-name" />
+                                    </div>
+                                </div>
+                                <div class="card-b">
+                                    <h2>آموزش پیشرفته چرم دوزی</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                        <div class="card-course mb-4" title="نام دوره">
+                            <a href="education-details.html">
+                                <div class="img-container">
+                                    <div class="img-inner">
+                                        <img src="../images/courses/2.jpg" alt="course-name" />
+                                    </div>
+                                </div>
+                                <div class="card-b">
+                                    <h2>آموزش پیشرفته چرم دوزی</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                        <div class="card-course mb-4" title="نام دوره">
+                            <a href="education-details.html">
+                                <div class="img-container">
+                                    <div class="img-inner">
+                                        <img src="../images/courses/3.jpg" alt="course-name" />
+                                    </div>
+                                </div>
+                                <div class="card-b">
+                                    <h2>آموزش پیشرفته چرم دوزی</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                        <div class="card-course mb-4" title="نام دوره">
+                            <a href="education-details.html">
+                                <div class="img-container">
+                                    <div class="img-inner">
+                                        <img src="../images/courses/05.jpg" alt="course-name" />
+                                    </div>
+                                </div>
+                                <div class="card-b">
+                                    <h2>آموزش پیشرفته چرم دوزی</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container-lg">
+            <div class="property">
+                <ul class="property-list">
+                    <li>
+                        <div class="icon">
+                            <img src="../images/icons/footer-icon-quality.svg" alt="icon">
+                        </div>
+                        <h6> کیفیت Full HD</h6>
+                    </li>
+                    <li>
+                        <div class="icon">
+                            <img src="../images/icons/footer-icon-certificate.svg" alt="icon">
+                        </div>
+                        <h6>گواهینامه</h6>
+                    </li>
+                    <li>
+                        <div class="icon">
+                            <img src="../images/icons/footer-icon-support.svg" alt="icon">
+                        </div>
+                        <h6>پشتیبانی مدرس</h6>
+                    </li>
+                    <li>
+                        <div class="icon">
+                            <img src="../images/icons/footer-icon-files.svg" alt="icon">
+                        </div>
+                        <h6>فایل‌های کمک آموزشی</h6>
+                    </li>
+                </ul>
+                <div class="mobile-call-content">
+                    <h6>شماره تماس</h6>
+                    <ul class="call-list">
+                        <li>02128422767</li>
+                        <li>02842083369</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="links-group">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="item-group">
+                            <h3 class="title">با کسبوم</h3>
+                            <ul class="links-list">
+                                <li><a href="work-with-us">فرصت‌های شغلی</a></li>
+                                <li><a href="faq">سوالات متداول</a></li>
+                                <li><a href="about">درباره‌ی ما</a></li>
+                                <li><a href="contactus">تماس با ما</a></li>
+                                <li><a href="help">راهنمای سایت</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="item-group">
+                            <h3 class="title">خدمات مشتریان</h3>
+                            <ul class="links-list">
+                                <li><a href="landuse">آمایش سرزمینی</a></li>
+                                <li><a href="wikiidea`">بانک ایده</a></li>
+                                <li><a href="skill">آموزشگاه</a></li>
+                                <li><a href="consult">مشاوره</a></li>
+                                <li><a href="shop">فروشگاه</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="item-group">
+                            <h3 class="title">خدمات مشتریان</h3>
+                            <ul class="social-icons">
+                                <li><a href="https://instagram.com/kasboom" target="_blank"><i
+                                            class="mdi mdi-instagram"></i></a></li>
+                                <li><a href="#"><i class="mdi mdi-whatsapp"></i></a></li>
+                                <li><a href="mailto:kasboom.ir@gmail.com"><i class="mdi mdi-email-outline"></i></a></li>
+                                <li><a href="#">
+                                        <svg viewBox="0 0 64 64">
+                                            <path
+                                                d="M45.6,61c-8.8,0-17.7,0-26.5,0c-0.2,0-0.3-0.1-0.5-0.1c-3.6-0.3-6.8-1.7-9.5-4.2c-3.5-3.2-5.4-7.1-5.4-11.9 c0-8.9,0-17.8,0-26.6c0-2,0.4-3.9,1.1-5.8C7.2,6.2,13.2,2.1,20,2.1c8.2,0,16.4,0,24.6,0c4.3,0,8.1,1.5,11.2,4.4 c3,2.8,4.9,6.3,5.2,10.4c0.2,3.3,0.1,6.6,0.1,10c0,0.2-0.2,0.5-0.4,0.6c-0.8,0.7-1.8,1.3-2.6,2c-2,2-4,4.1-6,6.1 c-2.5,2.6-5,5-8.1,6.9c-3.9,2.4-8,3.2-12.4,1.9c-0.4-0.1-0.6,0-0.7,0.3c-0.3,0.7-0.6,1.4-0.7,2.1c-0.3,1.2-0.4,2.4-0.6,3.6 c-0.1,0-0.3,0-0.5,0c-3.9-0.9-7.3-5-7.3-9c0-0.6-0.2-1-0.7-1.4c-3.5-3.1-4.2-7.1-1.8-11.1c1.2-2,2.8-3.7,4.7-5.1 c4.6-3.4,9.6-5.5,15.4-4.9c2.9,0.3,5.3,1.6,7,4.1c0.6,0.9,0.6,1.6-0.1,2.4c-0.4,0.5-0.9,1-1.4,1.3c-3.9,2.5-8.2,3.7-12.8,3.1 c-2.4-0.3-4.3-1.7-3.7-4.9c0-0.1,0-0.3,0-0.5c-2,0.7-3.2,2.1-3.8,3.9c-1,2.5-0.3,4.6,1.7,6.4c-1.7,2.1-2.7,4.4-2.3,7.2 c0.4,2.9,2.7,5.5,4.3,6.1c0-0.2,0.1-0.4,0.1-0.6c0.3-2.9,1.7-5.3,3.9-7.2c1.8-1.5,4-2.6,6.1-3.6c2.2-1,4.4-2,6.5-3.2 c2.8-1.5,4.7-3.9,5.8-6.9c0.5-1.5,0.8-3,0.8-4.6c0.1-2.5-0.2-4.9-1.3-7.2c-2.6-5.6-8.8-7.9-14.5-7C32.9,7.9,30.4,9,28,10.4 c-6.6,4-11.2,9.7-14.1,16.7c-2.1,5-3,10.2-2,15.6c0.9,4.7,3.4,8.5,7.6,11c2.6,1.5,5.4,2.4,8.4,2.7c4.9,0.5,9.5-0.6,13.6-3.3 c2.4-1.6,4.6-3.5,6.5-5.8c2.4-3,4.7-6.1,7.1-9.1c1.5-1.9,3.1-3.8,4.7-5.7c0.3-0.3,0.7-0.6,1.1-0.9c0,0.3,0,0.5,0,0.7 c0,4.2,0,8.4,0,12.6c0,0.7,0,1.3-0.1,2c-0.9,6.7-6,12.3-12.6,13.7C47.4,60.7,46.5,60.8,45.6,61z" />
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="address">
+                                <li><i class="mdi mdi-map-marker"></i>قزوین، پارک علم و فن آوری</li>
+                                <li><i class="mdi mdi-phone"></i>
+                                    <h6>02128422767</h6>
+                                    <h6>02833694208</h6>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <ul class="certificate">
+                            <li><a href="https://trustseal.enamad.ir/?id=187230&Code=fClIpoxv7ECnUUm0sj53"><img
+                                        src="../images/e-logo-3.png" alt="مجوز اینماد" /></a></li>
+                            <li><a href=""><img src="../images/e-logo-2.png" alt="مجوز کسب و کار فضای مجازی" /></a></li>
+                            <li><a href=""><img src="../images/e-logo-1.png" alt="مجوز کسب و کار فضای مجازی" /></a></li>
+                            <li><a href="https://www.zarinpal.com/trustPage/kasboom.ir"><img
+                                        src="../images/zarinpal.svg" alt="مجوز زرین پال" /></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright"><span>طراحی و توسعه توسط شرکت ایده نگاران همگام . حق کپی محفوظ است © 1399</span>
+            </div>
+        </div>
+        <div class="other-services">
+            <ul>
+                <li><a href="landuse">
+                        <img src="../images/icons/kasbom-services/iran.svg" alt="آمایش سرزمینی">
+                        <h6>آمایش سرزمینی</h6>
+                    </a></li>
+                <li><a href="wikiidea">
+                        <img src="../images/icons/kasbom-services/idea.svg" alt="ایده های کسب و کار">
+                        <h6>بانک ایده</h6>
+                    </a></li>
+                <li><a href="roadmap">
+                        <img src="../images/icons/kasbom-services/direction.png" alt="نقشه راه مشاغل">
+                        <h6>نقشه راه</h6>
+                    </a></li>
+
+                <li><a href="skill">
+                        <img src="../images/icons/kasbom-services/online-learning.svg" alt="آموزشگاه">
+                        <h6>آموزشگاه</h6>
+                    </a></li>
+                <li><a href="tamin">
+                        <img src="../images/icons/kasbom-services/supplier.svg" alt="تامین کننده‌ها">
+                        <h6>پیشرانان</h6>
+                    </a></li>
+                <li><a href="consult">
+                        <img src="../images/icons/kasbom-services/chat.png" alt="مشاوره کسب و کار">
+                        <h6>مشاوره</h6>
+                    </a></li>
+
+                <li><a href="shop">
+                        <img src="../images/icons/kasbom-services/store.png" alt="فروشگاه تامین تجهیزات">
+                        <h6>فروشگاه تجهیزات</h6>
+                    </a></li>
+
+                <li><a href="#">
+                        <img src="../images/icons/kasbom-services/news.svg" alt="مجله">
+                        <h6>مجله</h6>
+                    </a></li>
+
+
+
+
+
+            </ul>
+        </div>
+    </footer>
+    <!-- Mobile Navbar -->
+    <div class="mobile-bottom-navbar">
+        <div class="navbar-inner">
+            <div class="item active">
+                <a href="index.html">
+                    <div class="icon home"><i class="mdi mdi-home-outline"></i></div>
+                    <div class="text">خانه</div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="">
+                    <div class="icon store"><i class="mdi mdi-storefront-outline"></i></div>
+                    <div class="text">فروشگاه</div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="#">
+                    <div class="icon advice"><i class="mdi mdi-forum-outline"></i></div>
+                    <div class="text">مشاوره</div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="#">
+                    <div class="icon profile"><i class="mdi mdi-account-outline"></i></div>
+                    <div class="text">پروفایل</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../plugin/swiperjs/swiper-bundle.min.js"></script>
+    <script src="../plugin/swiperjs/swiper-initial.js"></script>
+    <script src="../js/scripts.js"></script>
+    <script src="../plugin/vide/jquery.vide.min.js"></script>
+
+</body>
+
+</html>
