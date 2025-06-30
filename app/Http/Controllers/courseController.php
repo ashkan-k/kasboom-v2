@@ -1086,6 +1086,8 @@ class courseController extends Controller
   {
     $id_course = $request->id_course;
     if (Auth::check()) {
+        $course = course::findOrFail($id_course);
+
       $nowDate = date("Y-m-d");
       $nowdate_shamsi = jdate($nowDate)->format('%Y/%m/%d');
 
@@ -1098,7 +1100,7 @@ class courseController extends Controller
 
       $title = str_replace(' ', '_', $request->title);
 
-      return Redirect::to('skill/course/' . $id_course . '/' . $title);
+      return Redirect::to('course/' . $course->getSlug());
 
     } else {
       $title = str_replace(' ', '_', $request->title);

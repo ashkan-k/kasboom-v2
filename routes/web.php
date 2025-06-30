@@ -838,8 +838,8 @@ Route::group(['prefix' => 'lives'], function () {
 Route::get('/category', ['as' => 'course.category', 'uses' => 'courseController@category']);
 Route::post('/check_discount', [mainController::class, 'check_discount']);
 Route::post('/add_favorite', [mainController::class, 'add_favorite']);
-Route::post('/remove_favorite', ['as' => 'main.remove_favorite', 'uses' => 'mainController@remove_favorite']);
-Route::get('/add_favorite/{id_course}/{title?}', ['as' => 'course.add_favorite_url', 'uses' => 'courseController@add_favorite_url']);
+Route::post('/remove_favorite', [mainController::class, 'remove_favorite']);
+Route::get('/add_favorite/{id_course}/{title?}', [courseController::class, 'add_favorite_url']);
 
 
 // deaf
