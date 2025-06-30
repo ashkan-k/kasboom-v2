@@ -124,15 +124,15 @@
       <div class="swiper swiper-comments" dir="rtl">
         <div class="swiper-wrapper">
           @foreach($comments as $comment)
-          <?php $user_name = str_replace(' ', '_', $comment->user->name); ?>
+          <?php $user_name = str_replace(' ', '_', $comment->user?->name); ?>
           <div class="swiper-slide">
             <div class="comment-body">
               <div class="comment-header">
                 <div class="user-img">
-                  <img src="v4_assets/images/icons/user-comment.svg" />
+                  <img src="/v4_assets/images/icons/user-comment.svg" />
                 </div>
                 <div class="user-info">
-                  <h4>{{$comment->user->name}}</h4>
+                  <h4>{{$comment->user?->name}}</h4>
                   <div class="date">
                     <div class="time">{{$comment->regist_date}}</div>
                   </div>
