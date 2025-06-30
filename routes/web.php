@@ -722,7 +722,6 @@ foreach ($subjects as $subject) {
         Route::get('/take_course/{id_course}/{slug?}', [courseController::class, 'take_course']);
 
         Route::group(array('middleware' => ['auth', 'checkLogin']), function () {
-            Route::post('/regist_course_suggestion', ['as' => 'course.regist_course_suggestion', 'uses' => 'courseController@regist_course_suggestion']);
             Route::post('/add_note', ['as' => 'course.add_note', 'uses' => 'courseController@add_note']);
             Route::post('/get_certificate', ['as' => 'course.get_certificate', 'uses' => 'courseController@get_certificate']);
             Route::post('/delete_note', ['as' => 'course.delete_note', 'uses' => 'courseController@delete_note']);
@@ -747,7 +746,7 @@ foreach ($skill_subjects as $subject) {
         Route::get('/new', [courseController::class, 'course_index_new']);
         Route::post('/course/suggestion/change', [courseController::class, 'courseSuggestionChange']);
         Route::get('/invite_teacher', [courseController::class, 'invite_teacher']);
-        Route::get('/course_suggestion', ['as' => 'course.course_suggestion', 'uses' => 'courseController@course_suggestion']);
+        Route::get('/course_suggestion', [courseController::class, 'course_suggestion']);
         Route::post('/invite_teacher_register', [courseController::class, 'invite_teacher_register']);
         Route::get('/category/{id_category}/{title?}', [courseController::class, 'category_courses']);
         Route::get('/lesson/{id_course}/{id_lesson}/{title?}', ['as' => 'course.lesson_detail', 'uses' => 'courseController@lesson_detail']);
@@ -770,6 +769,10 @@ foreach ($skill_subjects as $subject) {
         Route::get('webinar/{id}/{title?}', ['as' => 'webinar.webinar_intro', 'uses' => 'webinarController@webinar_intro']);
         Route::get('take_webinar/{id_webinar}/{title?}', ['as' => 'webinar.take_webinar', 'uses' => 'webinarController@take_webinar']);
         Route::post('webinar/webinar_payment', ['as' => 'webinar.webinar_payment', 'uses' => 'webinarController@webinar_payment']);
+
+        Route::group(array('middleware' => ['auth', 'checkLogin']), function () {
+            Route::post('/regist_course_suggestion', [courseController::class, 'regist_course_suggestion']);
+        });
     });
 
 }

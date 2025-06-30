@@ -597,7 +597,7 @@
                                                         </div>
 
                                                         <div class="button-group">
-                                                            <a href="skill/take_course/{{$course->id}}/{{str_replace(' ', '_', $course->title)}}" class="btn btn-secondary icon-right"><i
+                                                            <a href="course/take_course/{{$course->id}}/{{$course->getSlug()}}" class="btn btn-secondary icon-right"><i
                                                                     class="mdi mdi-plus-circle-outline"></i>خرید
                                                                 دوره</a>
                                                             <a href="course/{{ $course->getSlug() }}"
@@ -863,12 +863,56 @@
                 </div>
             </div>
         </div>
+
+        {{-- ToastMessage --}}
+        <div id="toastmessage-content"></div>
     </div>
 
 @endsection
 
 @section('Page_JS')
 
+    <script>
+        //store rate
+        $('.storeRate').click(function() {
+            //  activate loading
+            $('.wrapper-loading').addClass('active');
 
+            var form = new FormData();
+            var rateId = $(this).data("id");
+            form.append("id", rateId);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('skill/course/suggestion/change') }}",
+                type: "POST",
+                data: form,
+                processData: false,
+                contentType: false,
+                async: true,
+                success: function(data) {
+                    $('.cardAuthentication').removeClass('active');
+                    toastMessage('', data.message, 'success');
+                    $("#spanRateId_" + rateId).text(data.rateCount)
+
+                    var status = data.status;
+                    if (status === 'add') {
+                        $("#buttonRateId_" + rateId).text('حذف رای')
+                    } else {
+                        $("#buttonRateId_" + rateId).text('رای دهید')
+                    }
+                },
+                error: function(data) {
+                    const json = jQuery.parseJSON(data.responseText)
+                    toastMessage('خطا', json.message, 'danger');
+                },
+                complete: function() {
+                    //      deactivate loading
+                    $('.wrapper-loading').removeClass('active');
+                }
+            });
+        });
+    </script>
 
 @endsection

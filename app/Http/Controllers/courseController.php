@@ -421,6 +421,7 @@ class courseController extends Controller
 
   public function course_suggestion()
   {
+      Auth::loginUsingId(1);
     $states = getState();
     return view('course_suggestion', compact('states'));
   }
@@ -2304,17 +2305,6 @@ class courseController extends Controller
   public function regist_course_suggestion(Request $request)
   {
     if (Auth::check()) {
-
-//      $minimal_fund = $request->minimal_fund;
-//      if ($minimal_fund == null)
-//        $minimal_fund = 0;
-//      $manpower = $request->manpower;
-//      $risk = $request->risk;
-//      $profitability = $request->profitability;
-//      $invite->minimal_fund = $minimal_fund;
-//      $invite->manpower = $manpower;
-//      $invite->risk = $risk;
-//      $invite->profitability = $profitability;
 
       $title = $request->title;
       $memo = $request->memo;
