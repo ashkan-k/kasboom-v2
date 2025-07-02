@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\courseController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\landuseController;
@@ -857,8 +858,8 @@ Route::get('/tech', ['as' => 'main.sign_tech', 'uses' => 'mainController@sign_te
 
 Route::get('/certificate/{type}/', [userController::class, 'downloadCertificate']);
 
-Route::get('/check-certificate', 'CertificateController@getCheckCertificate');
-Route::post('/check-certificate', 'CertificateController@checkCertificate');
+Route::get('/check-certificate', [CertificateController::class, 'getCheckCertificate']);
+Route::post('/check-certificate', [CertificateController::class, 'checkCertificate']);
 
 Route::any('search', [SearchController::class, 'search']);
 Route::get('feedback', 'FeedbackController@index');

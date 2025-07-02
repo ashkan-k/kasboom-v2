@@ -30,7 +30,7 @@ class LandingController extends Controller
   {
     $roadmap=Roadmap::where('slug','=',$slug)->get()->first();
     $contents=RoadmapContent::where('roadmap_id',$roadmap->id)->get()->sortBy('number');
-    return view('landingpages.roadmap.content',compact('roadmap',compact('contents')));
+    return view('landingpages.roadmap.content',compact('roadmap', 'contents'));
   }
   public function roadmap_charm()
   {

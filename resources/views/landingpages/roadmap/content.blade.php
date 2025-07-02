@@ -1,4 +1,4 @@
-@extends('layouts.front-mastermaster_course')
+@extends('layouts.front-master')
 
 @section('Page_Title')
     آموزشگاه کسب بوم - نقشه راه
@@ -13,7 +13,7 @@
     <!-- Roadmap Header -->
     <div class="roadmap-section">
         <div class="section-inner">
-            <div class="container">
+            <div class="container" style="margin-top: 170px !important;">
                 <div class="roadmap-header">
                     <div class="img-container">
                         <div class="img-inner">
