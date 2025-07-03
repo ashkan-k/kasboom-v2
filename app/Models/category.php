@@ -13,6 +13,11 @@ class category extends Model
         return $this->hasMany('App\Models\course', 'id_category');
     }
 
+    public function webinars()
+    {
+        return $this->hasMany('App\Models\webinar', 'id_category');
+    }
+
     public function getImage()
     {
         return "/assets-v2/images/small-category/".$this->image;

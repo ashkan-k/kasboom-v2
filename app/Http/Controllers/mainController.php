@@ -72,10 +72,10 @@ class mainController extends Controller
   public function redirect($path)
   {
     $redirect_path = kasboom_redirect::where("path", "=", $path)->first();
-    if ($redirect_path != null)
+    if ($redirect_path != null && $redirect_path->redirect)
       return redirect($redirect_path->redirect);
     else
-      return view(404);
+      return view('404');
   }
 
   public function sign_mobile()

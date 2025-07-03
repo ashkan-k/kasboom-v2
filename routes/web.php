@@ -19,6 +19,7 @@ use App\Http\Controllers\landuseController;
 use App\Http\Controllers\mainController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\webinarController;
 use App\Http\Controllers\wikiController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,7 +52,7 @@ Route::get('/contactus', [mainController::class, 'contactus']);
 Route::post('/contact', [mainController::class, 'contact']);
 Route::get('/shopp', ['as' => 'main.shopp', 'uses' => 'mainController@shopp']);
 Route::get('/help', [mainController::class, 'help']);
-Route::get('/ch/{path?}', ['as' => 'main.redirect', 'uses' => 'mainController@redirect']);
+Route::get('/ch/{path?}', [mainController::class, 'redirect']);
 Route::get('sign_mobile', ['as' => 'main.sign_mobile', 'uses' => 'mainController@sign_mobile']);
 Route::get('work-with-us', [mainController::class, 'work_with_us']);
 Route::get('update', ['as' => 'main.update_page', 'uses' => 'mainController@update_page']);
@@ -763,13 +764,13 @@ foreach ($skill_subjects as $subject) {
         Route::get('/certificates', [courseController::class, 'certificates']);
 //        Route::get('/category/{id_category}/{title?}', [courseController::class, 'category_course']);
 
-        Route::get('webinars', ['as' => 'webinar.webinar_list', 'uses' => 'webinarController@webinar_list']);
-        Route::get('webinar/verifyPayment', ['as' => 'webinar.verifyPayment', 'uses' => 'webinarController@verifyPayment']);
-        Route::post('webinar/search', ['as' => 'webinar.search', 'uses' => 'webinarController@search']);
-        Route::post('webinar/filter', ['as' => 'webinar.filter', 'uses' => 'webinarController@filter']);
-        Route::get('webinar/{id}/{title?}', ['as' => 'webinar.webinar_intro', 'uses' => 'webinarController@webinar_intro']);
-        Route::get('take_webinar/{id_webinar}/{title?}', ['as' => 'webinar.take_webinar', 'uses' => 'webinarController@take_webinar']);
-        Route::post('webinar/webinar_payment', ['as' => 'webinar.webinar_payment', 'uses' => 'webinarController@webinar_payment']);
+        Route::get('webinars', [webinarController::class, 'webinar_list']);
+        Route::get('webinar/verifyPayment', [webinarController::class, 'verifyPayment']);
+        Route::post('webinar/search', [webinarController::class, 'search']);
+        Route::post('webinar/filter', [webinarController::class, 'filter']);
+        Route::get('webinar/{id}/{title?}', [webinarController::class, 'webinar_intro']);
+        Route::get('take_webinar/{id_webinar}/{title?}', [webinarController::class, 'take_webinar']);
+        Route::post('webinar/webinar_payment', [webinarController::class, 'webinar_payment']);
 
         Route::group(array('middleware' => ['auth', 'checkLogin']), function () {
             Route::post('/regist_course_suggestion', [courseController::class, 'regist_course_suggestion']);
