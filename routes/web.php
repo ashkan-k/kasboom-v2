@@ -763,6 +763,7 @@ foreach ($skill_subjects as $subject) {
         Route::get('/courses', [courseController::class, 'course']);
         Route::get('/certificates', [courseController::class, 'certificates']);
 //        Route::get('/category/{id_category}/{title?}', [courseController::class, 'category_course']);
+        Route::get('/course/pre-registration/submit/{slug}', [courseController::class, 'coursePreRegistrationSubmit']);
 
         Route::get('webinars', [webinarController::class, 'webinar_list']);
         Route::get('webinar/verifyPayment', [webinarController::class, 'verifyPayment']);

@@ -397,11 +397,19 @@ $idddd=$course->id;
                   </div>
                 </div>
                 <div class="apply-button">
-                  @if($taked_course==false)
-                  <a href="course/take_course/{{$idddd}}/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>خرید
-                    دوره</a>
-                  @else
-                  <a href="web/learning/learningDetails/{{$idddd}}" class="btn btn-default icon-right"><i class="mdi mdi-chevron-left"></i>مشاهده کامل دوره</a>
+                  @if($course->status == 2)
+                        @if($pre_registrated_course==false)
+                            <a href="skill/course/pre-registration/submit/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>پیش ثبت نام</a>
+                        @else
+                            <a class="btn btn-default icon-right"><i class="mdi mdi-lock-open"></i>قبلا این دوره را پیش ثبت نام کرده اید</a>
+                        @endif
+                    @else
+                        @if($taked_course==false)
+                            <a href="course/take_course/{{$idddd}}/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>خرید
+                                دوره</a>
+                        @else
+                            <a href="web/learning/learningDetails/{{$idddd}}" class="btn btn-default icon-right"><i class="mdi mdi-chevron-left"></i>مشاهده کامل دوره</a>
+                        @endif
                   @endif
                 </div>
                 @if($course->discount > 0)
@@ -513,59 +521,59 @@ $idddd=$course->id;
       <div class="section-inner">
         <div class="swiper swiper-courses" dir="rtl">
           <div class="swiper-wrapper">
-            @foreach($related_course as $course)
-                      <?php $title = str_replace(' ', '_', $course->title);
-                      $img_src=$course->getThumbnail();
+            @foreach($related_course as $rel_course)
+                      <?php $title = str_replace(' ', '_', $rel_course->title);
+                      $img_src=$rel_course->getThumbnail();
                       $img_src="assets-v2/images/thumb.png";
-                      $slug= "course/".$course->getSlug();
-                      $teacher= $course->teacher ? $course->teacher->fullname : 'کسبوم';
-                      $time=$course->minutes > 0 ? $course->hour.':'.$course->minutes : $course->hour;
+                      $slug= "course/".$rel_course->getSlug();
+                      $teacher= $rel_course->teacher ? $rel_course->teacher->fullname : 'کسبوم';
+                      $time=$rel_course->minutes > 0 ? $rel_course->hour.':'.$rel_course->minutes : $rel_course->hour;
                       ?>
                   <div class="swiper-slide">
-                      <div class="card-course" title="{{$course->title}}">
+                      <div class="card-course" title="{{$rel_course->title}}">
                           <a href="{{$slug}}">
                               <div class="img-container">
                                   <div class="img-inner">
-                                      <img src="{{$img_src}}" alt="{{$course->title}}" />
+                                      <img src="{{$img_src}}" alt="{{$rel_course->title}}" />
                                   </div>
                                   <div class="status">
-                                      @if($course->discount > 0)
-                                          <div class="percentage">{{$course->discount}}</div>
+                                      @if($rel_course->discount > 0)
+                                          <div class="percentage">{{$rel_course->discount}}</div>
                                       @endif
-                                      @if($course->have_certificate)
+                                      @if($rel_course->have_certificate)
                                           <div class="certificate">گواهینامه دارد</div>
                                       @endif
                                   </div>
                               </div>
                               <div class="card-b">
-                                  <h3 class="name">{{$course->title}}</h3>
+                                  <h3 class="name">{{$rel_course->title}}</h3>
                                   <div class="info">
                                       <h4 class="teacher"><i class="mdi mdi-account-outline"></i>{{$teacher}}</h4>
                                       <p class="duration"><i class="mdi mdi-clock-outline"></i>مدت زمان دوره :
                                           <span>{{$time}}
                                                     ساعت</span>
                                       </p>
-                                      @if($course->register_count  >0)
+                                      @if($rel_course->register_count  >0)
                                           <p class="students"><i class="mdi mdi-school-outline"></i>هنرآموزان :
-                                              <span>{{$course->register_count}}
+                                              <span>{{$rel_course->register_count}}
                                                     نفر</span>
                                           </p>
                                       @endif
                                       <div class="price-content off-code">
                                           <div class="price">
-                                              @if($course->old_price > 0)
-                                                  @if($course->old_price <> $course->price)
-                                                      <div class="real">{{ number_format($course->old_price) }}</div>
+                                              @if($rel_course->old_price > 0)
+                                                  @if($rel_course->old_price <> $rel_course->price)
+                                                      <div class="real">{{ number_format($rel_course->old_price) }}</div>
                                                   @endif
                                               @endif
-                                              @if($course->price > 0)
-                                                  <div class="off">{{ number_format($course->price) }}</div>
+                                              @if($rel_course->price > 0)
+                                                  <div class="off">{{ number_format($rel_course->price) }}</div>
                                               @else
                                                   <div class="off">رایگان</div>
                                               @endif
                                           </div>
                                           <div class="text">
-                                              @if($course->price > 0)
+                                              @if($rel_course->price > 0)
                                                   <span class="toman">تومان</span>
                                               @endif
                                           </div>
@@ -592,12 +600,21 @@ $idddd=$course->id;
     <div class="container-lg">
       <div class="section-inner">
         <div class="button-group">
-            @if($taked_course==false)
-                  <a href="course/take_course/{{$idddd}}/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>خرید
-                    دوره</a>
-                  @else
-                  <a href="web/learning/learningDetails/{{$idddd}}" class="btn btn-default icon-right"><i class="mdi mdi-chevron-left"></i>مشاهده دوره</a>
-                  @endif
+
+            @if($course->status == 2)
+                @if($pre_registrated_course==false)
+                    <a href="skill/course/pre-registration/submit/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>پیش ثبت نام</a>
+                @else
+                    <a class="btn btn-default icon-right"><i class="mdi mdi-lock-open"></i>پیش ثبت نام کرده اید</a>
+                @endif
+            @else
+                @if($taked_course==false)
+                    <a href="course/take_course/{{$idddd}}/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>خرید
+                        دوره</a>
+                @else
+                    <a href="web/learning/learningDetails/{{$idddd}}" class="btn btn-default icon-right"><i class="mdi mdi-chevron-left"></i>مشاهده دوره</a>
+                @endif
+            @endif
 
 
         </div>
@@ -624,7 +641,11 @@ $idddd=$course->id;
         </div>
       </div>
     </div>
+
   </div>
+
+    {{-- ToastMessage --}}
+    <div id="toastmessage-content"></div>
 
   <input type="hidden" id="favorite_type" value="course" readonly disabled>
   <input type="hidden" id="favorite_id_target" value="{{$course->id}}" readonly disabled>
@@ -658,4 +679,11 @@ $idddd=$course->id;
 
     starr($("#scoree").val());
   </script>
+        @if (session()->has('course_pre_registration_success_message'))
+            <script>
+                $(document).ready(function () {
+                    toastMessage('پیام موفقیت', '{{ session('course_pre_registration_success_message') }}', 'success');
+                });
+            </script>
+        @endif
   @endsection

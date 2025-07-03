@@ -8,6 +8,7 @@ use App\Models\classroom;
 use App\Models\comment;
 use App\Models\consult;
 use App\Models\course;
+use App\Models\course_pre_registration;
 use App\Models\course_suggestion;
 use App\Models\discount;
 use App\Models\faq;
@@ -240,6 +241,21 @@ class courseController extends Controller
 
     return response()->json(['message' => $message, 'rateCount' => $rateCount, 'status' => $status], 200);
   }
+
+    public function coursePreRegistrationSubmit ($slug) {
+        if (!auth()->check())
+            return \redirect('/web');
+
+        $course = course::where('slug', $slug)->firstOrFail();
+
+        course_pre_registration::updateOrInsert(
+            ['user_id' => auth()->user()->id, 'course_id' => $course->id]
+        );
+
+        session()->flash('course_pre_registration_success_message', 'پیش ثبت نام انجام شد. پیام اطلاع رسانی شروع دوره برای شما ارسال خواهد شد.');
+
+        return Redirect::to('course/' . $slug);
+    }
 
   public function course_index()
   {
@@ -561,9 +577,17 @@ class courseController extends Controller
             ->first();
       }
 
-      if (Auth::check())
-        if (Auth::user()->isManager())
-          $taked_course = true;
+      $pre_registrated_course = null;
+      if (Auth::check()) {
+          $pre_registrated_course = course_pre_registration::where('course_id',  $id_course)
+              ->where('user_id',  $id_user)
+              ->first();
+      }
+
+//      if (Auth::check())
+//        if (Auth::user()->isManager())
+//          $taked_course = true;
+//          $pre_registrated_course = true;
 
 
       $favorite_status = false;
@@ -614,7 +638,7 @@ class courseController extends Controller
         $kasboomSurveys[$fieldId]=0;
 
       }
-      return view("course/course_detail", compact( 'kasboomSurveys', 'kasboomSurveyField', 'course', 'category_title', 'teacher', 'lessons', 'classroom', 'related_course', 'taked_course', 'comments', 'favorite_status', 'attach_dic','lessons_seasons_group'));
+      return view("course/course_detail", compact( 'kasboomSurveys', 'kasboomSurveyField', 'course', 'category_title', 'teacher', 'lessons', 'classroom', 'related_course', 'taked_course', 'pre_registrated_course', 'comments', 'favorite_status', 'attach_dic','lessons_seasons_group'));
   }
 
   public function lesson_detail($id_course, $id_lesson, $title = null)
