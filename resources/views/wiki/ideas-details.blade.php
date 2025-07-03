@@ -9,7 +9,7 @@
 @section('Content')
 <!-- Idea Content -->
 <div class="public-section">
-  <div class="container">
+  <div class="container" style="margin-top: 50px !important;">
     <div class="row">
       <div class="col-lg-9 col-md-12">
         <div class="blog-details-container">
