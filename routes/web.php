@@ -892,4 +892,21 @@ Route::post('domestika-store', 'apiController@domestikaStore');
 // user panel routes
 Route::group(['prefix' => 'web'], function () {
     Route::get('/', [WebPanelUserController::class, 'dashboard'])->name('web.dashboard');
+
+    //        course
+    Route::group(['prefix' => 'course'], function () {
+        Route::get('/', [WebPanelUserController::class, 'myCourses'])->name('web.my-courses');
+        Route::post('store-course-survey', [UserController::class, 'storeCourseSurvey']);
+        Route::post('get-questions', [UserController::class, 'getQuestions']);
+        Route::post('get-questions-my', [UserController::class, 'getQuestionsMy']);
+        Route::post('get-course-detail', [UserController::class, 'getCourseDetail']);
+        Route::post('get-course-detail-survey', [UserController::class, 'getCourseDetailSurvey']);
+        Route::post('store-course-question', [UserController::class, 'storeCourseQuestion']);
+        Route::post('store-course-note', [UserController::class, 'storeCourseNote']);
+        Route::post('delete-course-note', [UserController::class, 'deleteCourseNote']);
+        Route::post('complete-lesson', [UserController::class, 'completeLesson']);
+        Route::post('get-quiz', [UserController::class, 'getQuiz']);
+        Route::post('get-quiz-result', [UserController::class, 'getQuizResult']);
+        Route::post('correction-quiz', [UserController::class, 'correctionQuiz']);
+    });
 });

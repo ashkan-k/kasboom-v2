@@ -258,7 +258,7 @@
                                 </a>
                                 <ul class="card-collapsed collapse" id="collapse_1">
                                     <li>
-                                        <a href="userProfile-courses.html" class="link">
+                                        <a href="{{ route('web.my-courses') }}" class="link">
                                             <i class="mdi mdi-play-circle-outline"></i>
                                             دوره‌ها
                                         </a>

@@ -2642,6 +2642,53 @@ function sendSMS_Register_persoanl($name, $phone) {
 
 }
 
+if (!function_exists('arToFa')) {
+    function arToFa($str, $num_to_en = true)
+    {
+        $str = str_replace(['ﺁ', 'ﺂ'], 'آ', $str);
+        $str = str_replace(['ﺍ', 'ﺎ', 'إ', 'ﺇ', 'ﺈ', 'أ', 'ﺃ', 'ﺄ'], 'ا', $str);
+        $str = str_replace(['ﺏ', 'ﺐ', 'ﺑ', 'ﺒ'], 'ب', $str);
+        $str = str_replace(['ة', 'ﺓ', 'ﺔ', 'ﻩ', 'ﻪ', 'ﻫ', 'ﻬ'], 'ه', $str);
+        $str = str_replace(['ﺕ', 'ﺖ', 'ﺗ', 'ﺘ'], 'ت', $str);
+        $str = str_replace(['ﺙ', 'ﺚ', 'ﺛ', 'ﺜ'], 'ث', $str);
+        $str = str_replace(['ﺝ', 'ﺞ', 'ﺟ', 'ﺠ'], 'ج', $str);
+        $str = str_replace(['ﺡ', 'ﺢ', 'ﺣ', 'ﺤ'], 'ح', $str);
+        $str = str_replace(['ﺥ', 'ﺦ', 'ﺧ', 'ﺨ'], 'خ', $str);
+        $str = str_replace(['ﺩ', 'ﺪ'], 'د', $str);
+        $str = str_replace(['ﺫ', 'ﺬ'], 'ذ', $str);
+        $str = str_replace(['ﺭ', 'ﺮ'], 'ر', $str);
+        $str = str_replace(['ﺯ', 'ﺰ'], 'ز', $str);
+        $str = str_replace(['ﺱ', 'ﺲ', 'ﺳ', 'ﺴ'], 'س', $str);
+        $str = str_replace(['ﺵ', 'ﺶ', 'ﺷ', 'ﺸ'], 'ش', $str);
+        $str = str_replace(['ﺹ', 'ﺺ', 'ﺻ', 'ﺼ'], 'ص', $str);
+        $str = str_replace(['ﺽ', 'ﺾ', 'ﺿ', 'ﻀ'], 'ض', $str);
+        $str = str_replace(['ﻁ', 'ﻂ', 'ﻃ', 'ﻄ'], 'ط', $str);
+        $str = str_replace(['ﻅ', 'ﻆ', 'ﻇ', 'ﻈ'], 'ظ', $str);
+        $str = str_replace(['ﻉ', 'ﻊ', 'ﻋ', 'ﻌ'], 'ع', $str);
+        $str = str_replace(['ﻍ', 'ﻎ', 'ﻏ', 'ﻐ'], 'غ', $str);
+        $str = str_replace(['ػ', 'ؼ', 'ك', 'ﻙ', 'ﻚ', 'ﻛ', 'ﻜ'], 'ک', $str);
+        $str = str_replace(['ؽ', 'ؾ', 'ؿ', 'ي', 'ى', 'ﻯ', 'ﻰ', 'ﯨ', 'ﯩ', 'ﻱ', 'ﻲ', 'ﻳ', 'ﻴ'], 'ی', $str);
+        $str = str_replace(['ﻑ', 'ﻒ', 'ﻓ', 'ﻔ'], 'ف', $str);
+        $str = str_replace(['ﻕ', 'ﻖ', 'ﻗ', 'ﻘ'], 'ق', $str);
+        $str = str_replace(['ﻝ', 'ﻞ', 'ﻟ', 'ﻠ'], 'ل', $str);
+        $str = str_replace(['ﻡ', 'ﻢ', 'ﻣ', 'ﻤ'], 'م', $str);
+        $str = str_replace(['ﻥ', 'ﻦ', 'ﻧ', 'ﻨ'], 'ن', $str);
+        $str = str_replace(['ﻭ', 'ﻮ', 'ؤ', 'ﺅ', 'ﺆ'], 'و', $str);
+        $str = str_replace(['ﺉ', 'ﺊ', 'ﺋ', 'ﺌ'], 'ئ', $str);
+        $str = str_replace(['ﺀ'], 'ء', $str);
+        $str = str_replace(['‍'], '', $str); // remove &zwj;
+        $str = str_replace(['‌' . ' ', ' ' . '‌'], ' ', $str); // (&zwnj; + space) or (space + &zwnj;) = space
 
+        if ($num_to_en) {
+            $num_en = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+            $num_fa = array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹');
+            $num_ar = array('٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩');
+            $str = str_replace($num_fa, $num_en, $str);
+            $str = str_replace($num_ar, $num_en, $str);
+        }
+
+        return $str;
+    }
+}
 
 ?>

@@ -17,6 +17,9 @@ class classroom extends Model
         return $this->hasMany('App\Models\user_quiz', 'id_class_room');
     }
 
+    public function course(){
+        return $this->belongsTo(course::class, 'id_course');
+    }
 
     public function courses()
     {

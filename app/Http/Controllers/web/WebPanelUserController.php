@@ -53,4 +53,38 @@ class WebPanelUserController extends Controller
         return view('web/dashboard', compact('courseCount', 'certificationsCount', 'messageCount', 'blogCount', 'wallet', 'notifications', 'webinars', 'courses', 'subsid', 'user'));
 //        return view('web/dashboard', compact('courseCount', 'messageCount', 'blogCount', 'wallet', 'notifications', 'webinars', 'courses', 'subsid', 'vendor', 'course', 'products', 'cities', 'notify', 'user'));
     }
+
+    public function myCourses()
+    {
+        $limit = 10;
+        $search = arToFa(request()->search);
+        $order_by = request()->order_by;
+        $userId = auth()->user()->id;
+
+        $allowedColumns = ['view_count', 'created_at'];
+
+        $query = Classroom::where('id_user', $userId)
+            ->select('id', 'id_course', 'id_user', 'result', 'regist_date')
+            ->with('course');
+
+        if ($search) {
+            $query->whereHas('course', function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        }
+
+        if ($order_by && in_array($order_by, $allowedColumns)) {
+            $query->orderByDesc(
+                course::select($order_by)
+                    ->whereColumn('skill_courses.id', 'skill_class_room.id_course')
+                    ->take(1)
+            );
+        } else {
+            $query->orderByDesc('regist_date');
+        }
+
+        $courses = $query->paginate($limit);
+
+        return view('web.courses', compact('courses'));
+    }
 }
