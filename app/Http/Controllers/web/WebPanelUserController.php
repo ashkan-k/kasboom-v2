@@ -9,6 +9,7 @@ use App\Models\Message;
 use App\Models\Notification;
 use App\Models\Notify;
 use App\Models\Webinar;
+use App\Models\WebinarRegister;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -86,5 +87,57 @@ class WebPanelUserController extends Controller
         $courses = $query->paginate($limit);
 
         return view('web.courses', compact('courses'));
+    }
+
+    public function myWebinars()
+    {
+        $limit = 10;
+        $search = arToFa(request()->search);
+        $query = WebinarRegister::where("id_user", auth()->user()->id)->with('webinar');
+        if ($search)
+            $query->whereHas('webinar', function($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+
+        $webinars = $query->paginate($limit);
+
+        return view('web.webinars', compact('webinars'));
+    }
+
+    public function getCertificate()
+    {
+        $limit = 10;
+        $search = arToFa(request()->search);
+        $type = request()->type;
+
+        if (!$type){
+            $type = 'دوره';
+        }
+
+        if ($type === 'دوره') {
+            $query = Classroom::where([
+                ['id_user', auth()->user()->id],
+                ['take_quiz', 1],
+                ['certificate_status', 'صدور مدرک']
+            ])->with('course');
+            if ($search)
+                $query->whereHas('course', function($q) use ($search) {
+                    $q->where('title', 'like', "%$search%");
+                });
+        } elseif ($type === 'وبینار') {
+            $query = WebinarRegister::where([
+                ['id_user', auth()->user()->id],
+                ['presence', 1],
+                ['status', 1]
+            ])->with('webinar');
+            if ($search)
+                $query->whereHas('webinar', function($q) use ($search) {
+                    $q->where('title', 'like', "%$search%");
+                });
+        }
+
+       $certificates = $query->paginate($limit);
+
+        return view('web.certificates', compact('certificates', 'type'));
     }
 }

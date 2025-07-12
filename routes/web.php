@@ -745,7 +745,7 @@ $skill_subjects = [
 
 foreach ($skill_subjects as $subject) {
 
-    Route::group(['prefix' => $subject], function (){
+    Route::group(['prefix' => $subject], function () {
         Route::get('/new', [courseController::class, 'course_index_new']);
         Route::post('/course/suggestion/change', [courseController::class, 'courseSuggestionChange']);
         Route::get('/invite_teacher', [courseController::class, 'invite_teacher']);
@@ -756,7 +756,7 @@ foreach ($skill_subjects as $subject) {
         Route::get('/lessons/{id_cat}/{title?}', ['as' => 'course.cat_lessons', 'uses' => 'courseController@cat_lessons']);
         Route::post('/search_course', [courseController::class, 'search_course']);
         Route::post('/public_search', [courseController::class, 'public_search']);
-        Route::get('/search',[courseController::class, 'search']);
+        Route::get('/search', [courseController::class, 'search']);
         Route::post('/search_course_ajax', ['as' => 'course.search_course_ajax', 'uses' => 'courseController@search_course_ajax']);
         Route::post('/filter_course_ajax', ['as' => 'course.filter_course_ajax', 'uses' => 'courseController@filter_course_ajax']);
         Route::post('/category_courses', [courseController::class, 'category_courses']);
@@ -894,7 +894,7 @@ Route::group(['prefix' => 'web'], function () {
     Route::get('/', [WebPanelUserController::class, 'dashboard'])->name('web.dashboard');
 
     //        course
-    Route::group(['prefix' => 'course'], function () {
+    Route::group(['prefix' => 'learning/education'], function () {
         Route::get('/', [WebPanelUserController::class, 'myCourses'])->name('web.my-courses');
         Route::post('store-course-survey', [UserController::class, 'storeCourseSurvey']);
         Route::post('get-questions', [UserController::class, 'getQuestions']);
@@ -909,4 +909,13 @@ Route::group(['prefix' => 'web'], function () {
         Route::post('get-quiz-result', [UserController::class, 'getQuizResult']);
         Route::post('correction-quiz', [UserController::class, 'correctionQuiz']);
     });
+
+    // certificate
+    Route::group(['prefix' => 'learning/certificate'], function () {
+        Route::get('/', [WebPanelUserController::class, 'getCertificate'])->name('web.my-certificate');
+        Route::get('/download/{id}', [WebPanelUserController::class, 'downloadCertificate']);
+        Route::get('/download/webinar/{id}', [WebPanelUserController::class, 'downloadCertificateWebinar']);
+    });
+
+    Route::get('learning/webinar', [WebPanelUserController::class, 'myWebinars'])->name('web.my-webinars');
 });

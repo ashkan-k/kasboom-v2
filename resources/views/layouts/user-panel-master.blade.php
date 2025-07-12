@@ -227,7 +227,7 @@
                         <button id="btn-show-userMenu"><i class="mdi mdi-dots-horizontal"></i></button>
                         <div class="thumb">
                             <div class="img-inner">
-                                <img src="/user-panel/images/default-user.svg" alt="user-name">
+                                <img src="{{ auth()->user()->getImageFolder() }}/{{ auth()->user()->image }}" alt="user-name">
                             </div>
                         </div>
                         <h5 class="user-name">نام کاربری</h5>
@@ -245,7 +245,7 @@
                     <div class="user-main-links">
                         <ul class="links-list">
                             <li class="active">
-                                <a href="web" class="link">
+                                <a href="/web" class="link">
                                     <i class="mdi mdi-view-dashboard-outline"></i>
                                     پیشخوان
                                 </a>
@@ -264,13 +264,13 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="userProfile-webinar.html" class="link">
+                                        <a href="{{ route('web.my-webinars') }}" class="link">
                                             <i class="mdi mdi-video-outline"></i>
                                             وبینار‌ها
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="userProfile-certificates.html" class="link">
+                                        <a href="{{ route('web.my-certificate') }}" class="link">
                                             <i class="mdi mdi-certificate-outline"></i>
                                             گواهینامه‌ها
                                         </a>
