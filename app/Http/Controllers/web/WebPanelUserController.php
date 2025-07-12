@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\Message;
 use App\Models\Notification;
 use App\Models\Notify;
+use App\Models\Payment;
 use App\Models\Webinar;
 use App\Models\WebinarRegister;
 use Illuminate\Http\Request;
@@ -139,5 +140,41 @@ class WebPanelUserController extends Controller
        $certificates = $query->paginate($limit);
 
         return view('web.certificates', compact('certificates', 'type'));
+    }
+
+    public function payments()
+    {
+        $limit = 10;
+        $search = arToFa(request()->search);
+//        $order_by = request()->order_by;
+//        $allowedColumns = ['view_count', 'created_at'];
+
+        $query = Payment::where([["id_user", auth()->user()->id],["status", 1]]);
+        if ($search)
+            $query->where(function($q) use ($search) {
+                $q->where('factor_id', $search)
+                    ->orWhere('refID', $search)
+                    ->orWhere('payment_for', 'like', "%$search%");
+            });
+
+//        if ($order_by && in_array($order_by, $allowedColumns)) {
+//            $query->orderByDesc($order_by);
+//        } else {
+//            $query->latest();
+//        }
+
+        $payments = $query->paginate($limit);
+
+        return view('web.transactions', compact('payments'));
+    }
+
+    public function paymentsDetails()
+    {
+        $query = Payment::where([
+            ['id_user', auth()->user()->id],['status', 1], ['id', request()->transactionId]
+        ])->first();
+        if (!$query) return ['success' => false, 'message' => 'تراکنش یافت نشد'];
+
+        return ['success' => true, 'data' => $query];
     }
 }

@@ -892,6 +892,9 @@ Route::post('domestika-store', 'apiController@domestikaStore');
 // user panel routes
 Route::group(['prefix' => 'web'], function () {
     Route::get('/', [WebPanelUserController::class, 'dashboard'])->name('web.dashboard');
+    Route::get('learning/webinar', [WebPanelUserController::class, 'myWebinars'])->name('web.my-webinars');
+    Route::get('transactions', [WebPanelUserController::class, 'payments'])->name('web.my-transactions');
+    Route::get('transactions/details', [WebPanelUserController::class, 'paymentsDetails'])->name('web.my-transactions-detail');
 
     //        course
     Route::group(['prefix' => 'learning/education'], function () {
@@ -916,6 +919,4 @@ Route::group(['prefix' => 'web'], function () {
         Route::get('/download/{id}', [WebPanelUserController::class, 'downloadCertificate']);
         Route::get('/download/webinar/{id}', [WebPanelUserController::class, 'downloadCertificateWebinar']);
     });
-
-    Route::get('learning/webinar', [WebPanelUserController::class, 'myWebinars'])->name('web.my-webinars');
 });

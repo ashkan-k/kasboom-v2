@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#68c4b4" />
     <meta name="msapplication-navbutton-color" content="#68c4b4">
     <meta name="apple-mobile-web-app-status-bar-style" content="#68c4b4">
-    <title>@yield('Page_Title', 'آموزشگاه کسبوم') کسبوم ‍| </title>
+    <title>@Yield('Page_Title') کسبوم ‍| </title>
 
     @Yield('Page_CSS_Before')
 
@@ -285,7 +285,7 @@
                                 </a>
                                 <ul class="card-collapsed collapse" id="collapse_2">
                                     <li>
-                                        <a href="userProfile-transactions.html" class="link">
+                                        <a href="{{ route('web.my-transactions') }}" class="link">
                                             <i class="mdi mdi-credit-card-outline"></i>
                                             تراکنش مالی
                                         </a>
