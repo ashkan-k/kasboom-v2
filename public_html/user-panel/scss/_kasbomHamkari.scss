@@ -1,0 +1,53 @@
+/*#region ----------------- Kasbom Hamkari */
+.kasbom-hamkari {
+  background-color: $background100;
+  padding-bottom: 70px;
+  .default-title {
+    &::before {
+      display: none;
+    }
+  }
+  .davat-be-hamkari,
+  .dore-amozeshi {
+    padding: 15px;
+    margin-top: 40px;
+    .inner {
+      position: relative;
+      text-align: center;
+      background-color: white;
+      box-shadow: 0 5px 25px -1px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      padding: 30px;
+      overflow: hidden;
+      &::before {
+        content: "";
+        background-image: url(../images/barg-b.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 90px;
+        height: 160px;
+        position: absolute;
+        top: -30px;
+        right: -10px;
+      }
+      h2 {
+        font-size: 18px;
+        font-weight: 800;
+        color: $text100;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 2;
+      }
+      .desc {
+        font-size: 14px;
+        font-weight: 400;
+        color: $text200;
+        line-height: 26px;
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 2;
+      }
+    }
+  }
+}
+/*#endregion -------------- Kasbom Hamkari */

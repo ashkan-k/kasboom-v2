@@ -1,0 +1,125 @@
+/*#region ----------------- Education Category List */
+.education-category-list {
+  margin-top: 130px;
+  .category-info {
+    display: grid;
+    grid-template-columns: 180px auto;
+    background-color: white;
+    border-radius: 50px 15px;
+    padding: 30px 50px;
+    margin: 40px 0;
+    .image {
+      text-align: right;
+      img {
+        width: 120px;
+      }
+    }
+    .text {
+      margin-top: 10px;
+      .name {
+        font-size: 20px;
+        font-weight: 600;
+        color: $text100;
+        margin-bottom: 1rem;
+      }
+      .desc {
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        color: $text200;
+        line-height: 26px;
+      }
+    }
+  }
+  .category-list-inner {
+    margin-bottom: 50px;
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 30px;
+      .title-inner {
+        display: flex;
+        align-items: center;
+        .shape {
+          width: 15px;
+          height: 15px;
+          border: 2px solid $primary;
+          border-radius: 50%;
+          margin-left: 10px;
+        }
+        h1 {
+          font-size: 22px;
+          font-weight: 800;
+          color: $text100;
+          margin-bottom: 0;
+        }
+      }
+    }
+    .list {
+      display: grid;
+      grid-template-columns: 33.33% 33.33% 33.33%;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .education-category-list {
+    .category-list-inner {
+      .list {
+        display: grid;
+        grid-template-columns: 50% 50%;
+      }
+    }
+  }
+}
+@media (max-width: 575px) {
+  .education-category-list {
+    .category-info {
+      grid-template-columns: 100%;
+      padding: 30px;
+      margin-bottom: 50px;
+      .image {
+        text-align: center;
+        img {
+          width: 120px;
+        }
+      }
+      .text {
+        margin-top: 1rem;
+        .name {
+          text-align: center;
+        }
+        .desc {
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .education-category-list {
+    .category-list-inner {
+      .list {
+        display: grid;
+        grid-template-columns: 100%;
+      }
+    }
+  }
+}
+@media (max-width: 350px) {
+  .education-category-list {
+    .category-list-inner {
+      .title {
+        h2 {
+          font-size: 18px;
+          padding-right: 0;
+          &::before {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+/*#endregion -------------- Education Category List */

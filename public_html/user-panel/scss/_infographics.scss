@@ -1,0 +1,231 @@
+/*#region ----------------- Infographics */
+.infographics-details {
+  margin: 110px 0 50px 0;
+  .infograph-content {
+    width: 900px;
+    margin: 0 auto;
+    background-color: $background200;
+    border-radius: 15px;
+    padding: 30px;
+    .inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      .cover {
+        flex: 0 0 55%;
+        width: 55%;
+        .cover-inner {
+          img {
+            width: 100%;
+            border-radius: 10px;
+          }
+        }
+      }
+      .info {
+        flex: 0 0 45%;
+        width: 45%;
+        padding-right: 20px;
+        .name {
+          font-size: 18px;
+          font-weight: 600;
+          margin-bottom: 1rem;
+          line-height: normal;
+        }
+        .desc {
+          font-size: 14px;
+          font-weight: 400;
+          color: $text200;
+          line-height: 24px;
+          margin-bottom: 1.5rem;
+          text-align: justify;
+        }
+        .property-list {
+          margin-bottom: 2rem;
+          li {
+            font-size: 14px;
+            font-weight: 400;
+            color: $text200;
+            margin-bottom: 15px;
+            .mdi {
+              margin-left: 5px;
+              font-size: 18px;
+              position: relative;
+              top: 2px;
+            }
+          }
+        }
+        .download-btn {
+          .btn {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+.infographics-content {
+  .infographics-title {
+    text-align: center;
+    margin: 2rem 0 4rem 0;
+    h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: $text100;
+    }
+  }
+  .infographics-search {
+    margin: 1rem 0 3rem 0;
+    .search-inner {
+      position: relative;
+      width: 600px;
+      margin: 0 auto;
+      .input {
+        width: 100%;
+        height: 50px;
+        border: 1px solid $borderColor;
+        border-radius: 50px;
+        padding: 0 20px 0 60px;
+        transition: all 0.3s ease-in-out;
+        background-color: $background200;
+        &:hover,
+        &:focus {
+          border-color: $primary;
+          transition: all 0.3s ease-in-out;
+          background-color: white;
+        }
+      }
+      .btn-search {
+        padding: 0;
+        min-width: unset;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        position: absolute;
+        left: 3px;
+        top: 3px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $primary;
+        &::before,
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+  .infographics-inner {
+    .grid-layout {
+      column-width: 220px;
+      column-gap: 15px;
+      max-width: 100%;
+      margin: 30px auto;
+    }
+  }
+}
+.card-infograph {
+  margin-bottom: 1rem;
+  overflow: hidden;
+  border-radius: 15px;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  break-inside: avoid;
+  .card-cover {
+    border: 1px solid $borderColor;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    img {
+      width: 100%;
+      border-radius: 15px;
+    }
+    .overlay {
+      position: absolute;
+      bottom: -50px;
+      right: 0;
+      width: 100%;
+      padding: 10px;
+      transition: all 0.2s ease-in-out;
+      background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        li {
+          font-size: 13px;
+          font-weight: 500;
+          color: white;
+          .mdi {
+            font-size: 16px;
+            margin-left: 3px;
+            position: relative;
+            top: 1px;
+          }
+        }
+      }
+    }
+  }
+  .card-name {
+    margin: 10px 0;
+    h2 {
+      font-size: 13px;
+      font-weight: 800;
+      color: $text100;
+      line-height: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      height: 20px;
+    }
+  }
+  &:hover {
+    .card-cover {
+      .overlay {
+        bottom: 0;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+}
+@media (max-width: 992px) {
+  .infographics-details .infograph-content {
+    width: 510px;
+    padding: 0;
+    .inner {
+      flex-wrap: wrap;
+      .cover,
+      .info {
+        flex: 0 0 100%;
+        width: 100%;
+      }
+      .info {
+        padding: 20px;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .infographics-content {
+    .infographics-search {
+      .search-inner {
+        width: 100%;
+      }
+    }
+    .infographics-inner .grid-layout {
+      margin-bottom: 80px;
+    }
+  }
+}
+@media (max-width: 575px) {
+  .infographics-details .infograph-content {
+    width: 90%;
+  }
+}
+
+/*#endregion -------------- Infographics */

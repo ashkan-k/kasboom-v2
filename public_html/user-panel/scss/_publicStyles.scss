@@ -1,0 +1,28 @@
+/*#region ----------------- Public Styles */
+.public-section {
+  padding: 5rem 0;
+  &.bg-gray {
+    background-color: #f5f5f5;
+  }
+  .section-inner {
+    &.min-width {
+      width: 900px;
+      margin: 0 auto;
+      border-radius: 15px;
+      &.bg-gray {
+        padding: 20px;
+        background-color: $background200;
+      }
+    }
+  }
+  .buttons-group {
+    text-align: center;
+  }
+}
+
+@media (max-width: 992px) {
+  .public-section .section-inner.min-width {
+    width: 100%;
+  }
+}
+/*#endregion -------------- Public Styles */

@@ -1,0 +1,80 @@
+/*#region ----------------- Modal Styles */
+.modal-content {
+  border: none;
+  border-radius: 15px;
+}
+
+.modal-header {
+  border-bottom: none;
+  .modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: $text100;
+    display: flex;
+    align-items: center;
+    .mdi {
+      margin-left: 10px;
+      font-size: 24px;
+      color: $text200;
+    }
+  }
+  .btn-close {
+    &:hover,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+.modal-body {
+  .title {
+    font-size: 16px;
+    font-weight: 500;
+    color: $text200;
+  }
+  .text {
+    p {
+      line-height: 27px;
+      text-align: justify;
+      font-size: 15px;
+      font-weight: 500;
+      color: $text200;
+    }
+  }
+  .full-video {
+    width: 100%;
+  }
+  iframe {
+    width: 100%;
+    height: 400px;
+    border-radius: $borderRadius10;
+  }
+  .range-card-body {
+    margin: 0 0 3rem 0;
+    .range-label {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 15px;
+      color: #666768;
+      user-select: none;
+    }
+    .range-inner {
+      padding: 0 10px 20px 20px;
+      .value-range {
+        font-size: 12px;
+        font-weight: 500;
+        color: $text200;
+        text-align: right;
+        padding-right: 30px;
+        position: relative;
+        top: -6px;
+      }
+      .value-range {
+        display: none;
+      }
+    }
+  }
+}
+.modal-footer {
+  border-top: none;
+}
+/*#endregion -------------- Modal Styles */

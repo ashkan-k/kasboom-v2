@@ -1,0 +1,305 @@
+/*#region ----------------- Buttons Style */
+.btn {
+  padding: 0.7rem 1.7rem;
+  font-size: 14px;
+  font-weight: 500;
+  height: 48px;
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  z-index: 5;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+  transition: all 0.2s ease-in-out;
+  .mdi {
+    font-size: 24px;
+    line-height: normal;
+    z-index: 4;
+  }
+  &:focus {
+    box-shadow: none;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    transition: all 0.2s ease-in-out;
+  }
+  &.btn-sm {
+    height: 44px;
+    font-size: 13px;
+    padding: 0.5rem 1.5rem;
+    line-height: 24px;
+    .mdi {
+      font-size: 20px;
+    }
+    &::before {
+      width: 44px;
+      height: 44px;
+    }
+    &.icon-left {
+      padding-left: 3.1rem;
+      padding-right: 1.5rem;
+    }
+    &.icon-right {
+      padding-right: 3.1rem;
+      padding-left: 1.5rem;
+    }
+  }
+}
+.icon-right {
+  padding-right: 3.5rem;
+  padding-left: 1.7rem;
+  .mdi {
+    position: absolute;
+    right: 12px;
+    top: 10px;
+  }
+  &::before {
+    right: -50px;
+  }
+  &:hover {
+    &::before {
+      right: 0;
+    }
+  }
+}
+.icon-left {
+  padding-left: 3.5rem;
+  padding-right: 1.7rem;
+  .mdi {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+  }
+  &::before {
+    left: -50px;
+  }
+  &:hover {
+    &::before {
+      left: 0;
+    }
+  }
+}
+.btn-default {
+  background-color: $primary;
+  color: white;
+  &::before {
+    background-color: rgba($color: black, $alpha: 0.1);
+  }
+  &:hover {
+    background-color: $primaryDark;
+    color: white;
+    border-color: transparent;
+  }
+}
+.btn-default-outline {
+  background-color: transparent;
+  color: $primary;
+  border-color: $primary;
+  &::before {
+    background-color: rgba($color: $primary, $alpha: 0.2);
+  }
+  &:hover {
+    background-color: rgba($color: $primary, $alpha: 0.2);
+    color: $primary;
+  }
+}
+.btn-secondary {
+  background-color: $secondary;
+  color: white;
+  &::before {
+    background-color: rgba($color: black, $alpha: 0.1);
+  }
+  &:hover {
+    background-color: lighten($color: $secondary, $amount: 6);
+    border-color: $secondary;
+  }
+}
+.btn-white {
+  background-color: white;
+  color: $primary;
+  border: 1px solid $borderColor;
+  &:hover {
+    background-color: $background200;
+    color: $primary;
+    border-color: transparent;
+  }
+}
+.btn-gradient {
+  background: $primary;
+  background: linear-gradient(45deg, $primary 0%, $secondary 100%);
+  color: white;
+  &:hover {
+    color: white;
+  }
+}
+.btn-danger {
+  background-color: $danger;
+  color: white;
+  &::before {
+    background-color: rgba($color: white, $alpha: 0.7);
+  }
+}
+.btn-danger-outline {
+  background-color: transparent;
+  border-color: $danger;
+  color: $danger;
+  &::before {
+    background-color: rgba($color: $danger, $alpha: 0.2);
+  }
+  &:hover {
+    background-color: rgba($color: $danger, $alpha: 0.2);
+    color: $danger;
+  }
+}
+.btn-grey {
+  background-color: $background100;
+  color: $text200;
+  &::before {
+    background-color: rgba($color: white, $alpha: 0.7);
+  }
+  &:hover {
+    background-color: darken($color: $background100, $amount: 10);
+  }
+}
+
+.btn-collapse,
+.btn-link-collapse {
+  border: none;
+  background-color: rgba($color: $primary, $alpha: 0.1);
+  width: 100%;
+  height: 51px;
+  text-align: right;
+  padding: 0;
+  position: relative;
+  .title {
+    font-size: 16px;
+    font-weight: 600;
+    color: $primary;
+    .mdi {
+      position: relative;
+      top: 4px;
+      margin-left: 10px;
+      color: $primary;
+      font-size: 24px;
+      line-height: normal;
+    }
+  }
+  .icon {
+    font-size: 24px;
+    position: absolute;
+    left: 0;
+    top: 7px;
+    transform: rotate(-180deg);
+    transition: all 0.2s ease;
+    .mdi {
+      line-height: normal;
+      position: relative;
+      top: 3px;
+      color: $primary;
+    }
+  }
+  &:hover {
+    color: $primary;
+    background-color: rgba($color: $primary, $alpha: 0.2);
+    transition: all 0.2s ease;
+  }
+}
+.btn-collapse {
+  &.collapsed {
+    background-color: transparent;
+    .icon {
+      transform: rotate(0deg);
+      transition: all 0.2s ease;
+    }
+  }
+}
+.btn-link-collapse {
+  .icon {
+    left: 15px;
+    color: $textLight;
+  }
+  &.collapsed {
+    background-color: transparent;
+    .title {
+      color: $text100;
+      .mdi {
+        color: $textLight;
+      }
+    }
+    .icon {
+      transform: rotate(0deg);
+      transition: all 0.2s ease;
+      .mdi {
+        color: $textLight;
+      }
+    }
+  }
+}
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  border: none;
+  border-radius: 50%;
+  &.red {
+    background-color: rgba($color: $danger, $alpha: 0.2);
+    color: $danger;
+    &:hover {
+      background-color: $danger;
+      color: white;
+    }
+  }
+  &.blue {
+    background-color: rgba($color: $secondary, $alpha: 0.2);
+    color: $secondary;
+    &:hover {
+      background-color: $secondary;
+      color: white;
+    }
+  }
+}
+
+.like {
+  .btn-like {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    color: $text100;
+    font-size: 12px;
+    padding: 0;
+    height: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    color: $text200;
+    padding: 2px 45px 2px 0;
+    position: relative;
+    &::before {
+      content: "\F02D5";
+      font-family: "Material Design Icons";
+      position: absolute;
+      top: 2px;
+      right: 12px;
+      color: $text200;
+      font-size: 24px;
+    }
+    &.active {
+      color: $danger;
+      &::before {
+        content: "\F02D1";
+        color: $danger;
+      }
+    }
+  }
+}
+
+/*#endregion -------------- Buttons Style */

@@ -1,0 +1,43 @@
+/*#region ----------------- Banner Section */
+.banner-section {
+    margin: 2rem 0;
+    .banner-item {
+        a {
+            display: block;
+        }
+        img {
+            width: 100%;
+            border-radius: 10px;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .banner-section {
+        padding: 10px;
+        margin: 3rem 0;
+        .col-lg-6,
+        .col-md-12,
+        .col-lg-3,
+        .col-md-6,
+        .col-sm-6,
+        .col-6 {
+            padding: 0;
+        }
+        .banner-item {
+            padding: 7px;
+        }
+    }
+}
+@media (max-width: 768px) {
+    .banner-section {
+        margin: 2rem 0;
+    }
+}
+@media (max-width: 575px) {
+    .banner-section {
+        margin: 1rem 0;
+        padding: 0 10px;
+    }
+}
+/*#endregion -------------- Banner Section */

@@ -1,0 +1,63 @@
+/*#region ----------------- Jobs */
+.find-jobs-content {
+  margin: 40px 0;
+  .jobs-content {
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 10;
+    }
+    .jobs-details {
+      margin-bottom: 40px;
+    }
+    .jobs-details,
+    .job-request {
+      padding: 40px;
+      background-color: white;
+      box-shadow: 0 3px 15px -1px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    .details-inner {
+      position: relative;
+      z-index: 10;
+      p {
+        font-size: 14px;
+        font-weight: 400;
+        color: $text200;
+        line-height: 26px;
+      }
+    }
+    .job-request {
+      .title {
+        text-align: center;
+      }
+      .form-inner {
+        width: 60%;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+@media (max-width: 1199px) {
+  .find-jobs-content .jobs-content .job-request .form-inner {
+    width: 80%;
+  }
+}
+@media (max-width: 768px) {
+  .find-jobs-content .jobs-content .job-request .form-inner {
+    width: 100%;
+  }
+}
+@media (max-width: 575px) {
+  .find-jobs-content {
+    .jobs-content {
+      .jobs-details,
+      .job-request {
+        padding: 20px;
+      }
+    }
+  }
+}
+/*#endregion -------------- Jobs */

@@ -1,0 +1,74 @@
+/*#region ----------------- Tables Styles */
+.table-content {
+  margin-top: 2rem;
+  .table {
+    thead {
+      background-color: $primary;
+      border-radius: 15px;
+      color: white;
+      tr {
+        th {
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          font-size: 13px;
+          font-weight: 400;
+          color: $text200;
+          padding: 20px 15px;
+        }
+      }
+    }
+  }
+}
+
+.custom-table {
+  thead {
+    tr {
+      th {
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+        font-size: 14px;
+        font-weight: 400;
+      }
+      .btn {
+        height: unset;
+        padding: 0.4rem 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-table {
+    thead {
+      tr {
+        th {
+          font-size: 13px;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          font-size: 13px;
+        }
+        .btn {
+          padding: 0.3rem 0.8rem;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+/*#endregion -------------- Tables Styles */

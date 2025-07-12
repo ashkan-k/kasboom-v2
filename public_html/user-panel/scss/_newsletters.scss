@@ -1,0 +1,73 @@
+/*#region ----------------- News Letters */
+.newsletters {
+  background-image: url(../images/bg/newsletter-small.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  padding-bottom: 70px;
+  z-index: 2;
+  .curvy-shape {
+    background-image: url(../images/shapes/newsletter-shape.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    bottom: -23px;
+    right: 0;
+    width: 100%;
+    height: 80px;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    z-index: -1;
+  }
+  .default-title {
+    padding-top: 70px;
+    &::before {
+      display: none;
+    }
+    .title {
+      color: white;
+    }
+    .desc {
+      color: $background100;
+    }
+  }
+  .news-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 50px;
+    .my-input {
+      height: 45px;
+      width: 500px;
+      border-radius: 5px;
+      background-color: $background100;
+      border: none;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 400;
+      color: $text200;
+      margin-bottom: 2rem;
+      transition: all 0.2s ease;
+      &:hover,
+      &:focus {
+        background-color: white;
+        transition: all 0.2s ease;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .newsletters .news-form .my-input {
+    width: 80%;
+  }
+}
+/*#endregion -------------- News Letters */

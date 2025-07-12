@@ -1,0 +1,259 @@
+/*#region ----------------- Moshavereh */
+
+// Conversation Consultation
+.consultation-content {
+  margin-top: 50px;
+  .consultation-item {
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    background-color: $background100;
+    border-radius: 10px;
+    padding: 10px 15px 10px 10px;
+    margin-bottom: 15px;
+    transition: all 0.2s ease;
+    &:hover {
+      background-color: white;
+      box-shadow: 0 3px 15px -1px rgba($color: #000000, $alpha: 0.1);
+      transform: scale(1.01);
+      transition: all 0.2s ease;
+      .link {
+        .btn {
+          color: $secondary;
+          background-color: white;
+        }
+      }
+    }
+    .text {
+      display: flex;
+      align-items: center;
+      h2 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 0;
+        color: $text100;
+      }
+      span {
+        font-size: 14px;
+        font-weight: 600;
+        margin-right: 10px;
+        color: $text200;
+      }
+    }
+    .list {
+      .list-inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        .item {
+          width: 60px;
+          height: 60px;
+          position: relative;
+          margin: 0 -15px 0 0;
+          box-shadow: 0 3px 10px rgba($color: #000000, $alpha: 0.1);
+          border-radius: 50%;
+          .user-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 1;
+            &::before {
+              content: "";
+              background-image: url(../images/default-user.svg);
+              background-repeat: no-repeat;
+              background-size: contain;
+              width: 60px;
+              height: 60px;
+              z-index: -1;
+              display: block;
+              position: absolute;
+              right: 0;
+              top: 0;
+              border-radius: 50%;
+              border: 3px solid white;
+            }
+            img {
+              width: 60px;
+              height: 60px;
+              border-radius: 50%;
+              border: 3px solid white;
+            }
+          }
+          .status {
+            position: absolute;
+            top: 2px;
+            right: 5px;
+            width: 12px;
+            height: 12px;
+            background-color: $primary;
+            border-radius: 50%;
+            border: 2px solid $background100;
+            z-index: 10;
+          }
+        }
+      }
+    }
+    .link {
+      span {
+        padding-left: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: $text300;
+        .mdi {
+          margin-right: 5px;
+          font-size: 16px;
+          position: relative;
+          top: 2px;
+        }
+      }
+    }
+  }
+}
+
+// Contact Advice
+.contact-advice {
+  background-image: url(../images/bg/bg-consulant.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  padding: 6rem 0;
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0%, 100% calc(100% - 50px), 0% 100%);
+  .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(48, 185, 146);
+    background: -moz-linear-gradient(45deg, $primary 0%, $secondary 100%);
+    background: -webkit-linear-gradient(45deg, $primary 0%, $secondary 100%);
+    background: linear-gradient(45deg, $primary 0%, $secondary 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#07c499', endColorstr='#2656ca',GradientType=1 );
+    opacity: 0.8;
+    z-index: 2;
+  }
+  .title {
+    position: relative;
+    z-index: 10;
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 10px;
+    }
+    h5 {
+      font-size: 14px;
+      font-weight: 400;
+      color: $background100;
+    }
+  }
+  .call {
+    position: relative;
+    z-index: 10;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    .item {
+      display: flex;
+      align-items: center;
+      margin-right: 30px;
+      .icon {
+        width: 35px;
+        height: 35px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: $primary;
+        margin-left: 10px;
+      }
+      h6 {
+        font-size: 16px;
+        font-weight: 500;
+        color: white;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.page-form {
+  margin: 3rem 0 4rem 0;
+  .form-inner {
+    width: 75%;
+    margin: 0 auto;
+    padding: 40px 30px;
+    background-color: $background200;
+    border-radius: $borderRadius15;
+    .default-title {
+      margin: 0 0 1rem 0;
+    }
+  }
+  .details-inner {
+    p {
+      text-align: justify;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .consultation-content .consultation-item {
+    a {
+      flex-direction: column;
+    }
+    .text {
+      margin-bottom: 15px;
+    }
+    .link {
+      margin-top: 15px;
+    }
+  }
+  .contact-advice {
+    .title {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .call {
+      justify-content: center;
+    }
+  }
+  .page-form {
+    .form-inner {
+      width: 100%;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .contact-advice {
+    &::before,
+    &::after {
+      display: none;
+    }
+    .call {
+      flex-wrap: wrap;
+    }
+  }
+}
+@media (max-width: 575px) {
+  .contact-advice {
+    .call {
+      flex-direction: column;
+      .item {
+        margin: 0 0 15px 0;
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+/*#endregion -------------- Moshavereh */

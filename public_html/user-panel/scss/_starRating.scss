@@ -1,0 +1,41 @@
+/*#region ----------------- Star Rating */
+.rating-container {
+  margin: 20px 0;
+  border-bottom: 1px solid $borderColor;
+  &:last-child {
+    border-bottom: none;
+  }
+  .rating-title {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .rating-stars {
+    display: flex;
+  }
+
+  .star {
+    font-size: 30px;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .star:hover,
+  .star.active {
+    color: gold;
+  }
+
+  .star:hover ~ .star {
+    color: #ddd;
+  }
+}
+
+@media (max-width: 768px) {
+  .rating-container {
+    .rating-title {
+      font-size: 14px;
+    }
+  }
+}
+/*#endregion -------------- Star Rating */

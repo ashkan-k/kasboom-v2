@@ -1,0 +1,56 @@
+/*#region ----------------- Cooming Soon */
+.wrapper-cooming-soon {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    .cooming-soon-content {
+        background-image: url(../images/bg/coming-soon.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 2;
+        padding: 50px;
+        .inner {
+            position: relative;
+            .text {
+                position: absolute;
+                top: 50%;
+                right: 50%;
+                transform: translate(50%, 50%);
+                width: 500px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                background-color: rgba($color: #000000, $alpha: 0.5);
+                padding: 30px;
+                border-radius: 15px;
+                img {
+                    width: 100px;
+                }
+                h2 {
+                    margin: 2rem 0 0 0;
+                    font-size: 24px;
+                    font-weight: 800;
+                    color: white;
+                    text-align: center;
+                }
+                .btn-default {
+                    margin-top: 2rem;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 557px) {
+    .wrapper-cooming-soon .cooming-soon-content {
+        padding: 20px;
+        .inner .text {
+            width: 100%;
+        }
+    }
+}
+/*#endregion -------------- Cooming Soon */

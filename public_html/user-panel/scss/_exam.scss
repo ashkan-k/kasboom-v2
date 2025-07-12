@@ -1,0 +1,178 @@
+.exam-wrapper {
+  width: 100%;
+  position: relative;
+  padding-bottom: 80px;
+  .exam-header {
+    position: sticky;
+    top: 0;
+    .inner {
+      background-color: white;
+      border-radius: 0 0 12px 12px;
+      box-shadow: $boxshadow;
+      padding: 5px 10px 25px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .title {
+      h2 {
+        font-size: 18px;
+        font-weight: 800;
+        @include textTruncate(1);
+      }
+      p {
+        font-size: 14px;
+        font-weight: 400;
+        color: $text200;
+        margin-bottom: 0;
+        @include textTruncate(1);
+      }
+    }
+  }
+  .exam-body {
+    margin-top: 50px;
+  }
+}
+
+.countdown-container {
+  position: absolute;
+  bottom: -22px;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: $primary;
+  padding: 8px 10px;
+  border-radius: 10rem;
+  min-height: 44px;
+  &.danger {
+    background-color: $danger;
+  }
+  #clock-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
+      margin-left: 5px;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba($color: white, $alpha: 0.9);
+      white-space: nowrap;
+    }
+    .clock {
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      min-width: 55px;
+      text-align: center;
+      white-space: nowrap;
+    }
+  }
+  #end-message {
+    display: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+  }
+}
+
+.card-question {
+  margin-bottom: 12px;
+  border: 1px solid $borderColor;
+  padding: 10px;
+  border-radius: 10px;
+  h6 {
+    margin-bottom: 15px;
+    line-height: 26px;
+  }
+}
+
+@media (max-width: 992px) {
+  .exam-wrapper {
+    .exam-header {
+      .title {
+        h2 {
+          font-size: 16px;
+        }
+        p {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+  .countdown-container {
+    min-height: 40px;
+    #clock-timer {
+      span {
+        font-size: 13px;
+      }
+      .clock {
+        font-size: 16px;
+        min-width: 50px;
+      }
+    }
+    #end-message {
+      font-size: 13px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .exam-wrapper {
+    .exam-header {
+      .title {
+        h2 {
+          font-size: 14px;
+        }
+        p {
+          font-size: 12px;
+        }
+      }
+      .btns-action {
+        .btn {
+          padding: 0.2rem !important;
+          width: 44px;
+          height: 44px;
+          .text {
+            display: none;
+          }
+          .mdi {
+            font-size: 24px;
+            display: flex;
+          }
+          &.icon-left {
+            .mdi {
+              left: 10px;
+              top: 9px;
+            }
+          }
+          &.icon-right {
+            .mdi {
+              right: 10px;
+              top: 9px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .countdown-container {
+    min-height: 37px;
+    #clock-timer {
+      span {
+        font-size: 12px;
+      }
+      .clock {
+        font-size: 14px;
+        min-width: 50px;
+      }
+    }
+    #end-message {
+      font-size: 12px;
+    }
+  }
+  .card-question {
+    h6 {
+      line-height: 22px;
+      font-size: 14px;
+    }
+  }
+}

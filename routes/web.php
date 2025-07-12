@@ -19,6 +19,7 @@ use App\Http\Controllers\landuseController;
 use App\Http\Controllers\mainController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\web\WebPanelUserController;
 use App\Http\Controllers\webinarController;
 use App\Http\Controllers\wikiController;
 use Illuminate\Support\Facades\Route;
@@ -887,3 +888,8 @@ Route::get('takafol', 'testController@takafol');
 
 Route::post('domestika-store', 'apiController@domestikaStore');
 
+
+// user panel routes
+Route::group(['prefix' => 'web'], function () {
+    Route::get('/', [WebPanelUserController::class, 'dashboard'])->name('web.dashboard');
+});

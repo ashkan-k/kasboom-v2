@@ -1,0 +1,46 @@
+/*#region ----------------- Help Center */
+.help-center {
+  margin: 40px 0 80px 0;
+  .title {
+    text-align: center;
+    margin: 3rem 0 2rem 0;
+    h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: $text100;
+      margin-bottom: 1rem;
+    }
+    h5 {
+      font-size: 16px;
+      font-weight: 500;
+      color: $text200;
+    }
+  }
+  .help-box {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    p {
+      font-size: 16px;
+      font-weight: 400;
+      color: $text200;
+      margin-bottom: 0;
+      text-align: center;
+      position: relative;
+      z-index: 20;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .help-center {
+    .title {
+      h2 {
+        font-size: 22px;
+      }
+      h5 {
+        font-size: 14px;
+      }
+    }
+  }
+}
+/*#endregion -------------- Help Center */

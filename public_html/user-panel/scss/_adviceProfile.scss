@@ -1,0 +1,440 @@
+/*#region ----------------- Advice Profile */
+.advice-profile {
+  margin: 40px 0 50px 0;
+  .profile-data {
+    box-shadow: -10px 10px 20px rgba($color: #000000, $alpha: 0.05);
+    border-radius: 15px;
+    position: sticky;
+    top: 100px;
+  }
+  .inner-title {
+    margin-bottom: 1rem;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 12px;
+      right: 0;
+      width: 100%;
+      height: 1px;
+      z-index: -1;
+      border: 1px dashed $borderColor;
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: $text100;
+      display: inline-block;
+      padding: 0 25px 0 15px;
+      background-color: white;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        right: 0;
+        width: 15px;
+        height: 15px;
+        z-index: 1;
+        border-radius: 50%;
+        background: linear-gradient(45deg, $secondary, $secondaryLight);
+      }
+    }
+  }
+  .comments-content {
+    margin-top: 40px;
+    position: relative;
+    .send-comment {
+      text-align: left;
+    }
+  }
+  .p-card {
+    background-color: white;
+    padding: 15px;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 90%;
+      height: 1px;
+      @include gradient(90deg, rgba(0, 0, 0, 0.1), white);
+    }
+    &:first-child {
+      border-radius: 15px 15px 0 0;
+      &::before {
+        display: none;
+      }
+    }
+    &:last-child {
+      border-radius: 0 0 15px 15px;
+    }
+    .list-of-property {
+      margin-top: 10px;
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        .title {
+          font-size: 14px;
+          font-weight: 400;
+          color: $text200;
+        }
+        .number {
+          font-size: 14px;
+          font-weight: 400;
+          color: $text200;
+        }
+      }
+    }
+    .btn-collapse {
+      background-color: white;
+      height: 44px;
+      &:hover {
+        background-color: transparent;
+      }
+      &.collapsed {
+        .icon {
+          transform: rotate(0);
+        }
+      }
+      .icon {
+        transform: rotate(-90deg);
+      }
+      .title {
+        color: $text100;
+      }
+    }
+  }
+  .info {
+    .user-details {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding-bottom: 15px;
+      .user-image {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        z-index: 1;
+        &::before {
+          content: "";
+          background-image: url(../images/default-user.svg);
+          background-repeat: no-repeat;
+          background-size: contain;
+          width: 100px;
+          height: 100px;
+          z-index: -1;
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 0;
+          border-radius: $borderRadiusUser;
+          border: 3px solid white;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: $borderRadiusUser;
+          font-size: 0px;
+        }
+      }
+      .user-info {
+        text-align: center;
+        margin-top: 1rem;
+        h2 {
+          font-size: 16px;
+          font-weight: 600;
+          color: $text100;
+          margin-bottom: 10px;
+        }
+        h4 {
+          font-size: 14px;
+          font-weight: 400;
+          color: $text200;
+          margin-bottom: 8px;
+        }
+        h6 {
+          font-size: 12px;
+          font-weight: 400;
+          color: $text200;
+          margin-bottom: 0;
+        }
+      }
+    }
+    .user-footer {
+      padding: 10px;
+      @include gradient(0, rgba(233, 97, 11, 0.1), white);
+      border-radius: 10px;
+      .number-advice {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        .titr {
+          font-size: 13px;
+          font-weight: 500;
+          color: $text200;
+          margin-left: 5px;
+        }
+        .number {
+          font-size: 13px;
+          font-weight: 500;
+          color: $text200;
+        }
+      }
+      .status-list {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-grow: 1;
+        li {
+          font-size: 13px;
+          font-weight: 500;
+          color: $text200;
+          margin: 0 5px;
+          .mdi {
+            font-size: 18px;
+            margin-left: 5px;
+            position: relative;
+            top: 1px;
+            color: $secondary;
+          }
+        }
+      }
+    }
+    .request-advice {
+      padding: 20px 0 0 0;
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+  .result-of-survey {
+    padding-top: 25px;
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      h6 {
+        font-size: 16px;
+        font-weight: 600;
+        color: $text100;
+      }
+      .rate {
+        span {
+          font-size: 13px;
+          font-weight: 500;
+          color: $text300;
+        }
+        .mdi {
+          color: $gold;
+          position: relative;
+          top: 1px;
+        }
+      }
+    }
+  }
+  .progress-group {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    .progress-item {
+      label {
+        font-size: 12px;
+        font-weight: 400;
+        margin-bottom: 5px;
+      }
+      .progress-inner {
+        display: grid;
+        grid-template-columns: auto 35px;
+        align-items: center;
+        .progress {
+          height: 8px;
+          background-color: $background100;
+          border-radius: 20px;
+          .progress-bar {
+            background: $primary;
+            border-radius: 20px;
+          }
+        }
+        .percentage {
+          font-size: 12px;
+          font-weight: 500;
+          color: $text200;
+          text-align: left;
+        }
+      }
+    }
+  }
+  .about-detail {
+    background-color: white;
+    padding: 20px 30px 40px 30px;
+    position: relative;
+    border-radius: 15px;
+    p {
+      font-size: 14px;
+      font-weight: 400;
+      color: $text200;
+      text-align: justify;
+    }
+    .video-player {
+      text-align: center;
+      margin: 2rem 0;
+      .video-inner {
+        width: 80%;
+        margin: 0 auto;
+      }
+      video,
+      iframe {
+        border: 5px solid white;
+        border-radius: 15px;
+        width: 100%;
+        box-shadow: 0 5px 25px rgba($color: #000000, $alpha: 0.1);
+      }
+    }
+    .job-property {
+      margin-top: 15px;
+      ul {
+        li {
+          font-size: 14px;
+          font-weight: 400;
+          color: $text200;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+  .cosulant-price {
+    margin-top: 10px;
+    padding: 20px 30px 40px 30px;
+  }
+  .request-advice {
+    padding: 20px 30px 40px 30px;
+    position: relative;
+    border-radius: 15px;
+    .form-request {
+      position: relative;
+      margin-top: 30px;
+      .inputgroup {
+        margin: 0 0 15px 0;
+      }
+      .form-select {
+        margin-bottom: 15px;
+      }
+      .form-check {
+        margin: 20px 0;
+      }
+    }
+    .alert {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      color: $secondary;
+      margin-top: 30px;
+      border-radius: $borderRadius10;
+      border-color: $secondary;
+      background-color: rgba($color: $secondary, $alpha: 0.2);
+    }
+    .request-tips {
+      padding: 15px;
+      margin-top: 30px;
+      border-radius: 15px;
+      // background-color: #f6f6f8;
+      background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+      h5 {
+        font-size: 14px;
+        font-weight: 500;
+        color: $text100;
+        line-height: 25px;
+        margin-bottom: 15px;
+      }
+      ol {
+        li {
+          font-size: 13px;
+          font-weight: 400;
+          color: $text200;
+          margin-bottom: 8px;
+          line-height: 22px;
+          text-align: justify;
+        }
+      }
+    }
+    .send-request {
+      margin-top: 20px;
+      text-align: center;
+    }
+  }
+}
+.text-inner {
+  position: relative;
+  z-index: 100;
+}
+.empty-comment {
+  padding: 3rem 0;
+  text-align: center;
+  .icon {
+    font-size: 38px;
+    color: $text300;
+  }
+  h6 {
+    margin-bottom: 0;
+    font-weight: 600;
+    color: $text200;
+  }
+}
+
+@media (max-width: 992px) {
+  .advice-profile {
+    margin-top: 30px;
+    .profile-data {
+      box-shadow: 0 5px 20px rgba($color: #000000, $alpha: 0.05);
+      margin-bottom: 20px;
+    }
+    .about-detail .video-player .video-inner {
+      width: 100%;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .advice-profile {
+    .about-detail,
+    .cosulant-price,
+    .request-advice {
+      padding: 20px;
+    }
+    .cosulant-price {
+      padding: 20px 0;
+    }
+    .info .user-details .user-info {
+      h2 {
+        font-size: 14px;
+      }
+      h4 {
+        font-size: 12px;
+      }
+      h6 {
+        font-size: 10px;
+      }
+    }
+  }
+}
+@media (max-width: 575px) {
+  .advice-profile .request-advice .request-tips {
+    h5 {
+      font-size: 12px;
+    }
+    ol {
+      padding-right: 1rem;
+      li {
+        font-size: 10px;
+      }
+    }
+  }
+}
+/*#endregion -------------- Advice Profile */
