@@ -437,7 +437,6 @@ class courseController extends Controller
 
   public function course_suggestion()
   {
-      Auth::loginUsingId(1);
     $states = getState();
     return view('course_suggestion', compact('states'));
   }

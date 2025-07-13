@@ -20,8 +20,6 @@ class WebPanelUserController extends Controller
 {
     public function dashboard()
     {
-        Auth::loginUsingId(1);
-
         $courseCount = null;
         $messageCount = null;
         $blogCount = null;
@@ -144,6 +142,8 @@ class WebPanelUserController extends Controller
 
     public function payments()
     {
+        Auth::loginUsingId(1);
+
         $limit = 10;
         $search = arToFa(request()->search);
 //        $order_by = request()->order_by;
@@ -176,5 +176,35 @@ class WebPanelUserController extends Controller
         if (!$query) return ['success' => false, 'message' => 'تراکنش یافت نشد'];
 
         return ['success' => true, 'data' => $query];
+    }
+
+    public function transactionRef()
+    {
+        $limit = 10;
+        $search = request()->search;
+        $query = Payment::where([['referral_user', auth()->user()->id],['status', 1]])
+            ->with('user:id,name')
+            ->select(
+                'referral_price', 'referral_user', 'status', 'id_user',
+                'factor_id', 'payment_for', 'product_course_title'
+            );
+
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('factor_id', 'LIKE' , "%$search%");
+            });
+        }
+
+        $query->orderBy(request()->sortBy, request()->descending === 'false' ? 'asc' : 'desc');
+        $transactions = $query->paginate($limit);
+
+        $data = Payment::where([['referral_user', auth()->user()->id], ['status', 1]])
+            ->select(DB::raw("SUM(referral_price) as refPrice"), DB::raw("count(*) as refCount"))
+            ->get();
+
+        $refCount = $data[0]['refCount'];
+        $refPrice = $data[0]['refPrice'];
+
+        return view('web.transaction-ref', compact('transactions', 'refCount', 'refPrice'));
     }
 }

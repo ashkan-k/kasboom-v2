@@ -1,7 +1,7 @@
 @extends('layouts.user-panel-master')
 
 @section('Page_Title')
-    دوره های من
+    تراکنش های مالی من
 @endsection
 
 @section('Page_CSS')
