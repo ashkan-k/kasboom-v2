@@ -79,12 +79,12 @@
                             <span class="text">حساب من</span>
                         </div>
                         <ul class="user-menu">
-                            <li><a href="web"><i class="mdi mdi-account-circle-outline"></i>پنل
+                            <li><a href="/web"><i class="mdi mdi-account-circle-outline"></i>پنل
                                     کاربری</a></li>
-                            <li><a href="web/message"><i class="mdi mdi-email-outline"></i>صندوق پیام</a>
+                            <li><a href="/web/message"><i class="mdi mdi-email-outline"></i>صندوق پیام</a>
                             </li>
-                            <li><a href="web/setting"><i class="mdi mdi-cog-outline"></i>تنظیمات کاربری</a></li>
-                            <li><a href="logout" data-bs-toggle="modal" data-bs-target="#modal-exit"><i
+                            <li><a href="/web/setting"><i class="mdi mdi-cog-outline"></i>تنظیمات کاربری</a></li>
+                            <li><a href="/logout" data-bs-toggle="modal" data-bs-target="#modal-exit"><i
                                         class="mdi mdi-exit-to-app"></i>خروج</a></li>
                         </ul>
                     </div>
@@ -291,7 +291,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="userProfile-transactions-ref.html" class="link">
+                                        <a href="{{ route('web.my-ref-transactions') }}" class="link">
                                             <i class="mdi mdi-credit-card-outline"></i>
                                             تراکنش کد معرف
                                         </a>

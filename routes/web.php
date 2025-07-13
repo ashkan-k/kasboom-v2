@@ -894,9 +894,9 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
     Route::get('/', [WebPanelUserController::class, 'dashboard'])->name('web.dashboard');
     Route::get('learning/webinar', [WebPanelUserController::class, 'myWebinars'])->name('web.my-webinars');
     Route::get('transactions', [WebPanelUserController::class, 'payments'])->name('web.my-transactions');
-    Route::get('transactions/details', [WebPanelUserController::class, 'paymentsDetails'])->name('web.my-transactions-detail');
+    Route::get('transactions/details/{transactionId}/', [WebPanelUserController::class, 'paymentsDetails'])->name('web.my-transactions-detail');
 
-    Route::get('transaction-ref', [WebPanelUserController::class, 'transactionRef']);
+    Route::get('transaction-ref', [WebPanelUserController::class, 'transactionRef'])->name('web.my-ref-transactions');
 
     // course
     Route::group(['prefix' => 'learning/education'], function () {

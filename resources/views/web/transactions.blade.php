@@ -50,7 +50,7 @@
                                 </ul>
                             </div>
                             <div class="c-footer">
-                                <a href="userProfile-transaction-details.html" class="btn-details">جزییات
+                                <a href="{{ route('web.my-transactions-detail', $row->id ?: '---') }}" class="btn-details">جزییات
                                     تراکنش</a>
                             </div>
                         </div>

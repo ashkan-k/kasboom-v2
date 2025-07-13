@@ -168,14 +168,13 @@ class WebPanelUserController extends Controller
         return view('web.transactions', compact('payments'));
     }
 
-    public function paymentsDetails()
+    public function paymentsDetails($transactionId)
     {
-        $query = Payment::where([
-            ['id_user', auth()->user()->id],['status', 1], ['id', request()->transactionId]
-        ])->first();
-        if (!$query) return ['success' => false, 'message' => 'تراکنش یافت نشد'];
+        $transaction = Payment::where([
+            ['id_user', auth()->user()->id],['status', 1], ['id', $transactionId]
+        ])->firstOrFail();
 
-        return ['success' => true, 'data' => $query];
+        return view('web.transaction-detail', compact('transaction'));
     }
 
     public function transactionRef()
