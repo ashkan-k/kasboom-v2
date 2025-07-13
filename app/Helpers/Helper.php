@@ -2691,4 +2691,13 @@ if (!function_exists('arToFa')) {
     }
 }
 
+if (!function_exists('nowDateShamsi')) {
+    function nowDateShamsi($data = '')
+    {
+        $nowDate = $data == "" ? date("Y-m-d") : $data;
+        $nowdateshamsi = jdate($nowDate)->format('%Y/%m/%d');
+        return $nowdateshamsi;
+    }
+}
+
 ?>

@@ -572,6 +572,8 @@
 
 <script src="/assets_admin/js/jquery.toast.js?11"></script>
 
+<script src="/helpers.js"></script>
+
 @Yield('Page_JS')
 
 </body>

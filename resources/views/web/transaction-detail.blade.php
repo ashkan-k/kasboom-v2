@@ -10,8 +10,7 @@
 
 @section('Content')
 
-    <div class="grid-main">
-        <div class="grid-inner">
+    <div class="grid-inner">
             <div class="main-header">
                 <div class="title">
                     <h3><i class="mdi mdi-play-circle-outline"></i>جزییات تراکنش</h3>
@@ -83,7 +82,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
 @endsection
 

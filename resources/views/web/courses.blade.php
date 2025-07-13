@@ -45,7 +45,7 @@
 
                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 px-lg-2">
                             <div class="card-course mb-4" title="{{ $course?->title }}">
-                                <a href="{{ $slug }}">
+                                <a href="{{ route('web.my-course-detail', $course->id ?: '---') }}">
                                     <div class="img-container">
                                         <div class="img-inner">
                                             <img src="_upload_/_courses_/{{$course?->code}}/medium_{{$course?->image}}" alt="{{ $course?->title ?: '---' }}" />

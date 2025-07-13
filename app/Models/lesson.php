@@ -18,4 +18,8 @@ class lesson extends Model
         return $this->hasMany('App\Models\lesson_attach', 'id_lesson');
     }
 
+    public function note(){
+        return $this->hasMany(Note::class, 'id_lesson');
+    }
+
 }

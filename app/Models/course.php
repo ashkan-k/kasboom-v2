@@ -102,7 +102,9 @@ class course extends Model
 
    }
 
-
+    public function complete(){
+        return $this->hasMany(UserLesson::class, 'id_course');
+    }
 }
 
 
