@@ -185,7 +185,7 @@ class WebPanelUserController extends Controller
             ->with('user:id,name')
             ->select(
                 'referral_price', 'referral_user', 'status', 'id_user',
-                'factor_id', 'payment_for', 'product_course_title'
+                'factor_id', 'payment_for', 'product_course_title', 'regist_date', 'refID'
             );
 
         if ($search) {
@@ -194,7 +194,6 @@ class WebPanelUserController extends Controller
             });
         }
 
-        $query->orderBy(request()->sortBy, request()->descending === 'false' ? 'asc' : 'desc');
         $transactions = $query->paginate($limit);
 
         $data = Payment::where([['referral_user', auth()->user()->id], ['status', 1]])

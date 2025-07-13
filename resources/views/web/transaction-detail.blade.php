@@ -58,7 +58,7 @@
                         <ul>
                             <li>مبلغ دوره :<span>{{ number_format($transaction->price) }} تومان</span></li>
                             <li>کد تخفیف :<span>{{ $transaction->discount_code ?: '---' }}</span></li>
-                            <li>درصد تخفیف :<span>{{ $transaction->discount_percent ?: '---' }}%</span></li>
+                            <li>درصد تخفیف :<span>{{ $transaction->discount_percent ?: '0' }}%</span></li>
                             <li>مبلغ تخفیف :<span>{{ number_format($transaction->discount_price) }}</span></li>
                             <li>مبلغ پرداختی<span>{{ number_format($transaction->payment_price) }} تومان</span></li>
                         </ul>

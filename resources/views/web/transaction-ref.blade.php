@@ -80,20 +80,20 @@
                                     <ul class="info-list">
                                         <li>شماره فاکتور :<span>{{ $row->factor_id ?: '---' }}</span></li>
                                         <li>تاریخ :<span>{{ $row->regist_date ?: '---' }}</span></li>
-                                        <li>مبلغ پرداختی :<span>{{ number_format($row->price) }} تومان</span></li>
+                                        <li>مبلغ پرداختی :<span>{{ number_format($row->referral_price) }} تومان</span></li>
                                         <li>کد پیگیری :<span>{{ $row->refID ?: '---' }}</span></li>
                                     </ul>
                                 </div>
                                 <div class="c-footer">
-                                    <a href="userProfile-transaction-details.html" class="btn-details">جزییات
-                                        تراکنش</a>
+{{--                                    <a href="userProfile-transaction-details.html" class="btn-details">جزییات--}}
+{{--                                        تراکنش</a>--}}
                                 </div>
                             </div>
                         </div>
 
                     @endforeach
 
-                    {{ $courses->links('web.components.pagination') }}
+                    {{ $transactions->links('web.components.pagination') }}
 
                 </div>
             </div>

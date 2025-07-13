@@ -8,6 +8,10 @@ class payment extends Model
 {
     protected $table = 'payments';
 
+    public function getCreatedAtAttribute ($date) {
+        return jdate($date)->format('H:i Y/m/d');
+    }
+
     public function getUserName()
     {
         if($this->id_user != null and $this->id_user >0){
@@ -32,4 +36,7 @@ class payment extends Model
         else return '-----';
     }
 
+    public function user () {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }
