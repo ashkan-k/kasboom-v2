@@ -111,7 +111,7 @@
                                                                 data-bs-toggle="collapse"
                                                                 data-bs-target="#collapse_course_{{ $lesson->id }}">مشاهده
                                                             جزییات</button>
-                                                        <a onclick="DownloadVideo('{{ $lesson->cloud_mp4_url }}', {{ $course->id }}, {{ $lesson->id }})" id="id_btn_download" style="cursor:pointer;" class="btn-download">دانلود</a>
+                                                        <a onclick="DownloadVideo('{{ $lesson->cloud_mp4_url }}', {{ $course->id }}, {{ $lesson->id }})" id="id_btn_download_{{ $lesson->id }}" style="cursor:pointer;" class="btn-download">دانلود</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -170,20 +170,17 @@
                     </div>
                     <div class="tab-pane fade show" id="custom-tab-pane-2" role="tabpanel" tabindex="0">
                         <div class="tab-inner">
-                            <div class="card-info">
-                                <h6>عنوان</h6>
-                                <div class="date">21 اسفند 1404</div>
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
-                                    استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در
-                                    ستون و سطرآنچنان که می‌باشد.</p>
-                            </div>
-                            <div class="card-info">
-                                <h6>عنوان</h6>
-                                <div class="date">21 اسفند 1404</div>
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
-                                    استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در
-                                    ستون و سطرآنچنان که می‌باشد.</p>
-                            </div>
+
+                            @foreach($notes as $note)
+
+                                <div class="card-info">
+                                    <h6>{{ $note->note_title ?: '---' }}</h6>
+                                    <div class="date">{{ $note->created_at ?: '---' }}</div>
+                                    <p>{{ $note->note ?: '---' }}</p>
+                                </div>
+
+                            @endforeach
+
                         </div>
                     </div>
                     <div class="tab-pane fade show" id="custom-tab-pane-3" role="tabpanel" tabindex="0">
@@ -289,8 +286,8 @@
                 return;
             }
 
-            $("#id_btn_download").text('لطفا منتظر بمانید ...').prop('disabled', true);
-            ChangeButtonEnablingStatus('id_btn_download', 'disable');
+            $(`#id_btn_download_${idLesson}`).text('لطفا منتظر بمانید ...').prop('disabled', true);
+            ChangeButtonEnablingStatus(`id_btn_download_${idLesson}`, 'disable');
 
             var fd = new FormData();
             fd.append('idCourse', idCourse);
@@ -301,22 +298,20 @@
             $.ajax({
                 url: '/web/learning/education/complete-lesson', // URL to your PHP script
                 type: 'POST',
-                // data: fd,
+                data: fd,
                 contentType: false,
                 processData: false,
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 },
                 success: function (response) {
-                    ChangeButtonEnablingStatus('id_btn_download', 'enable');
-
-                    console.log('ddd')
-                    console.log(response)
-                    console.log(video_url)
+                    $(`#id_btn_download_${idLesson}`).text('دانلود').prop('disabled', false);
+                    ChangeButtonEnablingStatus(`id_btn_download_${idLesson}`, 'enable');
+                    window.open(video_url, '_blank')
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    $("#id_btn_download").text('دانلود').prop('disabled', false);
-                    ChangeButtonEnablingStatus('id_btn_download', 'enable');
+                    $(`#id_btn_download_${idLesson}`).text('دانلود').prop('disabled', false);
+                    ChangeButtonEnablingStatus(`id_btn_download_${idLesson}`, 'enable');
 
                     toastMessage('خطا', 'خطایی رخ داد. این لینک درحال حاضر در دسترس نمی باشد!', 'danger')
                 }

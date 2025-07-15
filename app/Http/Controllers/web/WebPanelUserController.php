@@ -145,8 +145,6 @@ class WebPanelUserController extends Controller
 
     public function payments()
     {
-        Auth::loginUsingId(1);
-
         $limit = 10;
         $search = arToFa(request()->search);
 //        $order_by = request()->order_by;
@@ -256,8 +254,17 @@ class WebPanelUserController extends Controller
         foreach ($attachs as $attach)
             $attachDic[$attach->category][] = $attach;
 
+        dd($attachs);
 
-        return view('web.course-detail', compact('object', 'course', 'attachDic'));
+        $notes = [];
+        foreach ($object?->course?->lessons as $lesson){
+            $temp_arr = $lesson->note?->all();
+            if ($temp_arr){
+                $notes = array_merge($notes, $temp_arr);
+            }
+        }
+
+        return view('web.course-detail', compact('object', 'course', 'attachDic', 'notes'));
     }
 
     public function completeLesson()

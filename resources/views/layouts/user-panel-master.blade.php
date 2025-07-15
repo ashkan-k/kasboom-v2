@@ -31,6 +31,18 @@
 
     <script src="/assets/js/sweetalert2@9"></script>
 
+    <style>
+        .not-allowed-cursor {
+            cursor: not-allowed !important;
+            pointer-events: none !important;
+        }
+
+        .allowed-cursor {
+            cursor: pointer !important;
+            pointer-events: auto !important;
+        }
+    </style>
+
     @Yield('Page_CSS')
 
     @Yield('Page_CSS_After')
