@@ -186,80 +186,42 @@
                     <div class="tab-pane fade show" id="custom-tab-pane-3" role="tabpanel" tabindex="0">
                         <div class="tab-inner">
                             <div class="accordion" id="accordionParent">
-                                <div class="accordion-item">
-                                    <button class="accordion-button" type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#accordion_file_attachment_1">
-                                        طرح و نقشه
-                                    </button>
-                                    <div id="accordion_file_attachment_1"
-                                         class="accordion-collapse collapse show"
-                                         data-bs-parent="#accordionParent">
-                                        <div class="accordion-body">
-                                            <div class="card-download-item">
-                                                <div class="info">
-                                                    <h4 class="name">نقشه آموزشی</h4>
-                                                    <h6 class="desc">طرح و نقشه آماده قالیبافی - تعداد
-                                                        رج : 73 - تعداد گره در هر رج: 73</h6>
-                                                </div>
-                                                <div class="btn-action">
-                                                    <a href="#" target="_blank" class="btn-download">
-                                                        <i class="mdi mdi-download"></i>دانلود
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="card-download-item">
-                                                <div class="info">
-                                                    <h4 class="name">نقشه قالیبافی سبدگل</h4>
-                                                    <h6 class="desc">طرح و نقشه آماده قالیبافی - تعداد
-                                                        رج : 320 - تعداد گره در هر رج: 480</h6>
-                                                </div>
-                                                <div class="btn-action">
-                                                    <a href="#" target="_blank" class="btn-download">
-                                                        <i class="mdi mdi-download"></i>دانلود
-                                                    </a>
-                                                </div>
+
+                                @foreach($attachDic as $key => $attach_cat)
+
+                                    <div class="accordion-item">
+                                        <button class="accordion-button" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#accordion_file_attachment_{{ $loop->index }}">
+                                            {{ $key }}
+                                        </button>
+                                        <div id="accordion_file_attachment_{{ $loop->index }}"
+                                             class="accordion-collapse collapse @if($loop->index == 0) show @endif"
+                                             data-bs-parent="#accordionParent">
+                                            <div class="accordion-body">
+
+                                                @foreach($attach_cat as $attach)
+                                                    <div class="card-download-item">
+                                                        <div class="info">
+                                                            <h4 class="name">{{ $attach->title ?: '---' }}</h4>
+                                                            <h6 class="desc">{{ $attach->memo ?: '---' }}</h6>
+                                                        </div>
+                                                        <div class="btn-action">
+                                                            <a href="{{ $attach->attachment_file ?: '---' }}" target="_blank" class="btn-download">
+                                                                <i class="mdi mdi-download"></i>دانلود
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#accordion_file_attachment_2">
-                                        مقاله
-                                    </button>
-                                    <div id="accordion_file_attachment_2"
-                                         class="accordion-collapse collapse"
-                                         data-bs-parent="#accordionParent">
-                                        <div class="accordion-body">
-                                            <div class="card-download-item">
-                                                <div class="info">
-                                                    <h4 class="name">نقشه آموزشی</h4>
-                                                    <h6 class="desc">طرح و نقشه آماده قالیبافی - تعداد
-                                                        رج : 73 - تعداد گره در هر رج: 73</h6>
-                                                </div>
-                                                <div class="btn-action">
-                                                    <a href="#" target="_blank" class="btn-download">
-                                                        <i class="mdi mdi-download"></i>دانلود
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="card-download-item">
-                                                <div class="info">
-                                                    <h4 class="name">نقشه قالیبافی سبدگل</h4>
-                                                    <h6 class="desc">طرح و نقشه آماده قالیبافی - تعداد
-                                                        رج : 320 - تعداد گره در هر رج: 480</h6>
-                                                </div>
-                                                <div class="btn-action">
-                                                    <a href="#" target="_blank" class="btn-download">
-                                                        <i class="mdi mdi-download"></i>دانلود
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+
+
+                                @endforeach
+
                             </div>
                         </div>
                     </div>

@@ -247,14 +247,12 @@ class WebPanelUserController extends Controller
 
         $object = $query->firstOrFail();
 
-        $attachs = LessonAttach::where([['id_course', $courseId], ['id_lesson', 0]])
+        $attachs = LessonAttach::where([['id_course', $courseId]])
             ->orderBy('category', 'asc')->get();
 
         $attachDic = [];
         foreach ($attachs as $attach)
             $attachDic[$attach->category][] = $attach;
-
-        dd($attachs);
 
         $notes = [];
         foreach ($object?->course?->lessons as $lesson){
