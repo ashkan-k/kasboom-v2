@@ -150,6 +150,9 @@ function toastMessage(title, message, type) {
           <div class="toast-body">${message}</div>
       </div>`;
 
+  console.log('ddddd')
+  console.log(alertPlaceholder)
+
   alertPlaceholder.append(wrapper);
   toastMessageRemove();
 }

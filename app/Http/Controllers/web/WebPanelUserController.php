@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bug;
 use App\Models\Classroom;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\LessonAttach;
 use App\Models\Message;
+use App\Models\Note;
 use App\Models\Notification;
 use App\Models\Notify;
 use App\Models\Payment;
@@ -17,6 +19,7 @@ use App\Models\WebinarRegister;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Morilog\Jalali\CalendarUtils;
 
 class WebPanelUserController extends Controller
@@ -310,5 +313,114 @@ class WebPanelUserController extends Controller
 
         $userLesson = UserLesson::where([['id_user', $userId], ['id_course', $idCourse]])->get();
         return ['success' => true, 'message' => 'تکمیل درس دوره آموزشی انجام شد', 'data' => $userLesson, 'result' => $result];
+    }
+
+    //    bugs
+    public function bugStore() {
+        $validator = Validator::make(request()->all(), [
+            'feddbackGroup' => 'required|max:30',
+            'feddbacktype' => 'required|in:course,skill,consult,shop,blog,landuse,idea,lesson',
+            'feddbackContent' => 'required|max:500'
+        ]);
+        if($validator->fails())
+            return ['success' => false,'message' => $validator->errors()->first()];
+
+        $type = request()->feddbacktype;
+        $targetId = request()->targetId;
+        $userId = auth()->user()->id;
+
+        if ($type === 'course' || $type === 'lesson') {
+            if ($type === 'course') {
+                $cours = Course::find(request()->targetId);
+                if(!$cours) return ['success' => false,'message' => 'متاسفانه دوره ای یافت نشد'];
+                $courseId = request()->targetId;
+            }
+            else if ($type === 'lesson') {
+                $lesson = Lesson::find(request()->targetId);
+                if(!$lesson) return ['success' => false,'message' => 'متاسفانه کلاسی یافت نشد'];
+                $courseId = $lesson->id_course;
+            }
+
+            $classroom = Classroom::where([['id_course', $courseId], ['id_user', $userId]])->first();
+            if (!$classroom)
+                return ['success' => false,'message' => 'شما عضو این دوره نیستید'];
+        }
+
+        $store = new Bug;
+        $store->id_user = $userId;
+        $store->type = $type;
+        $store->id_target = $targetId;
+        $store->subject = request()->feddbackGroup;
+        $store->memo = request()->feddbackContent;
+        $store->save();
+
+        return ['success' => true,'message' => 'گزارش شما با موفقیت ثبت شد . از گزارشتان متشکریم :)'];
+    }
+
+    //    notes
+    public function storeCourseNote(){
+        $validator = Validator::make(request()->all(), [
+            'questionSubject' => 'required|max:300',
+            'noteMessage' => 'required'
+        ]);
+        if($validator->fails())
+            return ['success' => false,'message' => $validator->errors()->first()];
+
+        $userId = auth()->user()->id;
+        $idCourse = request()->idCourse;
+        $idLesson = request()->idLesson;
+
+        $classroom = Classroom::where([['id_user', $userId], ['id_course', $idCourse]])->first();
+        if(!$classroom)
+            return ['success' => false,'message' => 'شما در این دوره ثبت نام نکرده اید'];
+
+        $lesson = Lesson::where([['id', $idLesson], ['id_course', $idCourse]])->first();
+        if(!$lesson)
+            return ['success' => false,'message' => 'درس مورد نظر یافت نشد'];
+
+        if (request()->id > 0) {
+            $note = Note::where([
+                ['id', request()->id],
+                ['id_course', $idCourse],
+                ['id_lesson', $idLesson],
+                ['id_user', $userId]
+            ])->first();
+            if (!$note)
+                return ['success' => false, 'message' => 'یادداشتی جهت ویرایش یافت نشد'];
+        }
+        else {
+            $note = new Note;
+            $note->id_course = $idCourse;
+            $note->id_lesson = $idLesson;
+            $note->id_user = $userId;
+        }
+        $note->note_title = request()->questionSubject;
+        $note->note = request()->noteMessage;
+        $note->save();
+
+        $notes = Note::where([['id_course', $idCourse], ['id_lesson', $idLesson], ['id_user', $userId]])
+            ->get();
+        return ['success' => true, 'message' => 'ثبت یادداشت انجام شد', 'data' => $notes];
+    }
+
+    public function deleteCourseNote(){
+        $userId = auth()->user()->id;
+        $idCourse = request()->idCourse;
+        $idLesson = request()->idLesson;
+
+        Note::where([
+            ['id', request()->id],
+            ['id_course', $idCourse],
+            ['id_lesson', $idLesson],
+            ['id_user', $userId]
+        ])->delete();
+
+        $notes = Note::where([
+            ['id_course', $idCourse],
+            ['id_lesson', $idLesson],
+            ['id_user', $userId]
+        ])->get();
+
+        return ['success' => true, 'message' => 'یادداشت با موفقیت حذف شد', 'data' => $notes];
     }
 }

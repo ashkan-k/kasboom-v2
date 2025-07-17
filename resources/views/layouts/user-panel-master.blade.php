@@ -586,6 +586,8 @@
 
 <script src="/helpers.js"></script>
 
+@Yield('Modals')
+
 @Yield('Page_JS')
 
 </body>

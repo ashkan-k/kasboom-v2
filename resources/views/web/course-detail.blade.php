@@ -228,10 +228,84 @@
                 </div>
             </div>
         </div>
+
+        {{-- ToastMessage --}}
+        <div id="toastmessage-content"></div>
+
     </div>
 
 @endsection
 
+@section('Modals')
+    <!-- Modal Bugs -->
+    <div class="modal fade" id="modal-bugs" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="mdi mdi-bug-outline"></i>گزارش خرابی</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-check mt-0 mb-2">
+                        <input class="form-check-input" type="radio" name="feddbackGroup" value="video" id="radio-group-1" checked>
+                        <label class="form-check-label" for="radio-group-1">
+                            مشکل در ویدیو
+                        </label>
+                    </div>
+                    <div class="form-check mt-0 mb-2">
+                        <input class="form-check-input" type="radio" name="feddbackGroup" value="voice" id="radio-group-2">
+                        <label class="form-check-label" for="radio-group-2">
+                            مشکل در صدا
+                        </label>
+                    </div>
+                    <div class="form-check mt-0 mb-2">
+                        <input class="form-check-input" type="radio" name="feddbackGroup" value="content" id="radio-group-3">
+                        <label class="form-check-label" for="radio-group-3">
+                            مشکل در محتوا
+                        </label>
+                    </div>
+                    <div class="textarea-group">
+                        <label class="h6 mb-2">توضیحات</label>
+                        <textarea class="textarea" id="feddbackContent" cols="20" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default-outline icon-right" data-bs-dismiss="modal"><i
+                            class="mdi mdi-close"></i>بستن</button>
+                    <button onclick="BugStore()" type="button" class="btn btn-default icon-right" id="id_btn_submit_bug"><i class="mdi mdi-check"></i>ارسال گزارش</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modak Add Notebook -->
+    <div class="modal fade" id="modal-add-notebook" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="mdi mdi-plus-circle-outline"></i>یادداشت جدید</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="inputgroup mt-0">
+                        <input type="text" id="note_title" class="myinput" placeholder="عنوان یادداشت" autocomplete="on" required>
+                        <label>عنوان یادداشت</label>
+                        <div class="icon"><i class="mdi mdi-pencil-outline"></i></div>
+                    </div>
+                    <div class="textarea-group">
+                        <label class="h6 mb-2">توضیحات</label>
+                        <textarea class="textarea" id="note" cols="20" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default-outline icon-right" data-bs-dismiss="modal"><i
+                            class="mdi mdi-close"></i>بستن</button>
+                    <button class="btn btn-default icon-right" onclick="NoteStore()" id="id_btn_submit_note"><i class="mdi mdi-check"></i>ثبت یادداشت</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
 
 @section('Page_JS')
     <script>
@@ -281,5 +355,95 @@
 
         }
 
+
+        function BugStore() {
+            let feddbackGroupSelectedValue = $('input[name="feddbackGroup"]:checked').val();
+            let feddbackContentValue = $('#feddbackContent').val();
+
+            if (!feddbackGroupSelectedValue) {
+                toastMessage('خطا', 'لطفا دسته بندی مشکل را انتخاب کنید', 'danger')
+                return;
+            }
+            if (!feddbackContentValue) {
+                toastMessage('خطا', 'لطفا توضیحات خود را وارد کنید', 'danger')
+                return;
+            }
+
+            ChangeButtonEnablingStatus(`id_btn_submit_bug`, 'disable');
+
+            var fd = new FormData();
+            fd.append('feddbacktype', 'course');
+            fd.append('targetId', '{{ $course->id }}');
+            fd.append('feddbackGroup', feddbackGroupSelectedValue);
+            fd.append('feddbackContent', feddbackContentValue);
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: '/web/bugs/store', // URL to your PHP script
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function (response) {
+                    ChangeButtonEnablingStatus(`id_btn_submit_bug`, 'enable');
+                    toastMessage('موفقیت', 'گزارش شما با موفقیت ثبت شد.', 'success')
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    ChangeButtonEnablingStatus(`id_btn_submit_bug`, 'enable');
+
+                    toastMessage('خطا', 'خطایی رخ داد!', 'danger')
+                }
+            });
+
+        }
+
+        function NoteStore(idLesson) {
+            let noteTitleValue = $('#note_title').val();
+            let noteValue = $('#note').val();
+
+            if (!noteTitleValue) {
+                toastMessage('خطا', 'لطفا عنوان یادداشت خود را وارد کنید', 'danger')
+                return;
+            }
+            if (!noteValue) {
+                toastMessage('خطا', 'لطفا توضیحات خود را وارد کنید', 'danger')
+                return;
+            }
+
+            ChangeButtonEnablingStatus(`id_btn_submit_note`, 'disable');
+
+            var fd = new FormData();
+            fd.append('idLesson', idLesson);
+            fd.append('idCourse', '{{ $course->id }}');
+            fd.append('questionSubject', noteTitleValue);
+            fd.append('noteMessage', noteValue);
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: '/web/bugs/store', // URL to your PHP script
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function (response) {
+                    ChangeButtonEnablingStatus(`id_btn_submit_note`, 'enable');
+                    toastMessage('موفقیت', 'گزارش شما با موفقیت ثبت شد.', 'success')
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    ChangeButtonEnablingStatus(`id_btn_submit_note`, 'enable');
+
+                    toastMessage('خطا', 'خطایی رخ داد!', 'danger')
+                }
+            });
+
+        }
     </script>
 @endsection
