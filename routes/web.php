@@ -903,18 +903,18 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
 //        course
     Route::group(['prefix' => 'course'], function () {
         Route::post('/', [WebPanelUserController::class, 'myCourses']);
-        Route::post('store-course-survey', [WebPanelUserController::class, 'storeCourseSurvey']);
-        Route::post('get-questions', [WebPanelUserController::class, 'getQuestions']);
-        Route::post('get-questions-my', [WebPanelUserController::class, 'getQuestionsMy']);
-        Route::post('get-course-detail', [WebPanelUserController::class, 'getCourseDetail']);
-        Route::post('get-course-detail-survey', [WebPanelUserController::class, 'getCourseDetailSurvey']);
-        Route::post('store-course-question', [WebPanelUserController::class, 'storeCourseQuestion']);
+        Route::post('store-course-survey', [UserController::class, 'storeCourseSurvey']);
+        Route::post('get-questions', [UserController::class, 'getQuestions']);
+        Route::post('get-questions-my', [UserController::class, 'getQuestionsMy']);
+        Route::post('get-course-detail', [UserController::class, 'getCourseDetail']);
+        Route::post('get-course-detail-survey', [UserController::class, 'getCourseDetailSurvey']);
+        Route::post('store-course-question', [UserController::class, 'storeCourseQuestion']);
         Route::post('store-course-note', [WebPanelUserController::class, 'storeCourseNote']);
         Route::post('delete-course-note', [WebPanelUserController::class, 'deleteCourseNote']);
         Route::post('complete-lesson', [WebPanelUserController::class, 'completeLesson']);
-        Route::post('get-quiz', [WebPanelUserController::class, 'getQuiz']);
-        Route::post('get-quiz-result', [WebPanelUserController::class, 'getQuizResult']);
-        Route::post('correction-quiz', [WebPanelUserController::class, 'correctionQuiz']);
+        Route::post('get-quiz', [UserController::class, 'getQuiz']);
+        Route::post('get-quiz-result', [UserController::class, 'getQuizResult']);
+        Route::post('correction-quiz', [UserController::class, 'correctionQuiz']);
     });
 
     // course
@@ -922,16 +922,6 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
         Route::get('/', [WebPanelUserController::class, 'myCourses'])->name('web.my-courses');
         Route::get('/learningDetails/{course_id}', [WebPanelUserController::class, 'CourseDetail'])->name('web.my-course-detail');
         Route::post('complete-lesson', [WebPanelUserController::class, 'completeLesson']);
-        Route::post('store-course-survey', [UserController::class, 'storeCourseSurvey']);
-        Route::post('get-questions', [UserController::class, 'getQuestions']);
-        Route::post('get-questions-my', [UserController::class, 'getQuestionsMy']);
-        Route::post('get-course-detail-survey', [UserController::class, 'getCourseDetailSurvey']);
-        Route::post('store-course-question', [UserController::class, 'storeCourseQuestion']);
-        Route::post('store-course-note', [UserController::class, 'storeCourseNote']);
-        Route::post('delete-course-note', [UserController::class, 'deleteCourseNote']);
-        Route::post('get-quiz', [UserController::class, 'getQuiz']);
-        Route::post('get-quiz-result', [UserController::class, 'getQuizResult']);
-        Route::post('correction-quiz', [UserController::class, 'correctionQuiz']);
     });
 
     // certificate

@@ -108,6 +108,7 @@
                                                     <div class="time">{{ $time }}</div>
                                                     <div class="btns-action">
                                                         <button class="btn-details"
+                                                                onclick="ChangeLesson({{ $lesson->id }})"
                                                                 data-bs-toggle="collapse"
                                                                 data-bs-target="#collapse_course_{{ $lesson->id }}">مشاهده
                                                             جزییات</button>
@@ -317,6 +318,12 @@
     </script>
 
     <script>
+        var idLesson = '{{ $course?->lessons?->first()?->id }}';
+
+        function ChangeLesson(lesson_item_id){
+            idLesson = lesson_item_id;
+        }
+
         function DownloadVideo(video_url, idCourse, idLesson) {
             if (!video_url) {
                 return;
@@ -355,7 +362,6 @@
 
         }
 
-
         function BugStore() {
             let feddbackGroupSelectedValue = $('input[name="feddbackGroup"]:checked').val();
             let feddbackContentValue = $('#feddbackContent').val();
@@ -389,6 +395,8 @@
                     'X-CSRF-TOKEN': csrfToken
                 },
                 success: function (response) {
+                    $('#feddbackContent').val('');
+
                     ChangeButtonEnablingStatus(`id_btn_submit_bug`, 'enable');
                     toastMessage('موفقیت', 'گزارش شما با موفقیت ثبت شد.', 'success')
                 },
@@ -401,7 +409,7 @@
 
         }
 
-        function NoteStore(idLesson) {
+        function NoteStore() {
             let noteTitleValue = $('#note_title').val();
             let noteValue = $('#note').val();
 
@@ -425,7 +433,7 @@
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: '/web/bugs/store', // URL to your PHP script
+                url: '/web/course/store-course-note', // URL to your PHP script
                 type: 'POST',
                 data: fd,
                 contentType: false,
@@ -434,6 +442,9 @@
                     'X-CSRF-TOKEN': csrfToken
                 },
                 success: function (response) {
+                    $('#note_title').val('');
+                    $('#note').val('');
+
                     ChangeButtonEnablingStatus(`id_btn_submit_note`, 'enable');
                     toastMessage('موفقیت', 'گزارش شما با موفقیت ثبت شد.', 'success')
                 },
