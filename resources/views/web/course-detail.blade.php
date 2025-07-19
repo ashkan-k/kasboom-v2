@@ -50,15 +50,19 @@
                         <span class="icon"><i class="mdi mdi-plus-circle-outline"></i></span>
                         <span class="icon">یادداشت جدید</span>
                     </button>
-                    <a href="userProfile-course-details-survey.html"
+                    <a href="{{ route('web.my-course-survey', $course->id) }}"
                        class="btn btn-secondary icon-right btn-sm">
                         <span class="icon"><i class="mdi mdi-star-outline"></i></span>
                         <span class="icon">نظرسنجی</span>
                     </a>
-                    <a href="exam-test.html" class="btn btn-default icon-right btn-sm">
-                        <span class="icon"><i class="mdi mdi-list-status"></i></span>
-                        <span class="icon">شرکت در آزمون</span>
-                    </a>
+
+                    @if(count($surveyId) >= count($surveyMy))
+                        <a href="{{ route('web.my-course-quiz', $course->id) }}" class="btn btn-default icon-right btn-sm">
+                            <span class="icon"><i class="mdi mdi-list-status"></i></span>
+                            <span class="icon">شرکت در آزمون</span>
+                        </a>
+                    @endif
+
                 </div>
             </div>
             <div class="tab-secions full-height mt-0">
@@ -229,11 +233,10 @@
                 </div>
             </div>
         </div>
-
-        {{-- ToastMessage --}}
-        <div id="toastmessage-content"></div>
-
     </div>
+
+    {{-- ToastMessage --}}
+    <div id="toastmessage-content"></div>
 
 @endsection
 
@@ -457,4 +460,20 @@
 
         }
     </script>
+
+    @if (session()->has('quiz_errors'))
+        <script>
+            $(document).ready(function () {
+                toastMessage('خطا', '{{ session('quiz_errors') }}', 'danger');
+            });
+        </script>
+    @endif
+
+    @if (session()->has('survey_store_success_message'))
+        <script>
+            $(document).ready(function () {
+                toastMessage('موفق', '{{ session('survey_store_success_message') }}', 'success');
+            });
+        </script>
+    @endif
 @endsection

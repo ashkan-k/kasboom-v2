@@ -922,6 +922,11 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
         Route::get('/', [WebPanelUserController::class, 'myCourses'])->name('web.my-courses');
         Route::get('/learningDetails/{course_id}', [WebPanelUserController::class, 'CourseDetail'])->name('web.my-course-detail');
         Route::post('complete-lesson', [WebPanelUserController::class, 'completeLesson']);
+
+        Route::get('/survey/{course_id}', [WebPanelUserController::class, 'CourseSurvey'])->name('web.my-course-survey');
+        Route::post('/survey/{course_id}/store', [WebPanelUserController::class, 'CourseSurveyStore'])->name('web.my-course-survey-store');
+
+        Route::get('/quiz/{course_id}', [WebPanelUserController::class, 'CourseQuiz'])->name('web.my-course-quiz');
     });
 
     // certificate

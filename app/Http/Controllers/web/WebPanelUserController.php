@@ -5,6 +5,7 @@ namespace App\Http\Controllers\web;
 use App\Http\Controllers\Controller;
 use App\Models\Bug;
 use App\Models\Classroom;
+use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\LessonAttach;
@@ -13,6 +14,9 @@ use App\Models\Note;
 use App\Models\Notification;
 use App\Models\Notify;
 use App\Models\Payment;
+use App\Models\QuizQuestion;
+use App\Models\Survey;
+use App\Models\SurveyField;
 use App\Models\UserLesson;
 use App\Models\Webinar;
 use App\Models\WebinarRegister;
@@ -265,7 +269,17 @@ class WebPanelUserController extends Controller
             }
         }
 
-        return view('web.course-detail', compact('object', 'course', 'attachDic', 'notes'));
+        $survey = SurveyField::where('type', 'course')->get();
+        $surveyId = [];
+        foreach ($survey as $row) {
+            array_push($surveyId, $row->id);
+        }
+        $surveyMy = Survey::where([
+            ['id_user', auth()->user()->id],
+            ['id_target', $courseId]
+        ])->whereIn('survey_field_id', $surveyId)->get();
+
+        return view('web.course-detail', compact('object', 'course', 'attachDic', 'notes', 'surveyMy', 'surveyId'));
     }
 
     public function completeLesson()
@@ -422,5 +436,156 @@ class WebPanelUserController extends Controller
         ])->get();
 
         return ['success' => true, 'message' => 'یادداشت با موفقیت حذف شد', 'data' => $notes];
+    }
+
+    // survey
+    public function CourseSurvey($courseId){
+        Classroom::where([
+            ['id_user', auth()->user()->id], ['id_course', $courseId]
+        ])->firstOrFail();
+
+        $survey = SurveyField::where('type', 'course')->get();
+        $surveyId = [];
+        foreach ($survey as $row) {
+            array_push($surveyId, $row->id);
+        }
+
+        return view('web.course-survey', compact('survey', 'courseId'));
+    }
+
+    public function CourseSurveyStore(Request $request, $courseId){
+        $request->validate([
+            'ratings' => 'required|array', // اطمینان از وجود آرایه ratings
+            'ratings.*' => 'integer|min:1|max:5', // هر امتیاز باید بین 1 تا 5 باشد
+            'message' => 'required|string|max:1000', // متن نظرات اجباری و حداکثر 1000 کاراکتر
+        ]);
+
+        $userId = auth()->user()->id;
+
+        Classroom::where([['id_user', $userId], ['id_course', $courseId]])->firstOrFail();
+
+        $survey = SurveyField::where('type', 'course')->get();
+        $surveyId = [];
+        foreach ($survey as $row) {
+            array_push($surveyId, $row->id);
+        }
+
+//        $datas = json_decode(request()->datas,true);
+        $ratings = $request->input('ratings');
+        $surveyMy = [];
+        $storeSurveyMy = [];
+
+        foreach ($ratings as $itemId => $rating) {
+            array_push($surveyMy, $itemId);
+//            if ($rating === 0)
+//                $datas[$index]['score'] = 1;
+
+            array_push($storeSurveyMy, [
+                'id_user' => $userId,
+                'id_target' => $courseId,
+                'survey_field_id' => $itemId,
+                'score' => $rating
+            ]);
+        }
+
+        if (count(array_diff($surveyId, $surveyMy)) !== 0 || count(array_diff($surveyMy, $surveyId)) !== 0)
+            return back()->with('survey_submit_error', 'خطایی هنگام ارسال نظر سنجی رخ داده , لطفا صفحه را رفرش کرده و دوباره در نظر سنجی شرکت کنید');
+
+        Survey::where([['id_user', $userId], ['id_target', $courseId]])->delete();
+        DB::table('kasboom_survey')->insert($storeSurveyMy);
+
+        $comment = Comment::where([
+            ['id_user', $userId],
+            ['id_target', $courseId],
+            ['type', 'course']
+        ])->first();
+
+        if (!$comment){
+            $comment = new Comment;
+            $comment->id_user = $userId;
+            $comment->id_target = $courseId;
+            $comment->type = 'course';
+        }
+        $comment->regist_date = nowDateShamsi();
+        $comment->comment = request()->message;
+        $comment->status = 1;
+        $comment->read_status = 1;
+        $comment->save();
+
+        $fields = SurveyField::where('type','course')->pluck('id')->toArray();
+        $surveys = Survey::where('id_target', $courseId)
+            ->whereIn('survey_field_id', $fields)->get();
+
+        $surveyCount = $surveys->count();
+        $surveySum = $surveys->sum('score');
+        $score = $surveySum / $surveyCount;
+        $allScore = substr($score, 0, 3);
+
+        $course = Course::find($courseId);
+        $course->score = $allScore;
+        $course->save();
+
+        session()->flash('survey_store_success_message', 'نظر سنجی با موفقیت ثبت شد');
+        return redirect(route('web.my-course-detail', $courseId));
+    }
+
+    // quiz
+
+    public function CourseQuiz($courseId){
+        $nowDate = date("Y-m-d");
+        $nowdateshamsi = nowDateShamsi();
+        $userId = auth()->user()->id;
+        $classroom = Classroom::where([['id_user', $userId], ['id_course', $courseId]])->firstOrFail();
+
+        $survey = Survey::where([['id_user', $userId], ['id_target', $courseId]])->first();
+        if (!$survey)
+            return back()->with('quiz_errors', 'کاربر عزیز لطفا در نظر سنجی شرکت کنید , سپس در آزمون شرکت کنید');
+
+        $course = Course::where('id', $courseId)->first();
+        if ((int)$course->have_certificate === 0)
+            return back()->with('quiz_errors', 'این دوره آزمون آنلاین ندارد و  گواهینامه ای برای این دوره صادر نمی شود');
+
+        if($classroom->result !== 'finish') {
+            if($classroom->result === 'learning')
+                return back()->with('quiz_errors', 'برای شرکت در آزمون حتما باید تمامی درس های دوره ی آموزشی را مشاهده نمائید');
+            elseif($classroom->result === 'certificate')
+                return back()->with('quiz_errors', 'قبلا در آزمون این دوره شرکت کرده اید و گواهی پایان دوره برا شما صادر شده است');
+        }
+
+        dd('ddd');
+
+        $last_date_take_quize_miladi = $classroom->last_date_take_quize_miladi;
+        if ($last_date_take_quize_miladi === null) {
+            $quiz = QuizQuestion::where('id_course', $courseId)->inRandomOrder()->take(20)->get();
+            $course = Course::where('id', $courseId)->select('id', 'code', 'title')->first();
+            $classroom->last_date_take_quize = $nowdateshamsi;
+            $classroom->last_date_take_quize_miladi = $nowDate;
+            $classroom->take_quiz = 1;
+            $classroom->answer_status = 0;
+            $classroom->save();
+
+            return view('web.course-survey', compact('course', 'quiz'));
+        }
+        else {
+            $now = time();
+            $your_date = strtotime($last_date_take_quize_miladi);
+            $datediff = $now - $your_date;
+            $diff_days = (int) (abs((int)round($datediff / (60 * 60 * 24))));
+            if ($diff_days >= 3) {
+                $quiz = QuizQuestion::where('id_course', $courseId)->inRandomOrder()->take(20)->get();
+                $course = Course::where('id', $courseId)->select('id', 'code', 'title')->first();
+                $classroom->last_date_take_quize = $nowdateshamsi;
+                $classroom->last_date_take_quize_miladi = $nowDate;
+                $classroom->take_quiz = 1;
+                $classroom->answer_status = 0;
+                $classroom->save();
+
+                return view('web.course-survey', compact('course', 'quiz'));
+            }
+            else {
+                $message = "شما بعد از " . ( 3 - $diff_days ) . " روز می توانید مجددا در آزمون شرکت کنید ";
+                return back()->with('quiz_errors', $message);
+            }
+        }
     }
 }

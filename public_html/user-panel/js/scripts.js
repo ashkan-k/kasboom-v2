@@ -7,10 +7,10 @@ if (document.querySelector(".mynavbar") !== null) {
   var btnSideBarClose = myNavbar.querySelector(".sidebar-close");
   var sidebarMenu = document.getElementById("sidebar-menu");
 
-  btnServicesMenu.onclick = () => {
-    overlaySidebar.classList.add("active");
-    sidebarMenu.classList.add("active");
-  };
+  // btnServicesMenu.onclick = () => {
+  //   overlaySidebar.classList.add("active");
+  //   sidebarMenu.classList.add("active");
+  // };
   overlaySidebar.onclick = () => {
     overlaySidebar.classList.remove("active");
     sidebarMenu.classList.remove("active");
@@ -149,9 +149,6 @@ function toastMessage(title, message, type) {
           </div>
           <div class="toast-body">${message}</div>
       </div>`;
-
-  console.log('ddddd')
-  console.log(alertPlaceholder)
 
   alertPlaceholder.append(wrapper);
   toastMessageRemove();
