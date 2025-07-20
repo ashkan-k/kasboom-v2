@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 px-lg-1">
                         <div class="card-dashboard-info color-primary">
-                            <a href="#" class="card-inner">
+                            <a href="{{ route('web.my-courses') }}" class="card-inner">
                                 <h5>دوره‌های من</h5>
                                 <p>برای مشاهده دوره‌ها کلیک کنید</p>
                                 <div class="number">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 px-lg-1">
                         <div class="card-dashboard-info color-secondary">
-                            <a href="web/learning/education" class="card-inner">
+                            <a href="{{ route('web.my-certificate') }}" class="card-inner">
                                 <h5>گواهینامه‌ها</h5>
                                 <p>برای مشاهده گواهینامه‌ها کلیک کنید</p>
                                 <div class="number">
