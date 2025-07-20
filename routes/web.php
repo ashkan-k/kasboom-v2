@@ -912,9 +912,6 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
         Route::post('store-course-note', [WebPanelUserController::class, 'storeCourseNote']);
         Route::post('delete-course-note', [WebPanelUserController::class, 'deleteCourseNote']);
         Route::post('complete-lesson', [WebPanelUserController::class, 'completeLesson']);
-        Route::post('get-quiz', [UserController::class, 'getQuiz']);
-        Route::post('get-quiz-result', [UserController::class, 'getQuizResult']);
-        Route::post('correction-quiz', [UserController::class, 'correctionQuiz']);
     });
 
     // course
@@ -927,6 +924,8 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
         Route::post('/survey/{course_id}/store', [WebPanelUserController::class, 'CourseSurveyStore'])->name('web.my-course-survey-store');
 
         Route::get('/quiz/{course_id}', [WebPanelUserController::class, 'CourseQuiz'])->name('web.my-course-quiz');
+        Route::post('get-quiz-result', [WebPanelUserController::class, 'getQuizResult']);
+        Route::post('correction-quiz', [WebPanelUserController::class, 'correctionQuiz'])->name('web.my-course-quiz-correction');
     });
 
     // certificate

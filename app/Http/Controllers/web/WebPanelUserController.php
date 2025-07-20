@@ -15,9 +15,11 @@ use App\Models\Notification;
 use App\Models\Notify;
 use App\Models\Payment;
 use App\Models\QuizQuestion;
+use App\Models\Sms;
 use App\Models\Survey;
 use App\Models\SurveyField;
 use App\Models\UserLesson;
+use App\Models\UserQuiz;
 use App\Models\Webinar;
 use App\Models\WebinarRegister;
 use Illuminate\Http\Request;
@@ -552,8 +554,6 @@ class WebPanelUserController extends Controller
                 return back()->with('quiz_errors', 'قبلا در آزمون این دوره شرکت کرده اید و گواهی پایان دوره برا شما صادر شده است');
         }
 
-        dd('ddd');
-
         $last_date_take_quize_miladi = $classroom->last_date_take_quize_miladi;
         if ($last_date_take_quize_miladi === null) {
             $quiz = QuizQuestion::where('id_course', $courseId)->inRandomOrder()->take(20)->get();
@@ -564,7 +564,7 @@ class WebPanelUserController extends Controller
             $classroom->answer_status = 0;
             $classroom->save();
 
-            return view('web.course-survey', compact('course', 'quiz'));
+            return view('web.course-quiz', compact('course', 'quiz'));
         }
         else {
             $now = time();
@@ -580,12 +580,98 @@ class WebPanelUserController extends Controller
                 $classroom->answer_status = 0;
                 $classroom->save();
 
-                return view('web.course-survey', compact('course', 'quiz'));
+                return view('web.course-quiz', compact('course', 'quiz'));
             }
             else {
                 $message = "شما بعد از " . ( 3 - $diff_days ) . " روز می توانید مجددا در آزمون شرکت کنید ";
                 return back()->with('quiz_errors', $message);
             }
         }
+    }
+
+    public function correctionQuiz(){
+        request()->validate([
+            'courseId' => 'required|integer',
+            'answer' => 'required|array',
+            'answer.*.id' => 'required|integer|exists:quiz_questions,id',
+            'answer.*.value' => 'required|in:1,2,3,4',
+        ]);
+
+        $nowDate = date("Y-m-d");
+        $nowdateshamsi = nowDateShamsi();
+        $id_course = request()->courseId;
+        $user = auth()->user();
+        $classroom = Classroom::where([['id_user', $user->id], ['id_course', $id_course]])->firstOrFail();
+
+        if ($classroom->certificate_status === 'صدور مدرک')
+            return redirect(route('web.my-course-detail', $id_course))->with('quiz_errors', 'شما قبلا در آزمون این دوره شرکت کرده اید و گواهی پایان دوره نیز برای شما ارسال شده است');
+
+        if ($classroom->result !== 'finish')
+            return redirect(route('web.my-course-detail', $id_course))->with('quiz_errors', 'ابتدا دروس دوره را به پایان برسانید سپس در آزمون شرکت کنید');
+
+        $answer = request()->answer;
+        $answerCount = count($answer) === 0 ? 20 : count($answer);
+        $validTime = (($answerCount * 60) + 60) + strtotime($classroom->updated_at);
+
+        if($classroom->answer_status === 1 || ($classroom->answer_status === 0 && $validTime < time())){
+            $classroom->answer_status = 1;
+            $classroom->save();
+            return redirect(route('web.my-course-detail', $id_course))->with('quiz_errors', 'زمان آزمون تمام شد . شما نمی توانید در آزمون شرکت کنید');
+        }
+
+        $cnt_quest = 20;
+        $cnt_true_answer = 0;
+        UserQuiz::where([['id_course', $id_course], ['id_user', $user->id]])->delete();
+        foreach ($answer as $row) {
+            if(!$row['value'])
+                continue;
+            $ques_user_answer = (int) $row['value'];
+            $ques = QuizQuestion::where('id', $row['id'])->select('id', 'question', 'answer')->first();
+            if ($ques_user_answer == (int)$ques->answer) {
+                $this->addUserQuesResult($user->id, $id_course, $row['id'], $ques_user_answer, 1);
+                $cnt_true_answer = $cnt_true_answer + 1;
+            } else
+                $this->addUserQuesResult($user->id, $id_course, $row['id'], $ques_user_answer, 0);
+        }
+
+        if ($cnt_quest > 0) $score = ($cnt_true_answer / $cnt_quest) * 100;
+        else $score = 0;
+        $score = (int)round($score);
+
+        if ($score < 70) $quiz_result = 0;
+        else {
+            $quiz_result = 1;
+            $classroom->certificate_status = "صدور مدرک";
+        }
+
+        $classroom->last_date_take_quize_miladi = $nowDate;
+        $classroom->last_date_take_quize = $nowdateshamsi;
+        $classroom->take_quiz = 1;
+        $classroom->answer_status = 1;
+        $classroom->quiz_score = $score;
+        $classroom->quiz_result = $quiz_result;
+        $classroom->save();
+
+        $course = Course::where('id', $id_course)->select('id', 'code', 'title')->first();
+        $userQuizs = UserQuiz::where([['id_user', $user->id], ['id_course', $id_course]])
+            ->with(array('questions' => function ($query) {
+                $query->select('id', 'question');
+            }))->get();
+
+        $text = $user->name . " ارجمند " . "\n"."امتیاز کسب شده شما در آزمون دوره ( " . $course->title ." ) ". $score ." از 100 می باشد. "."\n"."تاریخ آزمون: ". $nowdateshamsi ."\n\n". "سامانه کسب بوم"."\n"."kasboom.ir";
+        Sms::send($user->phonenumber, $text);
+
+        session()->flash('quiz_correction_success_message', 'آزمون شما با موفقیت ثبت شد');
+        return redirect(route('web.my-course-detail', $id_course));
+    }
+
+    function addUserQuesResult($id_user, $id_course, $id_ques, $user_answer, $answer){
+        UserQuiz::updateOrInsert([
+            'id_user' => $id_user,
+            'id_course' => $id_course,
+            'id_quize_questions' => $id_ques,
+            'user_answer' => $user_answer,
+            'answer' => $answer
+        ]);
     }
 }

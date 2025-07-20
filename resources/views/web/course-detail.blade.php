@@ -31,14 +31,18 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                             aria-label="Close"></button>
                 </div>
-                <div class="myalert alert alert-success alert-dismissible fade show" role="alert">
-                    <div class="icon"><i class="mdi mdi-check-circle-outline"></i></div>
-                    <div class="text">بعد از مشاهده همه درس های دوره ، گزینه شرکت در آزمون فعال می شود.
-                        با قبولی در آزمون <strong>گواهینامه دیجیتال</strong> برای شما صادر می
-                        شود</div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                            aria-label="Close"></button>
-                </div>
+
+                @if((int)$course->have_certificate !== 0)
+                    <div class="myalert alert alert-success alert-dismissible fade show" role="alert">
+                        <div class="icon"><i class="mdi mdi-check-circle-outline"></i></div>
+                        <div class="text">بعد از مشاهده همه درس های دوره ، گزینه شرکت در آزمون فعال می شود.
+                            با قبولی در آزمون <strong>گواهینامه دیجیتال</strong> برای شما صادر می
+                            شود</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                    </div>
+                @endif
+
                 <div class="main-btns-action">
                     <button class="btn btn-danger-outline icon-right btn-sm" data-bs-toggle="modal"
                             data-bs-target="#modal-bugs">
@@ -56,7 +60,7 @@
                         <span class="icon">نظرسنجی</span>
                     </a>
 
-                    @if(count($surveyId) >= count($surveyMy))
+                    @if(count($surveyId) >= count($surveyMy) && (int)$course->have_certificate !== 0)
                         <a href="{{ route('web.my-course-quiz', $course->id) }}" class="btn btn-default icon-right btn-sm">
                             <span class="icon"><i class="mdi mdi-list-status"></i></span>
                             <span class="icon">شرکت در آزمون</span>
@@ -473,6 +477,14 @@
         <script>
             $(document).ready(function () {
                 toastMessage('موفق', '{{ session('survey_store_success_message') }}', 'success');
+            });
+        </script>
+    @endif
+
+    @if (session()->has('quiz_correction_success_message'))
+        <script>
+            $(document).ready(function () {
+                toastMessage('موفق', '{{ session('quiz_correction_success_message') }}', 'success');
             });
         </script>
     @endif
