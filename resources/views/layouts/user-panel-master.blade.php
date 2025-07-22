@@ -317,7 +317,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="userProfile-discounts.html" class="link">
+                                <a href="{{ route('web.my-discounts') }}" class="link">
                                     <i class="mdi mdi-sale"></i>
                                     تخفیف‌ها
                                 </a>

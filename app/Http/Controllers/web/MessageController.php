@@ -21,7 +21,7 @@ class MessageController extends Controller
             $courses = Course::where("id_teacher", $user->id_teacher)->select("id")->get();
             $query = Message::where("type", "course")->whereIn("id_target", $courses);
         }
-        else $query = Message::query();
+        else $query = Message::where('id_owner', $user->id);
 
         if ($search)
             $query->where(function($q) use ($search) {

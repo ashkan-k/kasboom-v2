@@ -7,6 +7,7 @@ use App\Models\Bug;
 use App\Models\Classroom;
 use App\Models\Comment;
 use App\Models\Course;
+use App\Models\KasboomCoupon;
 use App\Models\Lesson;
 use App\Models\LessonAttach;
 use App\Models\Message;
@@ -673,5 +674,32 @@ class WebPanelUserController extends Controller
             'user_answer' => $user_answer,
             'answer' => $answer
         ]);
+    }
+
+    //    discount - new version kasboom-coupon
+    public function discounts () {
+        $search = arToFa(request()->search);
+
+        $query = KasboomCoupon::where([['status', 1], ['end_date', '>=', jdate()->format('Y/m/d')]])
+            ->where(function ($q) {
+                $q->whereJsonContains('users', auth()->user()->id)
+                    ->orWhereNull('users');
+            });
+
+        if ($search)
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+
+        if (\request('status') == 'new'){
+            $query = $query->where('status', 0);
+        }
+        elseif (\request('status') == 'expired'){
+            $query = $query->where('status', 1);
+        }
+
+        $discounts = $query->paginate(8);
+
+        return view('web.discount', compact('discounts'));
     }
 }

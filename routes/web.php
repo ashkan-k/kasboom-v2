@@ -903,6 +903,8 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
 
     Route::get('messages', [MessageController::class, 'allMessages'])->name('web.my-messages');
 
+    Route::get('discounts', [WebPanelUserController::class, 'discounts'])->name('web.my-discounts');
+
 //        course
     Route::group(['prefix' => 'course'], function () {
         Route::post('/', [WebPanelUserController::class, 'myCourses']);
