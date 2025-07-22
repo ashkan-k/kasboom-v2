@@ -19,6 +19,7 @@ use App\Http\Controllers\landuseController;
 use App\Http\Controllers\mainController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\web\MessageController;
 use App\Http\Controllers\web\WebPanelUserController;
 use App\Http\Controllers\webinarController;
 use App\Http\Controllers\wikiController;
@@ -899,6 +900,8 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
     Route::get('transaction-ref', [WebPanelUserController::class, 'transactionRef'])->name('web.my-ref-transactions');
 
     Route::post('bugs/store', [WebPanelUserController::class, 'bugStore'])->name('web.bug-store');
+
+    Route::get('messages', [MessageController::class, 'allMessages'])->name('web.my-messages');
 
 //        course
     Route::group(['prefix' => 'course'], function () {

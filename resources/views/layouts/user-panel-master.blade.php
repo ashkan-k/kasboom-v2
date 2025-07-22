@@ -311,7 +311,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="userProfile-messages.html" class="link">
+                                <a href="{{ route('web.my-messages') }}" class="link">
                                     <i class="mdi mdi-email-outline"></i>
                                     پیام‌ها
                                 </a>
