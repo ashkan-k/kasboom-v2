@@ -323,7 +323,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="userProfile-bookmarks.html" class="link">
+                                <a href="{{ route('web.my-bookmark') }}" class="link">
                                     <i class="mdi mdi-heart-outline"></i>
                                     علاقه‌مندی‌ها
                                 </a>

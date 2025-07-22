@@ -19,6 +19,7 @@ use App\Models\QuizQuestion;
 use App\Models\Sms;
 use App\Models\Survey;
 use App\Models\SurveyField;
+use App\Models\UserFavorite;
 use App\Models\UserLesson;
 use App\Models\UserQuiz;
 use App\Models\Webinar;
@@ -701,5 +702,24 @@ class WebPanelUserController extends Controller
         $discounts = $query->paginate(8);
 
         return view('web.discount', compact('discounts'));
+    }
+
+    public function wishlist()
+    {
+        $limit = 10;
+        $search = arToFa(request()->search);
+        $query = UserFavorite::where("id_user", auth()->user()->id);
+        if ($search)
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+
+        $type = request()->type ?: 'product';
+        if ($type)
+            $query->where('type', $type);
+
+        $wishlists = $query->with(['product', 'webinar', 'idea', 'course'])->paginate($limit);
+
+        return view('web.wishlist', compact('wishlists'));
     }
 }
