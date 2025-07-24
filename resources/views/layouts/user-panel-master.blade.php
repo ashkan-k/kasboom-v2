@@ -335,7 +335,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="userProfile-become-teachers.html" class="link">
+                                <a href="{{ route('web.invite-teacher') }}" class="link">
                                     <i class="mdi mdi-handshake-outline"></i>
                                     تدریس در کسبوم
                                 </a>

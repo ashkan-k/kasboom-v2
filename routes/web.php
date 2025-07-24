@@ -913,6 +913,9 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
     Route::get('idea/{id}/edit', [WebPanelUserController::class, 'wikiEdit'])->name('web.my-ideas-edit');
     Route::get('idea/{id}/delete', [WebPanelUserController::class, 'wikiDelete'])->name('web.my-ideas-delete');
 
+    Route::get('invite-teacher', [WebPanelUserController::class, 'InviteTeacher'])->name('web.invite-teacher');
+    Route::post('store-invite-teacher', [WebPanelUserController::class, 'storeInviteTeacher'])->name('web.invite-teacher-store');
+
 //        course
     Route::group(['prefix' => 'course'], function () {
         Route::post('/', [WebPanelUserController::class, 'myCourses']);
