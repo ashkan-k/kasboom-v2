@@ -4,6 +4,7 @@ namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bug;
+use App\Models\Category;
 use App\Models\Classroom;
 use App\Models\Comment;
 use App\Models\Course;
@@ -17,6 +18,7 @@ use App\Models\Notify;
 use App\Models\Payment;
 use App\Models\QuizQuestion;
 use App\Models\Sms;
+use App\Models\State;
 use App\Models\Survey;
 use App\Models\SurveyField;
 use App\Models\UserFavorite;
@@ -28,6 +30,7 @@ use App\Models\Wikiidea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Morilog\Jalali\CalendarUtils;
 
@@ -739,13 +742,129 @@ class WebPanelUserController extends Controller
             });
 
         if ($order_by && in_array($order_by, $allowedColumns)) {
-            $query->orderByDesc($order_by);
+            $query = $query->orderByDesc($order_by);
         } else {
-            $query->orderByDesc('created_at');
+            $query = $query->orderByDesc('created_at');
         }
 
         $ideas = $query->paginate($limit);
 
         return view('web.ideas', compact('ideas'));
+    }
+
+    public function wikiCreate(){
+        $cats = Category::where([
+            ['status', 1],
+            ['type', 'idea'],
+            ['count', '>', 0]
+        ])->select('id', 'title')->get();
+
+        $states = getState();
+        $id = request()->id;
+
+        return view('web.ideas-form', compact('cats', 'states'));
+    }
+
+    public function wikiStore()
+    {
+        if (auth()->user()->can('create-wiki'))
+            return back()->with('error', 'چیزی یافت نشد');
+
+        $data = request()->all();
+        Validator::validate($data, [
+            'title' => 'required|max:100',
+            'minimal_fund' => 'required|max:100',
+            'risk' => 'required|in:خیلی زیاد,زیاد,پایین,متوسط',
+            'profitability' => 'required|in:بلند مدت,میان مدت,کوتاه مدت',
+            'ispublish' => 'required|in:1,0',
+            'profitability_memo' => 'required|max:100',
+            'manpower' => 'required|max:30',
+            'scale' => 'required|max:50',
+            'abstractMemo' => 'required|max:50',
+            'memo' => 'required',
+            'id_category' => 'required|exists:categories,id',
+            'id_state' => 'required|exists:kasboom_state,id',
+        ]);
+
+       Category::where([
+            ['status', 1],
+            ['type', 'idea'],
+            ['id', $data['id_category']],
+            ['count', '>', 0]
+        ])->firstOrFail();
+
+        $user = auth()->user();
+        $id = request()->id;
+        if ($id > 0) {
+            $idea = Wikiidea::where([
+                ['id_user', $user->id],
+                ['id', $id]
+            ])->firstOrFail();
+
+            $code = $idea->code;
+        }
+        else {
+            $code = generateIdeaCode();
+            $idea = new Wikiidea;
+            $idea->code = $code;
+            $idea->id_user = $user->id;
+            $idea->publisher_name = $user->name;
+            $idea->registe_date = nowDateShamsi();
+            $idea->like_count = 0;
+            $idea->view_count = 0;
+        }
+
+        if (request()->file('ideaImage')) {
+            Validator::validate(request()->file(), [
+                'ideaImage' => 'mimes:jpg,jpeg,png|max:5000'
+            ]);
+
+            if (checkValidIP(request()->header('x-forwarded-for'))) {
+                $slash = DIRECTORY_SEPARATOR;
+                $folderPath = '.'.$slash.'..'.$slash.'..'.$slash.'_upload_'.$slash.'_wikiideas_'.$slash.$code;
+                if($id > 0 && $idea->image) {
+                    File::delete($folderPath . $slash . $idea->image);
+                    File::delete($folderPath . $slash . 'medium_' . $idea->image);
+                    File::delete($folderPath . $slash . 'small_' . $idea->image);
+                }
+                $idea->image = uploadImageFile(request()->file('ideaImage'), $folderPath);
+            } else
+                return ['message' => 'دسترسی غیر مجاز از شبکه', 'success' => false];
+        }
+
+        $idea->title = arToFa($data['title']);
+        $idea->id_category = $data['id_category'];
+        $idea->minimal_fund = $data['minimal_fund'];
+        $idea->risk = $data['risk'];
+        $idea->profitability = $data['profitability'];
+        $idea->profitability_memo = $data['profitability_memo'];
+        $idea->manpower = $data['manpower'];
+        $idea->scale = $data['scale'];
+        $idea->memo = arToFa($data['memo']);
+        $idea->abstractMemo = arToFa($data['abstractMemo']);
+        $idea->id_state = $data['id_state'];
+        $idea->status = 0;
+        $idea->ispublish = $data['ispublish'];
+        $idea->save();
+
+        $cat = Category::where([['type', 'idea'], ['id', $data['id_category']]])->first();
+        $cat->increment('count');
+
+        return redirect(route('web.my-ideas'))->with('idea_submit_success', 'ثبت ایده با موفقیت انجام شد , پس از تایید مدیر انتشار خواهد یافت');
+    }
+
+    public function wikiEdit($id){
+        $object = Wikiidea::where([['id_user', auth()->user()->id], ['id', $id]])
+            ->with('category:id,title')->firstOrFail();
+
+        $cats = Category::where([
+            ['status', 1],
+            ['type', 'idea'],
+            ['count', '>', 0]
+        ])->select('id', 'title')->get();
+
+        $states = getState();
+
+        return view('web.ideas-form', compact('object', 'cats', 'states'));
     }
 }

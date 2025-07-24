@@ -329,7 +329,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="userProfile-ideas.html" class="link">
+                                <a href="{{ route('web.my-ideas') }}" class="link">
                                     <i class="mdi mdi-lightbulb-on-outline"></i>
                                     ایده‌های من
                                 </a>

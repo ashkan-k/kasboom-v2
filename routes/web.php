@@ -908,6 +908,9 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
     Route::get('bookmark', [WebPanelUserController::class, 'wishlist'])->name('web.my-bookmark');
 
     Route::get('idea', [WebPanelUserController::class, 'wikiList'])->name('web.my-ideas');
+    Route::get('idea/create', [WebPanelUserController::class, 'wikiCreate'])->name('web.my-ideas-create');
+    Route::post('idea/store', [WebPanelUserController::class, 'wikiStore'])->name('web.my-ideas-store');
+    Route::get('idea/{id}/edit', [WebPanelUserController::class, 'wikiEdit'])->name('web.my-ideas-edit');
 
 //        course
     Route::group(['prefix' => 'course'], function () {
