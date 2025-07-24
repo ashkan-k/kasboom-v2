@@ -24,6 +24,7 @@ use App\Models\UserLesson;
 use App\Models\UserQuiz;
 use App\Models\Webinar;
 use App\Models\WebinarRegister;
+use App\Models\Wikiidea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -721,5 +722,30 @@ class WebPanelUserController extends Controller
         $wishlists = $query->with(['product', 'webinar', 'idea', 'course'])->paginate($limit);
 
         return view('web.wishlist', compact('wishlists'));
+    }
+
+    public function wikiList(){
+        $allowedColumns = ['view_count', 'created_at', 'total_score'];
+
+        $limit = 10;
+        $search = arToFa(request()->search);
+        $order_by = request()->order_by;
+
+        $query = Wikiidea::where('id_user', auth()->user()->id)->with('category:id,title');
+        if ($search)
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%$search%")
+                    ->orWhere('abstractMemo', 'like', "%$search%");
+            });
+
+        if ($order_by && in_array($order_by, $allowedColumns)) {
+            $query->orderByDesc($order_by);
+        } else {
+            $query->orderByDesc('created_at');
+        }
+
+        $ideas = $query->paginate($limit);
+
+        return view('web.ideas', compact('ideas'));
     }
 }

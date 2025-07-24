@@ -153,7 +153,7 @@
                          role="tabpanel" tabindex="0">
                         <div class="tab-inner">
 
-                            @if(request('type') == 'webinar')
+                            @if(request('type') == 'idea')
                                 <div class="row">
 
                                     @foreach($wishlists as $wishlist)
@@ -197,7 +197,61 @@
                     </div>
                     <div class="tab-pane fade @if(request('type') == 'course') show active @endif"
                          id="custom-tab-pane-4" role="tabpanel" tabindex="0">
-                        <div class="tab-inner">تب 4</div>
+                        <div class="tab-inner">
+
+                            @if(request('type') == 'course')
+                                <div class="row">
+
+                                    @foreach($wishlists as $wishlist)
+                                        <?php
+                                        $course = $wishlist->course;
+                                        $title = str_replace(' ', '_', $course->title);
+                                        $img_src=$course->getThumbnail();
+                                        $img_src="assets-v2/images/thumb.png";
+                                        $slug= "/course/".$course->getSlug();
+                                        $teacher= $course->teacher ? $course->teacher->fullname : 'کسبوم';
+                                        $time=$course->minutes > 0 ? $course->hour.':'.$course->minutes : $course->hour;
+                                        ?>
+
+                                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                            <div class="card-course mb-4" title="نام دوره">
+                                                <a href="{{$slug}}" target="_blank">
+                                                    <div class="img-container">
+                                                        <div class="img-inner">
+                                                            <img
+                                                                src="{{$img_src}}"
+                                                                alt="{{$title ?: '---'}}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-b">
+                                                        <h3 class="name">{{ $course->title ?: '---' }}</h3>
+                                                        <div class="info">
+                                                            <h4 class="teacher"><i
+                                                                    class="mdi mdi-account-outline"></i>{{ $course?->teacher?->fullname ?: '---' }}
+                                                            </h4>
+                                                            <p class="duration"><i
+                                                                    class="mdi mdi-clock-outline"></i>کف سرمایه :
+                                                                <span>
+                                                                    @if($course->price>0)
+                                                                        {{number_format($course->price)}} تومان
+                                                                    @else
+                                                                        رایگان
+                                                                    @endif
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+
+                                {{ $wishlists->appends(request()->query())->links('web.components.pagination') }}
+                            @endif
+
+                        </div>
                     </div>
                 </div>
             </div>
