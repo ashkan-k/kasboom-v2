@@ -49,10 +49,10 @@
                         @foreach($ideas as $idea)
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                                 <div class="card-course mb-4" title="{{$idea->title ?: '---'}}">
-                                    <a href="{{url('wikiidea/details/' . $idea->id)}}" title="{{$idea->abstractMemo}}">
+                                    <a href="{{url('wikiidea/details/' . $idea->id)}}" title="{{$idea->abstractMemo}}" target="_blank">
                                         <div class="img-container">
                                             <div class="img-inner">
-                                                <img src="_upload_/_wikiideas_/{{$idea->code}}/medium_{{$idea->image}}"
+                                                <img src="/_upload_/_wikiideas_/{{$idea->code}}/medium_{{$idea->image}}"
                                                      alt="{{$idea->title ?: '---'}}"/>
                                             </div>
                                         </div>

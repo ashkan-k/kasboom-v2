@@ -1890,6 +1890,7 @@ function uploadImageFile($file, $path)
 //        $filename = $file->getClientOriginalName();
   $filename = 'img_' . sha1(time()) . "." . $fileextension;
   $public_path = public_path($path);
+//  dd($public_path);
   $file = $file->move($public_path, $filename);
   Image::make($public_path . '/' . $filename)->resize(128, 100)->save($public_path . '/small_' . $filename);
   Image::make($public_path . '/' . $filename)->resize(320, 240)->save($public_path . '/medium_' . $filename);

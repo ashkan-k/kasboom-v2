@@ -821,7 +821,8 @@ class WebPanelUserController extends Controller
 
             if (checkValidIP(request()->header('x-forwarded-for'))) {
                 $slash = DIRECTORY_SEPARATOR;
-                $folderPath = '.'.$slash.'..'.$slash.'..'.$slash.'_upload_'.$slash.'_wikiideas_'.$slash.$code;
+//                $folderPath = '.'.$slash.'..'.$slash.'..'.$slash.'_upload_'.$slash.'_wikiideas_'.$slash.$code;
+                $folderPath = '_upload_'.$slash.'_wikiideas_'.$slash.$code;
                 if($id > 0 && $idea->image) {
                     File::delete($folderPath . $slash . $idea->image);
                     File::delete($folderPath . $slash . 'medium_' . $idea->image);
