@@ -868,4 +868,16 @@ class WebPanelUserController extends Controller
 
         return view('web.ideas-form', compact('object', 'cats', 'states'));
     }
+
+    public function wikiDelete($id) {
+        $wiki = Wikiidea::where([['id', $id], ['id_user', auth()->user()->id]])->firstOrFail();
+
+        $slash = DIRECTORY_SEPARATOR;
+        $folderPath = '_upload_'.$slash.'_wikiideas_'.$slash.$wiki->code;
+
+        deleteDirectory($folderPath);
+        $wiki->delete();
+
+        return redirect(route('web.my-ideas'))->with('idea_submit_success', 'ایده با موفقیت حذف شد');
+    }
 }

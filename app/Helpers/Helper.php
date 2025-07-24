@@ -2701,4 +2701,29 @@ if (!function_exists('nowDateShamsi')) {
     }
 }
 
+if (!function_exists('deleteDirectory')) {
+    function deleteDirectory($dirname)
+    {
+        $slash = DIRECTORY_SEPARATOR;
+        $dir_handle = '';
+        $dirname = public_path($dirname);
+        if (is_dir($dirname))
+            $dir_handle = opendir($dirname);
+
+        if (!$dir_handle)
+            return false;
+        while ($file = readdir($dir_handle)) {
+            if ($file != "." && $file != "..") {
+                if (!is_dir($dirname . $slash . $file))
+                    unlink($dirname . $slash . $file);
+                else
+                    deleteDirectory($dirname . $slash . $file);
+            }
+        }
+        closedir($dir_handle);
+        rmdir($dirname);
+        return true;
+    }
+}
+
 ?>
