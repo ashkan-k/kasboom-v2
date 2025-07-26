@@ -19,7 +19,7 @@
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Font Icons -->
-    <link href="/user-panel/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
+    <link href="/assets-v2/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
 
     <!-- Favicon -->
     <link rel="icon" href="/user-panel/images/small-icon.png">
@@ -239,7 +239,7 @@
                         <button id="btn-show-userMenu"><i class="mdi mdi-dots-horizontal"></i></button>
                         <div class="thumb">
                             <div class="img-inner">
-                                <img src="{{ auth()->user()->getImageFolder() }}/{{ auth()->user()->image }}" alt="user-name">
+                                <img src="/{{ auth()->user()->getImageFolder() }}/{{ auth()->user()->image }}" alt="user-name">
                             </div>
                         </div>
                         <h5 class="user-name">نام کاربری</h5>
@@ -356,8 +356,9 @@
             </div>
         </div>
     </div>
+
+    <div class="overlay-profile"></div>
 </div>
-<div class="overlay-profile"></div>
 
 <!-- footer -->
 <footer class="footer">
