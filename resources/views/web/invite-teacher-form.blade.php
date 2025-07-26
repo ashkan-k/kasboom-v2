@@ -17,7 +17,7 @@
         </div>
         <div class="main-body">
             <form action="{{ route('web.invite-teacher-store') }}" method="post" enctype="multipart/form-data">
-                @csrf
+                    @csrf
 
                 <div class="px-md-4 px-3 pb-md-4 pb-3">
                     <div class="row">

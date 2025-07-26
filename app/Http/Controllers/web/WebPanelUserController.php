@@ -979,6 +979,7 @@ class WebPanelUserController extends Controller
 
         sendSMSInviteTeacher($data['phonenumber'], $data['fullname']);
 
-        return redirect(route('web.invite-teacher'))->with('store_invite_teacher_success', 'اطلاعات با موفقیت ثبت شد');
+        session()->flash('store_invite_teacher_success', 'اطلاعات با موفقیت ثبت شد');
+        return redirect(route('web.invite-teacher'));
     }
 }
