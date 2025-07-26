@@ -134,7 +134,7 @@
 
                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                             <div class="select-group mt-0 mb-4">
-                                <select required name="id_state" class="form-select mt-0" aria-label="advice type">
+                                <select onchange="GetCities()" required name="id_state" id="id_state" class="form-select mt-0" aria-label="advice type">
                                     <option value="" selected disabled>استان</option>
 
                                     @foreach($states as $state)
@@ -150,7 +150,7 @@
 
                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                             <div class="select-group mt-0 mb-4">
-                                <select required name="id_city" class="form-select mt-0" aria-label="advice type">
+                                <select required name="id_city" id="id_city" class="form-select mt-0" aria-label="advice type">
                                     <option value="" selected disabled>شهر</option>
 
                                     @foreach($states as $state)
@@ -510,6 +510,42 @@
 @section('Page_JS')
     <script src="/user-panel/plugin/ckeditor4/ckeditor.js"></script>
     <script src="/user-panel/plugin/ckeditor4/ckeditor-initial.js"></script>
+
+    <script>
+        var id_city = null;
+
+        $(document).ready(function () {
+            // Check id_city
+            var id_state = $("#id_state").val();
+            if (id_state) {
+                GetCities();
+            }
+        });
+
+        function GetCities() {
+            var id_state = parseInt($("#id_state option:selected").val())
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            var fd = new FormData();
+            fd.append('state', id_state);
+
+            $.ajax({
+                url: "/getCity",
+                method: "POST",
+                data:fd,
+                contentType: false,
+                processData: false,
+                async: true,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function (response) {
+                    $('#id_city').html(response.data);
+                },
+            });
+        }
+    </script>
 
     <script>
         $('#search_input').on('keydown', function (event) {
