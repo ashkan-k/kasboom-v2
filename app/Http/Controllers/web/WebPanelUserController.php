@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Morilog\Jalali\CalendarUtils;
 
 class WebPanelUserController extends Controller
@@ -893,8 +894,8 @@ class WebPanelUserController extends Controller
 
     public function storeInviteTeacher () {
 
-        $data = json_decode(request()->data, true);
-        $validator = Validator::make($data, [
+        $data = request()->all();
+        Validator::validate($data, [
             'fullname' => 'required|max:50',
             'tel' => 'required|max:15',
             'phonenumber' => 'required|max:15',
@@ -910,45 +911,35 @@ class WebPanelUserController extends Controller
             'history_title_2' => 'max:200',
             'history_link_1' => 'max:200',
             'history_link_2' => 'max:200',
-            'memo' => 'required|max:500'
+            'memo' => 'required|max:500',
+            'id_state' => 'required|exists:kasboom_state,id',
+            'id_city' => 'required|exists:kasboom_city,id',
+            'history_type_1' => 'required|in:نوشته آنلاین,کتاب فارسی,مقاله انگلیسی,مقاله فارسی,آموزش ویدئویی',
+            'history_type_2' => 'required|in:نوشته آنلاین,کتاب فارسی,مقاله انگلیسی,مقاله فارسی,آموزش ویدئویی',
         ]);
-        if($validator->fails())
-            return ['success' => false,'message' => $validator->errors()->first()];
 
-        if(!$data['id_state'] || !State::find($data['id_state']))
-            return ['success' => false,'message' => 'استان وارد شده اشتباه است'];
-
-        if(!City::where([['id', $data['id_city']], ['state_id', $data['id_state']]])->first())
-            return ['success' => false,'message' => 'شهر انتخاب شده اشتباه است'];
-
-        if (
-            (!$data['id_cat_mega_1'] && !$data['id_cat_mega_2']) ||
-            (!$data['id_cat_middle_1'] && !$data['id_cat_middle_2']) ||
-            (!$data['id_cat_sub_1'] && !$data['id_cat_sub_2'])
-        ) return ['success' => false, 'message' => 'حتما یک مرحله از بخش تخصص را کامل پر کنید'];
-
-        $historyTypes = ['آموزش ویدئویی', 'مقاله فارسی', 'مقاله انگلیسی', 'کتاب فارسی', 'نوشته آنلاین', ""];
-        if (!in_array($data['history_type_1'], $historyTypes) || !in_array($data['history_type_2'], $historyTypes))
-            return ['success' => false, 'message' => 'نوع سند , صحیح نمی باشد'];
+//        if (
+//            (!isset($data['id_cat_mega_1']) && !isset($data['id_cat_mega_2'])) ||
+//            (!isset($data['id_cat_middle_1']) && !isset($data['id_cat_middle_2'])) ||
+//            (!isset($data['id_cat_sub_1']) && !isset($data['id_cat_sub_2']))
+//        ){
+//            throw ValidationException::withMessages(['category_error' => 'حتما یک مرحله از بخش تخصص را کامل پر کنید']);
+//        }
 
         $code = generateIdeaCode();
         $slash = DIRECTORY_SEPARATOR;
-        $folderPath = '.'.$slash.'..'.$slash.'..'.$slash.'_upload_'.$slash.'_inviteTeacher_'.$slash.$code;
+        $folderPath = '_upload_'.$slash.'_inviteTeacher_'.$slash.$code;
         $invite = new Invite;
 
 //        image resum
         if (request()->file('inviteImage')) {
-            $validator = Validator::make(request()->all(), ['inviteImage' => 'max:5000|mimes:jpg,jpeg,png']);
-            if($validator->fails()) return ['success' => false, 'message' => $validator->errors()->first()];
-
+            Validator::validate(request()->all(), ['inviteImage' => 'max:5000|mimes:jpg,jpeg,png']);
             $invite->attach_rezoume = uploadImageOneFile(request()->file('inviteImage'), $folderPath);
         }
 
 //        film
         if (request()->file('inviteFile')) {
-            $validator = Validator::make(request()->all(), ['inviteFile' => 'max:55000|mimes:mp4,mkv']);
-            if($validator->fails()) return ['success' => false, 'message' => $validator->errors()->first()];
-
+            Validator::validate(request()->all(), ['inviteFile' => 'max:55000|mimes:mp4,mkv']);
             $invite->attach_sample = uploadFile(request()->file('inviteFile'), $folderPath);
         }
 
@@ -975,12 +966,12 @@ class WebPanelUserController extends Controller
         $invite->history_link_1 = $data['history_link_1'];
         $invite->history_link_2 = $data['history_link_2'];
 
-        if ($data['id_cat_mega_1'] !== '') $invite->id_cat_mega_1 = $data['id_cat_mega_1'];
-        if ($data['id_cat_mega_2'] !== '') $invite->id_cat_mega_2 = $data['id_cat_mega_2'];
-        if ($data['id_cat_middle_1'] !== '') $invite->id_cat_middle_1 = $data['id_cat_middle_1'];
-        if ($data['id_cat_middle_2'] !== '') $invite->id_cat_middle_2 = $data['id_cat_middle_2'];
-        if ($data['id_cat_sub_1'] !== '') $invite->id_cat_sub_1 = $data['id_cat_sub_1'];
-        if ($data['id_cat_sub_2'] !== '') $invite->id_cat_sub_2 = $data['id_cat_sub_2'];
+//        if ($data['id_cat_mega_1'] !== '') $invite->id_cat_mega_1 = $data['id_cat_mega_1'];
+//        if ($data['id_cat_mega_2'] !== '') $invite->id_cat_mega_2 = $data['id_cat_mega_2'];
+//        if ($data['id_cat_middle_1'] !== '') $invite->id_cat_middle_1 = $data['id_cat_middle_1'];
+//        if ($data['id_cat_middle_2'] !== '') $invite->id_cat_middle_2 = $data['id_cat_middle_2'];
+//        if ($data['id_cat_sub_1'] !== '') $invite->id_cat_sub_1 = $data['id_cat_sub_1'];
+//        if ($data['id_cat_sub_2'] !== '') $invite->id_cat_sub_2 = $data['id_cat_sub_2'];
 
         $invite->regist_date = nowDateShamsi();
         $invite->status = 0;
@@ -988,6 +979,6 @@ class WebPanelUserController extends Controller
 
         sendSMSInviteTeacher($data['phonenumber'], $data['fullname']);
 
-        return ['success' => true, 'message' => 'اطلاعات با موفقیت ثبت شد'];
+        return redirect(route('web.invite-teacher'))->with('store_invite_teacher_success', 'اطلاعات با موفقیت ثبت شد');
     }
 }

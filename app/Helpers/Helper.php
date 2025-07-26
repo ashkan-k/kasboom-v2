@@ -2726,4 +2726,68 @@ if (!function_exists('deleteDirectory')) {
     }
 }
 
+if (!function_exists('uploadImageOneFile')) {
+    function uploadImageOneFile($file, $path)
+    {
+        $fileextension = $file->getClientOriginalExtension();
+        $filename = 'img_' . sha1(time().rand(1000000000,9999999999)) . "." . $fileextension;
+        $public_path = public_path($path);
+        $file->move($public_path, $filename);
+        return $filename;
+    }
+}
+
+if (!function_exists('sendSMSInviteTeacher')) {
+    function sendSMSInviteTeacher($phoneNumber, $fullname)
+    {
+
+//        try{
+//            $url = "http://sms.rajat.ir/send_line.php";
+//            $client = new Client();
+//            $text = $fullname . " ارجمند " . "\n\n" . " درخواست همکاری شما ثبت گردید. در اسرع وقت با شما تماس گرفته خواهد شد." . "\n\n" . "سامانه کسب بوم" . "\n" . "kasboom.ir";
+//            $text = $text."\n\n". "لغو ۱۱ ";
+//            $response = $client->request('POST', $url, [
+//                'verify' => false,
+//                'form_params' => [
+//                    'to' => $phoneNumber,
+//                    'from' => 5000298645,
+//                    'fori' => 2,
+//                    'username' => 15835,
+//                    'password' => 1583500,
+//                    'text' => $text,
+//                ]
+//            ]);
+//            $status = $response->getStatusCode();
+//            if ($status == 200)
+//                return true;
+//            else
+//                return false;
+//        } catch (\Exception $e) {
+//            return false;
+//        }
+
+
+//        try {
+//            $url = "http://sms.parsgreen.ir/UrlService/sendSMS.ashx";
+//            $client = new Client();
+//            $text = $fullname . " ارجمند " . "\n\n" . " درخواست همکاری شما ثبت گردید. در اسرع وقت با شما تماس گرفته خواهد شد." . "\n\n" . "سامانه کسب بوم" . "\n" . "kasboom.ir";
+//            $response = $client->request('POST', $url, [
+//                'verify' => false,
+//                'form_params' => [
+//                    'to' => $phoneNumber,
+//                    'text' => $text,
+//                    'signature' => "99CCFC60-9E24-4D72-908F-568FC56FA238",
+//                ]
+//            ]);
+//            $status = $response->getStatusCode();
+//            if ($status == 200)
+//                return true;
+//            else
+//                return false;
+//        } catch (\Exception $e) {
+//            return false;
+//        }
+    }
+}
+
 ?>
