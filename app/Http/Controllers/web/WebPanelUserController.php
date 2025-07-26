@@ -888,8 +888,9 @@ class WebPanelUserController extends Controller
 
     public function InviteTeacher(){
         $states = getState();
+        $cats = category::where("status", "=", 1)->get();
 
-        return view('web.invite-teacher-form', compact('states'));
+        return view('web.invite-teacher-form', compact('states', 'cats'));
     }
 
     public function storeInviteTeacher () {
@@ -918,13 +919,11 @@ class WebPanelUserController extends Controller
             'history_type_2' => 'required|in:نوشته آنلاین,کتاب فارسی,مقاله انگلیسی,مقاله فارسی,آموزش ویدئویی',
         ]);
 
-//        if (
-//            (!isset($data['id_cat_mega_1']) && !isset($data['id_cat_mega_2'])) ||
-//            (!isset($data['id_cat_middle_1']) && !isset($data['id_cat_middle_2'])) ||
-//            (!isset($data['id_cat_sub_1']) && !isset($data['id_cat_sub_2']))
-//        ){
-//            throw ValidationException::withMessages(['category_error' => 'حتما یک مرحله از بخش تخصص را کامل پر کنید']);
-//        }
+        if (
+            (!isset($data['id_cat_mega_1']) && !isset($data['id_cat_mega_2']))
+        ){
+            throw ValidationException::withMessages(['category_error' => 'حتما یک مرحله از بخش تخصص را کامل پر کنید']);
+        }
 
         $code = generateIdeaCode();
         $slash = DIRECTORY_SEPARATOR;
@@ -966,8 +965,8 @@ class WebPanelUserController extends Controller
         $invite->history_link_1 = $data['history_link_1'];
         $invite->history_link_2 = $data['history_link_2'];
 
-//        if ($data['id_cat_mega_1'] !== '') $invite->id_cat_mega_1 = $data['id_cat_mega_1'];
-//        if ($data['id_cat_mega_2'] !== '') $invite->id_cat_mega_2 = $data['id_cat_mega_2'];
+        if ($data['id_cat_mega_1'] !== '') $invite->id_cat_mega_1 = $data['id_cat_mega_1'];
+        if ($data['id_cat_mega_2'] !== '') $invite->id_cat_mega_2 = $data['id_cat_mega_2'];
 //        if ($data['id_cat_middle_1'] !== '') $invite->id_cat_middle_1 = $data['id_cat_middle_1'];
 //        if ($data['id_cat_middle_2'] !== '') $invite->id_cat_middle_2 = $data['id_cat_middle_2'];
 //        if ($data['id_cat_sub_1'] !== '') $invite->id_cat_sub_1 = $data['id_cat_sub_1'];

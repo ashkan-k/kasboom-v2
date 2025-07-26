@@ -247,45 +247,17 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-6 col-12">
                                             <div class="select-group mt-0 mb-3">
-                                                <select class="form-select mt-0" aria-label="advice type">
+                                                <select name="id_cat_mega_1" class="form-select mt-0" aria-label="advice type">
                                                     <option value="0" selected disabled>تخصص
                                                     </option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
+
+                                                    @foreach($cats as $cat)
+                                                        <option @if((isset($object) && $object->id_cat_mega_1 == $cat->id) || old('id_cat_mega_1') == $cat->id) selected @endif value="{{ $cat->id ?: '---' }}">{{ $cat->title ?: '---' }}</option>
+                                                    @endforeach
+
                                                 </select>
 
                                                 @error('id_cat_mega_1')
-                                                <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-12">
-                                            <div class="select-group mt-0 mb-3">
-                                                <select class="form-select mt-0" aria-label="advice type">
-                                                    <option value="0" selected disabled>تخصص
-                                                    </option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                </select>
-
-                                                @error('id_cat_middle_1')
-                                                <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-12">
-                                            <div class="select-group mt-0 mb-3">
-                                                <select class="form-select mt-0" aria-label="advice type">
-                                                    <option value="0" selected disabled>تخصص
-                                                    </option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                </select>
-
-                                                @error('id_cat_sub_1')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -295,45 +267,17 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-6 col-12">
                                             <div class="select-group mt-0 mb-3">
-                                                <select class="form-select mt-0" aria-label="advice type">
+                                                <select name="id_cat_mega_2" class="form-select mt-0" aria-label="advice type">
                                                     <option value="0" selected disabled>تخصص
                                                     </option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
+
+                                                    @foreach($cats as $cat)
+                                                        <option @if((isset($object) && $object->id_cat_mega_2 == $cat->id) || old('id_cat_mega_2') == $cat->id) selected @endif value="{{ $cat->id ?: '---' }}">{{ $cat->title ?: '---' }}</option>
+                                                    @endforeach
+
                                                 </select>
 
                                                 @error('id_cat_mega_2')
-                                                <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-12">
-                                            <div class="select-group mt-0 mb-3">
-                                                <select class="form-select mt-0" aria-label="advice type">
-                                                    <option value="0" selected disabled>تخصص
-                                                    </option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                </select>
-
-                                                @error('id_cat_middle_2')
-                                                <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-12">
-                                            <div class="select-group mt-0 mb-3">
-                                                <select class="form-select mt-0" aria-label="advice type">
-                                                    <option value="0" selected disabled>تخصص
-                                                    </option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                </select>
-
-                                                @error('id_cat_sub_2')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
