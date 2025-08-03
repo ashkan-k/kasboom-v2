@@ -950,4 +950,12 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
         Route::get('/download/{id}', [WebPanelUserController::class, 'downloadCertificate']);
         Route::get('/download/webinar/{id}', [WebPanelUserController::class, 'downloadCertificateWebinar']);
     });
+
+    //        setting
+    Route::group(['prefix' => 'setting'], function () {
+        Route::get('', [WebPanelUserController::class, 'setting'])->name('web.my-profile');
+
+        Route::post('change-password', [WebPanelUserController::class, 'changePasswordStore'])->name('web.change-password');
+        Route::post('store-profile', [WebPanelUserController::class, 'storeProfile'])->name('web.store-profile');
+    });
 });

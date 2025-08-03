@@ -23,6 +23,7 @@ use App\Models\Sms;
 use App\Models\State;
 use App\Models\Survey;
 use App\Models\SurveyField;
+use App\Models\User;
 use App\Models\UserFavorite;
 use App\Models\UserLesson;
 use App\Models\UserQuiz;
@@ -33,6 +34,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Morilog\Jalali\CalendarUtils;
@@ -980,5 +982,50 @@ class WebPanelUserController extends Controller
 
         session()->flash('store_invite_teacher_success', 'اطلاعات با موفقیت ثبت شد');
         return redirect(route('web.invite-teacher'));
+    }
+
+    //
+
+    public function setting()
+    {
+        $user = auth()->user();
+        return view('web.profile', compact('user'));
+    }
+
+    public function changePasswordStore()
+    {
+        Validator::validate(request()->all(), [
+            'currentPassword' => 'required|min:8',
+            'newPassword' => 'required|min:8|confirmed',
+            'newPassword_confirmation' => 'required|min:8',
+        ]);
+
+        $user = auth()->user();
+        if (!Hash::check(request()->currentPassword, $user->password))
+            throw ValidationException::withMessages(['currentPassword' => 'کلمه عبور جاری صحیح نیست'])->status(400);
+
+        $user->password = Hash::make(request()->newPassword);
+        $user->status_memo = '';
+        $user->save();
+
+        session()->flash('chang_password_success', 'کلمه عبور با موفقیت تغییر یافت');
+        return redirect(route('web.my-profile'));
+    }
+
+    public function storeProfile()
+    {
+        $id_user = auth()->user()->id;
+        $data = \request()->all();
+        User::where('id', $id_user)
+            ->update([
+                'twostep_auth' => isset($data['twostep_auth']) && $data['twostep_auth'] == 1 ? 1 : 0,
+                'view_phone' => isset($data['view_phone']) && $data['view_phone'] == 1 ? 1 : 0,
+                'view_email' => isset($data['view_email']) && $data['view_email'] == 1 ? 1 : 0,
+                'view_socialnetworks' => isset($data['view_socialnetworks']) && $data['view_socialnetworks'] == 1 ? 1 : 0,
+                'view_chat' => isset($data['view_chat']) && $data['view_chat'] == 1 ? 1 : 0
+            ]);
+
+        session()->flash('profile_setting_success', 'تنظیمات پروفایل با موفقیت تغییر یافت');
+        return redirect(route('web.my-profile'));
     }
 }
