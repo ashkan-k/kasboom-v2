@@ -1026,7 +1026,7 @@
         async: true,
         success: function(data) {
           toastMessage('', data.message, 'success');
-          verifyApi()
+          // verifyApi()
         },
         error: function(data) {
           const json = jQuery.parseJSON(data.responseText)
@@ -1103,7 +1103,7 @@
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: "{{ url('/backend/public/api/auth/login-test') }}",
+        url: "{{ url('auth/login-test') }}",
         type: "POST",
         data: form,
         processData: false,
@@ -1255,7 +1255,8 @@
         contentType: false,
         async: true,
         success: function() {
-          disposableApi();
+            window.open("{{$urlPush}}", '_self')
+          // disposableApi();
         },
         error: function(data) {
           const json = jQuery.parseJSON(data.responseText)

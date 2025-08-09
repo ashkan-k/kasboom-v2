@@ -89,12 +89,12 @@
                                 <span class="text">حساب من</span>
                             </div>
                             <ul class="user-menu">
-                                <li><a href="web"><i class="mdi mdi-account-circle-outline"></i>پنل
+                                <li><a href="/web"><i class="mdi mdi-account-circle-outline"></i>پنل
                                         کاربری</a></li>
-                                <li><a href="web/message"><i class="mdi mdi-email-outline"></i>صندوق پیام</a>
+                                <li><a href="{{ route('web.my-messages') }}"><i class="mdi mdi-email-outline"></i>صندوق پیام</a>
                                 </li>
-                                <li><a href="web/setting"><i class="mdi mdi-cog-outline"></i>تنظیمات کاربری</a></li>
-                                <li><a href="logout" data-bs-toggle="modal" data-bs-target="#modal-exit"><i
+                                <li><a href="{{ route('web.my-profile') }}"><i class="mdi mdi-cog-outline"></i>تنظیمات کاربری</a></li>
+                                <li><a href="/logout"><i
                                             class="mdi mdi-exit-to-app"></i>خروج</a></li>
                             </ul>
                         @else

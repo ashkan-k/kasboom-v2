@@ -125,12 +125,13 @@ Route::get('/roadmap', [LandingController::class, 'roadmap']);
 Route::get('/roadmap/{slug}', [LandingController::class, 'roadmapContent']);
 
 //auth
-Route::get('/register', [AuthController::class, 'register']);
+Route::get('/register', [AuthController::class, 'register'])->name('login');
 Route::post('/register-check-phonenumber', [AuthController::class, 'registerCheckPhonenumber']);
 Route::post('/register-store', [AuthController::class, 'registerStore']);
 Route::post('/auth/send-verify-phonenumber', [AuthController::class, 'sendVerifyPhonenumber']);
 Route::post('/verify-phonenumber', [AuthController::class, 'verifyPhonenumber']);
 Route::post('/auth/check-disposable-password', [AuthController::class, 'checkDisposablePassword']);
+Route::post('auth/login-test',   [AuthController::class, 'authCheckLogin']);
 Route::get('/auth/csis', [userController::class, 'csisLogin']);
 
 

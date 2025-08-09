@@ -61,7 +61,7 @@ class courseController extends Controller
 
   public function course_index_new()
   {
-      Auth::loginUsingId(1);
+//      Auth::loginUsingId(1);
 
         $cats = getCategory('course', true);
         $courses = Cookie::get('courses');
