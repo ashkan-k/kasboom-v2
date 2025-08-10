@@ -17,7 +17,7 @@ $("#btn_add_favorite").click(function () {
     formDataa.append('id_hire', hire_id);
     formDataa.append('title', hire_title);
     $.ajax({
-        url: "add_favorite",
+        url: "/add_favorite",
         type: 'POST',
         cache: false,
         data: formDataa,

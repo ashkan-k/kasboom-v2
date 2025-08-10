@@ -874,7 +874,7 @@ $("#btn_add_favorite").click(function () {
   formDataa.append('id_target', $("#favorite_id_target").val());
   formDataa.append('type', $("#favorite_type").val());
   $.ajax({
-    url: "add_favorite",
+    url: "/add_favorite",
     type: 'POST',
     cache: false,
     data: formDataa,

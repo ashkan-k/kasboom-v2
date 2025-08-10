@@ -293,7 +293,7 @@ $idddd=$course->id;
                   <div class="myalert alert-info">
                     <div class="icon"><i class="mdi mdi-check-circle-outline"></i></div>
                     <div class="text">
-                      <a href="web/learning/learningDetails/{{$idddd}}">
+                      <a href="/web/learning/learningDetails/{{$idddd}}">
                       جهت مشاهد کامل دوره بر روی همین متن کلیک کنید
                       </a>
                     </div>
@@ -530,7 +530,7 @@ $idddd=$course->id;
                       ?>
                   <div class="swiper-slide">
                       <div class="card-course" title="{{$rel_course->title}}">
-                          <a href="{{$slug}}">
+                          <a href="/{{$slug}}">
                               <div class="img-container">
                                   <div class="img-inner">
                                       <img src="/{{$img_src}}" alt="{{$rel_course->title}}" />
@@ -602,16 +602,16 @@ $idddd=$course->id;
 
             @if($course->status == 2)
                 @if($pre_registrated_course==false)
-                    <a href="skill/course/pre-registration/submit/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>پیش ثبت نام</a>
+                    <a href="/skill/course/pre-registration/submit/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>پیش ثبت نام</a>
                 @else
                     <a class="btn btn-default icon-right"><i class="mdi mdi-lock-open"></i>پیش ثبت نام کرده اید</a>
                 @endif
             @else
                 @if($taked_course==false)
-                    <a href="course/take_course/{{$idddd}}/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>خرید
+                    <a href="/course/take_course/{{$idddd}}/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>خرید
                         دوره</a>
                 @else
-                    <a href="web/learning/learningDetails/{{$idddd}}" class="btn btn-default icon-right"><i class="mdi mdi-chevron-left"></i>مشاهده دوره</a>
+                    <a href="/web/learning/learningDetails/{{$idddd}}" class="btn btn-default icon-right"><i class="mdi mdi-chevron-left"></i>مشاهده دوره</a>
                 @endif
             @endif
 

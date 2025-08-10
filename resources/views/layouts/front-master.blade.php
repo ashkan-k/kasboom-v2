@@ -15,14 +15,15 @@
     <link rel="stylesheet" href="/assets-v2/plugin/swiperjs/swiper-bundle.min.css">
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
 
-    <base href="{{asset('/')}}"/>
+{{--    <base href="{{asset('/public')}}"/>--}}
+
 
     <!-- Font Icons -->
     <link href="/assets-v2/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
 
-    @Yield('Page_CSS_Before')
+@Yield('Page_CSS_Before')
 
-    <!-- Favicon -->
+<!-- Favicon -->
     <link rel="icon" href="/assets-v2/images/small-icon.png">
     <link rel="apple-touch-icon" href="/assets-v2/images/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/assets-v2/images/logo-72x72.png">
@@ -66,7 +67,7 @@
                     <span>سایر سرویس‌ها</span>
                 </button>
                 <ul>
-                    <li><a href="web/invite-teacher"><i class="mdi mdi-pencil-circle-outline"></i>مدرس شوید</a></li>
+                    <li><a href="/web/invite-teacher"><i class="mdi mdi-pencil-circle-outline"></i>مدرس شوید</a></li>
                 </ul>
             </div>
             <div class="nav-logo">
@@ -98,7 +99,7 @@
                                             class="mdi mdi-exit-to-app"></i>خروج</a></li>
                             </ul>
                         @else
-                            <a href="web">
+                            <a href="/web">
                                 <div class="btn-nav active">
                                     <span class="icon"><i class="mdi mdi-account-outline"></i></span>
                                     <span class="text">حساب من</span>
@@ -124,9 +125,9 @@
                     <h6>لینک های مفید</h6>
                 </div>
                 <ul class="sidebar-list">
-                    <li class="item"><a href="about"><i class="mdi mdi-forum-outline"></i>درباره‌ی ما</a>
-                    <li class="item"><a href="work-with-us"><i class="mdi mdi-forum-outline"></i>دعوت به همکاری</a>
-                    <li class="item"><a href="contactus"><i class="mdi mdi-forum-outline"></i>تماس با ما</a>
+                    <li class="item"><a href="/about"><i class="mdi mdi-forum-outline"></i>درباره‌ی ما</a>
+                    <li class="item"><a href="/work-with-us"><i class="mdi mdi-forum-outline"></i>دعوت به همکاری</a>
+                    <li class="item"><a href="/contactus"><i class="mdi mdi-forum-outline"></i>تماس با ما</a>
                 </ul>
             </div>
             <div class="overlay-sidebar"></div>
@@ -217,12 +218,12 @@
                     <div class="item-group">
                         <h3 class="title">با کسبوم</h3>
                         <ul class="links-list">
-                            <li><a href="work-with-us">فرصت‌های شغلی</a></li>
-                            <li><a href="faq">سوالات متداول</a></li>
-                            <li><a href="about">درباره‌ی ما</a></li>
-                            <li><a href="contactus">تماس با ما</a></li>
-                            <li><a href="help">راهنمای سایت</a></li>
-                            <li><a href="skill/courses">دوره‌های آموزشی</a></li>
+                            <li><a href="/work-with-us">فرصت‌های شغلی</a></li>
+                            <li><a href="/faq">سوالات متداول</a></li>
+                            <li><a href="/about">درباره‌ی ما</a></li>
+                            <li><a href="/contactus">تماس با ما</a></li>
+                            <li><a href="/help">راهنمای سایت</a></li>
+                            <li><a href="/skill/courses">دوره‌های آموزشی</a></li>
                         </ul>
                     </div>
                 </div>
@@ -230,12 +231,12 @@
                     <div class="item-group">
                         <h3 class="title">خدمات مشتریان</h3>
                         <ul class="links-list">
-                            <li><a href="work-with-us">فرصت‌های شغلی</a></li>
-                            <li><a href="faq">سوالات متداول</a></li>
-                            <li><a href="about">درباره‌ی ما</a></li>
-                            <li><a href="contactus">تماس با ما</a></li>
-                            <li><a href="help">راهنمای سایت</a></li>
-                            <li><a href="skill/courses">دوره‌های آموزشی</a></li>
+                            <li><a href="/work-with-us">فرصت‌های شغلی</a></li>
+                            <li><a href="/faq">سوالات متداول</a></li>
+                            <li><a href="/about">درباره‌ی ما</a></li>
+                            <li><a href="/contactus">تماس با ما</a></li>
+                            <li><a href="/help">راهنمای سایت</a></li>
+                            <li><a href="/skill/courses">دوره‌های آموزشی</a></li>
                         </ul>
                     </div>
                 </div>
@@ -272,31 +273,31 @@
             </div>
         </div>
         <div class="copyright"><span>طراحی و توسعه توسط شرکت ایده نگاران همگام . حق کپی محفوظ است © 1399</span>
-    </div>
-{{--    <div class="other-services">--}}
-{{--        <ul>--}}
-{{--            <li><a href="skill/courses">--}}
-{{--                    <img src="/assets-v2/images/icons/kasbom-services/online-learning.svg" alt="آموزشگاه">--}}
-{{--                    <h6>آموزشگاه</h6>--}}
-{{--                </a></li>--}}
-{{--            <li><a href="wikiidea">--}}
-{{--                    <img src="/assets-v2/images/icons/kasbom-services/idea.svg" alt="ایده‌ها">--}}
-{{--                    <h6>ایده‌ها</h6>--}}
-{{--                </a></li>--}}
-{{--            <li><a href="landuse">--}}
-{{--                    <img src="/assets-v2/images/icons/kasbom-services/iran.svg" alt="آمایش سرزمینی">--}}
-{{--                    <h6>آمایش سرزمینی</h6>--}}
-{{--                </a></li>--}}
-{{--            <li><a href="/">--}}
-{{--                    <img src="/assets-v2/images/icons/kasbom-services/supplier.svg" alt="تامین کننده‌ها">--}}
-{{--                    <h6>تامین کننده‌ها</h6>--}}
-{{--                </a></li>--}}
-{{--            <li><a href="roadmap">--}}
-{{--                    <img src="/assets-v2/images/icons/kasbom-services/direction.png" alt="نقشه راه">--}}
-{{--                    <h6>نقشه راه</h6>--}}
-{{--                </a></li>--}}
-{{--        </ul>--}}
-{{--    </div>--}}
+        </div>
+    {{--    <div class="other-services">--}}
+    {{--        <ul>--}}
+    {{--            <li><a href="/skill/courses">--}}
+    {{--                    <img src="/assets-v2/images/icons/kasbom-services/online-learning.svg" alt="آموزشگاه">--}}
+    {{--                    <h6>آموزشگاه</h6>--}}
+    {{--                </a></li>--}}
+    {{--            <li><a href="/wikiidea">--}}
+    {{--                    <img src="/assets-v2/images/icons/kasbom-services/idea.svg" alt="ایده‌ها">--}}
+    {{--                    <h6>ایده‌ها</h6>--}}
+    {{--                </a></li>--}}
+    {{--            <li><a href="/landuse">--}}
+    {{--                    <img src="/assets-v2/images/icons/kasbom-services/iran.svg" alt="آمایش سرزمینی">--}}
+    {{--                    <h6>آمایش سرزمینی</h6>--}}
+    {{--                </a></li>--}}
+    {{--            <li><a href="/">--}}
+    {{--                    <img src="/assets-v2/images/icons/kasbom-services/supplier.svg" alt="تامین کننده‌ها">--}}
+    {{--                    <h6>تامین کننده‌ها</h6>--}}
+    {{--                </a></li>--}}
+    {{--            <li><a href="/roadmap">--}}
+    {{--                    <img src="/assets-v2/images/icons/kasbom-services/direction.png" alt="نقشه راه">--}}
+    {{--                    <h6>نقشه راه</h6>--}}
+    {{--                </a></li>--}}
+    {{--        </ul>--}}
+    {{--    </div>--}}
 </footer>
 <!-- Mobile Navbar -->
 <div class="mobile-bottom-navbar">
