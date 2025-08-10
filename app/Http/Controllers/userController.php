@@ -166,7 +166,8 @@ class userController extends Controller
           Auth::login($user, true);
           $user->is_logout =0;
           $user->save();
-          return Redirect::to('web');
+          return response([]);
+//          return Redirect::to('web');
         }
       } else {
         //

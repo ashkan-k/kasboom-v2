@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Classroom;
+use App\Models\classroom;
 use App\Models\Course;
 use App\Models\Message;
 use Illuminate\Http\Request;
@@ -59,7 +59,7 @@ class MessageController extends Controller
             return ['success' => false, 'message' => 'چیزی یافت نشد'];
 
 //        set ticket_date_to
-        $classroom = Classroom::where([['id_user', $message->id_owner], ['id_course', $message->id_target]])->first();
+        $classroom = classroom::where([['id_user', $message->id_owner], ['id_course', $message->id_target]])->first();
         if (!$classroom->ticket_date_to) {
             $nowDate = date('Y-m-d', strtotime('+1 month'));
             $classroom->ticket_date_to = jdate($nowDate)->format('%Y/%m/%d');

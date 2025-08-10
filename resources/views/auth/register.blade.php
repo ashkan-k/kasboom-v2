@@ -1145,8 +1145,8 @@
         contentType: false,
         async: true,
         success: function() {
-          localStorage.setItem('token', tokenApi)
-          window.open("web", '_self')
+          // localStorage.setItem('token', tokenApi)
+          window.open("/web", '_self')
         //   window.open("{{$urlPush}}", '_self')
         },
         error: function(data) {

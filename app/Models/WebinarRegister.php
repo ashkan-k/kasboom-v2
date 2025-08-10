@@ -11,7 +11,7 @@ class WebinarRegister extends Model
     protected $table = 'webinar_registers';
 
     public function webinar(){
-        return $this->belongsTo(Webinar::class, 'id_webinar');
+        return $this->belongsTo(webinar::class, 'id_webinar');
     }
 
     public function user(){

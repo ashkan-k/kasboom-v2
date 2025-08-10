@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bug;
 use App\Models\Category;
 use App\Models\City;
-use App\Models\Classroom;
+use App\Models\classroom;
 use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Invite;
@@ -27,7 +27,7 @@ use App\Models\User;
 use App\Models\UserFavorite;
 use App\Models\UserLesson;
 use App\Models\UserQuiz;
-use App\Models\Webinar;
+use App\Models\webinar;
 use App\Models\WebinarRegister;
 use App\Models\Wikiidea;
 use Illuminate\Http\Request;
@@ -55,19 +55,19 @@ class WebPanelUserController extends Controller
 
         if (Auth::check()){
             $user = auth()->user();
-            $courseCount = Classroom::where("id_user", $user->id)->count();
+            $courseCount = classroom::where("id_user", $user->id)->count();
             $messageCount = Message::where("type", "user")->where("id_target", $user->id)->count();
             $blogCount = Message::where("type", "blog")->where("id_target", $user->id)->count();
             $notifications = Notification::where('status', 1)->latest('sort')->limit(5)->get();
 
-            $webinars = Webinar::where([['type', '=', 3]])
+            $webinars = webinar::where([['type', '=', 3]])
                 ->latest()->limit(30)->select('id', 'title', 'price')->get();
 
             $courses = Course::where('status', 1)->select('id', 'title', 'price')->latest()->get();
 
-            $courseCount = Classroom::where("id_user", $user->id)->count();
+            $courseCount = classroom::where("id_user", $user->id)->count();
 
-            $certificationsCount = Classroom::where("id_user", $user->id)->where('certificate_status', 'صدور مدرک')->count();
+            $certificationsCount = classroom::where("id_user", $user->id)->where('certificate_status', 'صدور مدرک')->count();
 
             $subsid = $user->subsid;
             $wallet = $user->wallet;
@@ -86,7 +86,7 @@ class WebPanelUserController extends Controller
 
         $allowedColumns = ['view_count', 'created_at'];
 
-        $query = Classroom::where('id_user', $userId)
+        $query = classroom::where('id_user', $userId)
             ->select('id', 'id_course', 'id_user', 'result', 'regist_date')
             ->with('course');
 
@@ -137,7 +137,7 @@ class WebPanelUserController extends Controller
         }
 
         if ($type === 'دوره') {
-            $query = Classroom::where([
+            $query = classroom::where([
                 ['id_user', auth()->user()->id],
                 ['take_quiz', 1],
                 ['certificate_status', 'صدور مدرک']
@@ -230,7 +230,7 @@ class WebPanelUserController extends Controller
     public function CourseDetail($courseId){
         $course = Course::findOrFail($courseId);
 
-        $query = Classroom::where([['id_user', auth()->user()->id], ['id_course', $courseId]]);
+        $query = classroom::where([['id_user', auth()->user()->id], ['id_course', $courseId]]);
         if ($course->price >= 0) {
             $query->with(['course' => function ($q) {
                 $q->with([
@@ -299,7 +299,7 @@ class WebPanelUserController extends Controller
     {
         $idCourse = request()->idCourse;
         $userId = auth()->user()->id;
-        $classroom = Classroom::where([['id_course', $idCourse], ['id_user', $userId]])->first();
+        $classroom = classroom::where([['id_course', $idCourse], ['id_user', $userId]])->first();
         if(!$classroom)
             return ['success' => false, 'message' => 'دوره ای یافت نشد'];
 
@@ -368,7 +368,7 @@ class WebPanelUserController extends Controller
                 $courseId = $lesson->id_course;
             }
 
-            $classroom = Classroom::where([['id_course', $courseId], ['id_user', $userId]])->first();
+            $classroom = classroom::where([['id_course', $courseId], ['id_user', $userId]])->first();
             if (!$classroom)
                 return ['success' => false,'message' => 'شما عضو این دوره نیستید'];
         }
@@ -397,7 +397,7 @@ class WebPanelUserController extends Controller
         $idCourse = request()->idCourse;
         $idLesson = request()->idLesson;
 
-        $classroom = Classroom::where([['id_user', $userId], ['id_course', $idCourse]])->first();
+        $classroom = classroom::where([['id_user', $userId], ['id_course', $idCourse]])->first();
         if(!$classroom)
             return ['success' => false,'message' => 'شما در این دوره ثبت نام نکرده اید'];
 
@@ -453,7 +453,7 @@ class WebPanelUserController extends Controller
 
     // survey
     public function CourseSurvey($courseId){
-        Classroom::where([
+        classroom::where([
             ['id_user', auth()->user()->id], ['id_course', $courseId]
         ])->firstOrFail();
 
@@ -475,7 +475,7 @@ class WebPanelUserController extends Controller
 
         $userId = auth()->user()->id;
 
-        Classroom::where([['id_user', $userId], ['id_course', $courseId]])->firstOrFail();
+        classroom::where([['id_user', $userId], ['id_course', $courseId]])->firstOrFail();
 
         $survey = SurveyField::where('type', 'course')->get();
         $surveyId = [];
@@ -548,7 +548,7 @@ class WebPanelUserController extends Controller
         $nowDate = date("Y-m-d");
         $nowdateshamsi = nowDateShamsi();
         $userId = auth()->user()->id;
-        $classroom = Classroom::where([['id_user', $userId], ['id_course', $courseId]])->firstOrFail();
+        $classroom = classroom::where([['id_user', $userId], ['id_course', $courseId]])->firstOrFail();
 
         $survey = Survey::where([['id_user', $userId], ['id_target', $courseId]])->first();
         if (!$survey)
@@ -612,7 +612,7 @@ class WebPanelUserController extends Controller
         $nowdateshamsi = nowDateShamsi();
         $id_course = request()->courseId;
         $user = auth()->user();
-        $classroom = Classroom::where([['id_user', $user->id], ['id_course', $id_course]])->firstOrFail();
+        $classroom = classroom::where([['id_user', $user->id], ['id_course', $id_course]])->firstOrFail();
 
         if ($classroom->certificate_status === 'صدور مدرک')
             return redirect(route('web.my-course-detail', $id_course))->with('quiz_errors', 'شما قبلا در آزمون این دوره شرکت کرده اید و گواهی پایان دوره نیز برای شما ارسال شده است');
