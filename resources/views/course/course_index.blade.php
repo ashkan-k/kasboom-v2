@@ -22,7 +22,7 @@
                             <?php $title = str_replace(' ', '_', $course->title); ?>
                             <div class="swiper-slide">
                                 <div class="item">
-                                    <a href="course/{{$course->getSlug()}}">
+                                    <a href="/course/{{$course->getSlug()}}">
                                         <picture>
                                             <source media="(max-width: 599px)"
                                                     srcset="{{$course->getMobileSlider()}}">
@@ -69,7 +69,6 @@
                             @if($course->price >= 0)
                                     <?php $title = str_replace(' ', '_', $course->title);
                                     $img_src=$course->getThumbnail();
-                                    $img_src="assets-v2/images/thumb.png";
                                     $slug= "course/".$course->getSlug();
                                     $teacher= $course->teacher ? $course->teacher->fullname : 'کسبوم';
                                     $time=$course->minutes > 0 ? $course->hour.':'.$course->minutes : $course->hour;
@@ -162,7 +161,6 @@
                         @foreach($dbl_courses->random(min(6, $dbl_courses->count())) as $course)
                                 <?php $title = str_replace(' ', '_', $course->title);
                                 $img_src=$course->getThumbnail();
-                                $img_src="assets-v2/images/thumb.png";
                                 $slug= "course/".$course->getSlug();
                                 $teacher= $course->teacher ? $course->teacher->fullname : 'کسبوم';
                                 $time=$course->minutes > 0 ? $course->hour.':'.$course->minutes : $course->hour;
@@ -270,7 +268,6 @@
                                         @if($course->type =="subtitle" && $course->status == 1)
                                             <?php $title = str_replace(' ', '_', $course->title);
                                             $img_src=$course->getThumbnail();
-                                            $img_src="assets-v2/images/thumb.png";
                                             $slug= "course/".$course->getSlug();
                                             $teacher= $course->teacher ? $course->teacher->fullname : 'کسبوم';
                                             $time=$course->minutes > 0 ? $course->hour.':'.$course->minutes : $course->hour;
@@ -383,7 +380,6 @@
                                         @if($course->status == 2)
                                             <?php $title = str_replace(' ', '_', $course->title);
                                                 $img_src=$course->getThumbnail();
-                                                $img_src="assets-v2/images/thumb.png";
                                             $slug= "course/".$course->getSlug();
                                             $teacher= $course->teacher ? $course->teacher->fullname : 'کسبوم';
                                             $time=$course->minutes > 0 ? $course->hour.':'.$course->minutes : $course->hour;
@@ -597,10 +593,10 @@
                                                         </div>
 
                                                         <div class="button-group">
-                                                            <a href="course/take_course/{{$course->id}}/{{$course->getSlug()}}" class="btn btn-secondary icon-right"><i
+                                                            <a href="/course/take_course/{{$course->id}}/{{$course->getSlug()}}" class="btn btn-secondary icon-right"><i
                                                                     class="mdi mdi-plus-circle-outline"></i>خرید
                                                                 دوره</a>
-                                                            <a href="course/{{ $course->getSlug() }}"
+                                                            <a href="/course/{{ $course->getSlug() }}"
                                                                class="btn btn-default-outline icon-right">جزییات
                                                                 بیشتر<i class="mdi mdi-eye"></i></a>
                                                         </div>

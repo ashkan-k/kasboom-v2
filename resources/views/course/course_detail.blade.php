@@ -44,7 +44,7 @@ $idddd=$course->id;
           <div class="teacher-info">
             <a href="#">
               <div class="image">
-                <img src="images/consulant-img/user-img-9.png" alt="{{$teacher?->fullname}}" />
+                <img src="/assets-v2/images/consulant-img/user-img-9.png" alt="{{$teacher?->fullname}}" />
               </div>
               <div class="info">
                 <h2 class="teacher-name">{{$teacher?->fullname}}</h2>
@@ -219,9 +219,9 @@ $idddd=$course->id;
                         <label>{{ $survey->title }}</label>
                         <div class="progress-inner">
                           <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: {{$kasboomSurveys[$survey->id]['score']}}%" aria-valuenow="{{$kasboomSurveys[$survey->id]['score']}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" style="width: {{isset($kasboomSurveys[$survey->id]['score']) ? $kasboomSurveys[$survey->id]['score'] : 0}}%" aria-valuenow="{{isset($kasboomSurveys[$survey->id]['score']) ? $kasboomSurveys[$survey->id]['score'] : 0}}" aria-valuemin="0" aria-valuemax="100"></div>
                           </div>
-                          <div class="percentage">%{{$kasboomSurveys[$survey->id]['score']}}</div>
+                          <div class="percentage">%{{isset($kasboomSurveys[$survey->id]['score']) ? $kasboomSurveys[$survey->id]['score'] : 0}}</div>
                         </div>
                       </div>
                       @endforeach
@@ -237,7 +237,7 @@ $idddd=$course->id;
                     @foreach($comments as $comment)
                     <div class="comment-item bg-gray">
                       <div class="user-image">
-                        <img src="v4_assets/images/icons/user-comment.svg" />
+                        <img src="/assets-v2/images/icons/user-comment.svg" />
                       </div>
                       <div class="user-info">
                         @if(isset($comment->user))
@@ -399,16 +399,16 @@ $idddd=$course->id;
                 <div class="apply-button">
                   @if($course->status == 2)
                         @if($pre_registrated_course==false)
-                            <a href="skill/course/pre-registration/submit/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>پیش ثبت نام</a>
+                            <a href="/skill/course/pre-registration/submit/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>پیش ثبت نام</a>
                         @else
                             <a class="btn btn-default icon-right"><i class="mdi mdi-lock-open"></i>قبلا این دوره را پیش ثبت نام کرده اید</a>
                         @endif
                     @else
                         @if($taked_course==false)
-                            <a href="course/take_course/{{$idddd}}/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>خرید
+                            <a href="/course/take_course/{{$idddd}}/{{$course->getSlug()}}" class="btn btn-default icon-right"><i class="mdi mdi-credit-card-outline"></i>خرید
                                 دوره</a>
                         @else
-                            <a href="web/learning/learningDetails/{{$idddd}}" class="btn btn-default icon-right"><i class="mdi mdi-chevron-left"></i>مشاهده کامل دوره</a>
+                            <a href="/web/learning/learningDetails/{{$idddd}}" class="btn btn-default icon-right"><i class="mdi mdi-chevron-left"></i>مشاهده کامل دوره</a>
                         @endif
                   @endif
                 </div>
@@ -524,8 +524,7 @@ $idddd=$course->id;
             @foreach($related_course as $rel_course)
                       <?php $title = str_replace(' ', '_', $rel_course->title);
                       $img_src=$rel_course->getThumbnail();
-                      $img_src="assets-v2/images/thumb.png";
-                      $slug= "course/".$rel_course->getSlug();
+                      $slug= "/course/".$rel_course->getSlug();
                       $teacher= $rel_course->teacher ? $rel_course->teacher->fullname : 'کسبوم';
                       $time=$rel_course->minutes > 0 ? $rel_course->hour.':'.$rel_course->minutes : $rel_course->hour;
                       ?>
@@ -534,7 +533,7 @@ $idddd=$course->id;
                           <a href="{{$slug}}">
                               <div class="img-container">
                                   <div class="img-inner">
-                                      <img src="{{$img_src}}" alt="{{$rel_course->title}}" />
+                                      <img src="/{{$img_src}}" alt="{{$rel_course->title}}" />
                                   </div>
                                   <div class="status">
                                       @if($rel_course->discount > 0)

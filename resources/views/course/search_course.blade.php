@@ -198,7 +198,6 @@
               @foreach($courses as $course)
                         <?php $title = str_replace(' ', '_', $course->title);
                         $img_src=$course->getThumbnail();
-                        $img_src="assets-v2/images/thumb.png";
                         $course_slug= "course/".$course->getSlug();
                         $teacher= $course->teacher ? $course->teacher->fullname : 'کسبوم';
                         $time=$course->minutes > 0 ? $course->hour.':'.$course->minutes : $course->hour;
