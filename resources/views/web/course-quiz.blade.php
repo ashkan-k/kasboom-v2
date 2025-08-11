@@ -62,19 +62,19 @@
                         <div class="radio-group">
                             <div class="form-check mt-0 mb-2">
                                 <input class="form-check-input" type="radio" name="answer[{{ $loop->index }}][value]" id="radio-{{ $item->id }}-1" value="1" required>
-                                <label class="form-check-label" for="radio-{{ $item->id }}-1">نخل خرما</label>
+                                <label class="form-check-label" for="radio-{{ $item->id }}-1">{{ $item->option1 ?: '---' }}</label>
                             </div>
                             <div class="form-check mt-0 mb-2">
                                 <input class="form-check-input" type="radio" name="answer[{{ $loop->index }}][value]" id="radio-{{ $item->id }}-2" value="2">
-                                <label class="form-check-label" for="radio-{{ $item->id }}-2">بابونه</label>
+                                <label class="form-check-label" for="radio-{{ $item->id }}-2">{{ $item->option2 ?: '---' }}</label>
                             </div>
                             <div class="form-check mt-0 mb-2">
                                 <input class="form-check-input" type="radio" name="answer[{{ $loop->index }}][value]" id="radio-{{ $item->id }}-3" value="3">
-                                <label class="form-check-label" for="radio-{{ $item->id }}-3">کاج</label>
+                                <label class="form-check-label" for="radio-{{ $item->id }}-3">{{ $item->option3 ?: '---' }}</label>
                             </div>
                             <div class="form-check mt-0 mb-2">
                                 <input class="form-check-input" type="radio" name="answer[{{ $loop->index }}][value]" id="radio-{{ $item->id }}-4" value="4">
-                                <label class="form-check-label" for="radio-{{ $item->id }}-4">توت فرنگی</label>
+                                <label class="form-check-label" for="radio-{{ $item->id }}-4">{{ $item->option4 ?: '---' }}</label>
                             </div>
                         </div>
                     </div>
