@@ -4,14 +4,14 @@ namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bug;
-use App\Models\Category;
+use App\Models\category;
 use App\Models\City;
 use App\Models\classroom;
-use App\Models\Comment;
-use App\Models\Course;
-use App\Models\Invite;
+use App\Models\comment;
+use App\Models\course;
+use App\Models\invite;
 use App\Models\KasboomCoupon;
-use App\Models\Lesson;
+use App\Models\lesson;
 use App\Models\LessonAttach;
 use App\Models\Message;
 use App\Models\Note;
@@ -25,11 +25,11 @@ use App\Models\Survey;
 use App\Models\SurveyField;
 use App\Models\User;
 use App\Models\UserFavorite;
-use App\Models\UserLesson;
+use App\Models\userlesson;
 use App\Models\UserQuiz;
 use App\Models\webinar;
 use App\Models\WebinarRegister;
-use App\Models\Wikiidea;
+use App\Models\wikiidea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -63,7 +63,7 @@ class WebPanelUserController extends Controller
             $webinars = webinar::where([['type', '=', 3]])
                 ->latest()->limit(30)->select('id', 'title', 'price')->get();
 
-            $courses = Course::where('status', 1)->select('id', 'title', 'price')->latest()->get();
+            $courses = course::where('status', 1)->select('id', 'title', 'price')->latest()->get();
 
             $courseCount = classroom::where("id_user", $user->id)->count();
 
@@ -228,7 +228,7 @@ class WebPanelUserController extends Controller
     }
 
     public function CourseDetail($courseId){
-        $course = Course::findOrFail($courseId);
+        $course = course::findOrFail($courseId);
 
         $query = classroom::where([['id_user', auth()->user()->id], ['id_course', $courseId]]);
         if ($course->price >= 0) {
@@ -305,7 +305,7 @@ class WebPanelUserController extends Controller
 
         $idLesson = request()->idLesson;
         $nowdateshamsi = nowDateShamsi();
-        UserLesson::updateOrInsert([
+        userlesson::updateOrInsert([
             'id_user' => $userId,
             'id_course' => $idCourse,
             'id_lesson' => $idLesson,
@@ -313,12 +313,12 @@ class WebPanelUserController extends Controller
             'status' => 1
         ]);
 
-        $user_lessons = UserLesson::where([['id_user', $userId], ['id_course', $idCourse]])
+        $user_lessons = userlesson::where([['id_user', $userId], ['id_course', $idCourse]])
             ->select('id', 'id_lesson')
             ->get()
             ->toArray();
 
-        $course_lessons = Lesson::where('id_course', $idCourse)
+        $course_lessons = lesson::where('id_course', $idCourse)
             ->select('id', 'lesson_number')
             ->get()
             ->toArray();
@@ -338,7 +338,7 @@ class WebPanelUserController extends Controller
             $result = 'finish';
         }
 
-        $userLesson = UserLesson::where([['id_user', $userId], ['id_course', $idCourse]])->get();
+        $userLesson = userlesson::where([['id_user', $userId], ['id_course', $idCourse]])->get();
         return ['success' => true, 'message' => 'تکمیل درس دوره آموزشی انجام شد', 'data' => $userLesson, 'result' => $result];
     }
 
@@ -358,12 +358,12 @@ class WebPanelUserController extends Controller
 
         if ($type === 'course' || $type === 'lesson') {
             if ($type === 'course') {
-                $cours = Course::find(request()->targetId);
+                $cours = course::find(request()->targetId);
                 if(!$cours) return ['success' => false,'message' => 'متاسفانه دوره ای یافت نشد'];
                 $courseId = request()->targetId;
             }
             else if ($type === 'lesson') {
-                $lesson = Lesson::find(request()->targetId);
+                $lesson = lesson::find(request()->targetId);
                 if(!$lesson) return ['success' => false,'message' => 'متاسفانه کلاسی یافت نشد'];
                 $courseId = $lesson->id_course;
             }
@@ -401,7 +401,7 @@ class WebPanelUserController extends Controller
         if(!$classroom)
             return ['success' => false,'message' => 'شما در این دوره ثبت نام نکرده اید'];
 
-        $lesson = Lesson::where([['id', $idLesson], ['id_course', $idCourse]])->first();
+        $lesson = lesson::where([['id', $idLesson], ['id_course', $idCourse]])->first();
         if(!$lesson)
             return ['success' => false,'message' => 'درس مورد نظر یافت نشد'];
 
@@ -507,14 +507,14 @@ class WebPanelUserController extends Controller
         Survey::where([['id_user', $userId], ['id_target', $courseId]])->delete();
         DB::table('kasboom_survey')->insert($storeSurveyMy);
 
-        $comment = Comment::where([
+        $comment = comment::where([
             ['id_user', $userId],
             ['id_target', $courseId],
             ['type', 'course']
         ])->first();
 
         if (!$comment){
-            $comment = new Comment;
+            $comment = new comment();
             $comment->id_user = $userId;
             $comment->id_target = $courseId;
             $comment->type = 'course';
@@ -534,7 +534,7 @@ class WebPanelUserController extends Controller
         $score = $surveySum / $surveyCount;
         $allScore = substr($score, 0, 3);
 
-        $course = Course::find($courseId);
+        $course = course::find($courseId);
         $course->score = $allScore;
         $course->save();
 
@@ -554,7 +554,7 @@ class WebPanelUserController extends Controller
         if (!$survey)
             return back()->with('quiz_errors', 'کاربر عزیز لطفا در نظر سنجی شرکت کنید , سپس در آزمون شرکت کنید');
 
-        $course = Course::where('id', $courseId)->first();
+        $course = course::where('id', $courseId)->first();
         if ((int)$course->have_certificate === 0)
             return back()->with('quiz_errors', 'این دوره آزمون آنلاین ندارد و  گواهینامه ای برای این دوره صادر نمی شود');
 
@@ -568,7 +568,7 @@ class WebPanelUserController extends Controller
         $last_date_take_quize_miladi = $classroom->last_date_take_quize_miladi;
         if ($last_date_take_quize_miladi === null) {
             $quiz = QuizQuestion::where('id_course', $courseId)->inRandomOrder()->take(20)->get();
-            $course = Course::where('id', $courseId)->select('id', 'code', 'title')->first();
+            $course = course::where('id', $courseId)->select('id', 'code', 'title')->first();
             $classroom->last_date_take_quize = $nowdateshamsi;
             $classroom->last_date_take_quize_miladi = $nowDate;
             $classroom->take_quiz = 1;
@@ -584,7 +584,7 @@ class WebPanelUserController extends Controller
             $diff_days = (int) (abs((int)round($datediff / (60 * 60 * 24))));
             if ($diff_days >= 3) {
                 $quiz = QuizQuestion::where('id_course', $courseId)->inRandomOrder()->take(20)->get();
-                $course = Course::where('id', $courseId)->select('id', 'code', 'title')->first();
+                $course = course::where('id', $courseId)->select('id', 'code', 'title')->first();
                 $classroom->last_date_take_quize = $nowdateshamsi;
                 $classroom->last_date_take_quize_miladi = $nowDate;
                 $classroom->take_quiz = 1;
@@ -663,7 +663,7 @@ class WebPanelUserController extends Controller
         $classroom->quiz_result = $quiz_result;
         $classroom->save();
 
-        $course = Course::where('id', $id_course)->select('id', 'code', 'title')->first();
+        $course = course::where('id', $id_course)->select('id', 'code', 'title')->first();
         $userQuizs = UserQuiz::where([['id_user', $user->id], ['id_course', $id_course]])
             ->with(array('questions' => function ($query) {
                 $query->select('id', 'question');
@@ -739,7 +739,7 @@ class WebPanelUserController extends Controller
         $search = arToFa(request()->search);
         $order_by = request()->order_by;
 
-        $query = Wikiidea::where('id_user', auth()->user()->id)->with('category:id,title');
+        $query = wikiidea::where('id_user', auth()->user()->id)->with('category:id,title');
         if ($search)
             $query->where(function($q) use ($search) {
                 $q->where('title', 'like', "%$search%")
@@ -758,7 +758,7 @@ class WebPanelUserController extends Controller
     }
 
     public function wikiCreate(){
-        $cats = Category::where([
+        $cats = category::where([
             ['status', 1],
             ['type', 'idea'],
             ['count', '>', 0]
@@ -791,7 +791,7 @@ class WebPanelUserController extends Controller
             'id_state' => 'required|exists:kasboom_state,id',
         ]);
 
-       Category::where([
+       category::where([
             ['status', 1],
             ['type', 'idea'],
             ['id', $data['id_category']],
@@ -801,7 +801,7 @@ class WebPanelUserController extends Controller
         $user = auth()->user();
         $id = request()->id;
         if ($id > 0) {
-            $idea = Wikiidea::where([
+            $idea = wikiidea::where([
                 ['id_user', $user->id],
                 ['id', $id]
             ])->firstOrFail();
@@ -810,7 +810,7 @@ class WebPanelUserController extends Controller
         }
         else {
             $code = generateIdeaCode();
-            $idea = new Wikiidea;
+            $idea = new wikiidea;
             $idea->code = $code;
             $idea->id_user = $user->id;
             $idea->publisher_name = $user->name;
@@ -853,17 +853,17 @@ class WebPanelUserController extends Controller
         $idea->ispublish = $data['ispublish'];
         $idea->save();
 
-        $cat = Category::where([['type', 'idea'], ['id', $data['id_category']]])->first();
+        $cat = category::where([['type', 'idea'], ['id', $data['id_category']]])->first();
         $cat->increment('count');
 
         return redirect(route('web.my-ideas'))->with('idea_submit_success', 'ثبت ایده با موفقیت انجام شد , پس از تایید مدیر انتشار خواهد یافت');
     }
 
     public function wikiEdit($id){
-        $object = Wikiidea::where([['id_user', auth()->user()->id], ['id', $id]])
+        $object = wikiidea::where([['id_user', auth()->user()->id], ['id', $id]])
             ->with('category:id,title')->firstOrFail();
 
-        $cats = Category::where([
+        $cats = category::where([
             ['status', 1],
             ['type', 'idea'],
             ['count', '>', 0]
@@ -875,7 +875,7 @@ class WebPanelUserController extends Controller
     }
 
     public function wikiDelete($id) {
-        $wiki = Wikiidea::where([['id', $id], ['id_user', auth()->user()->id]])->firstOrFail();
+        $wiki = wikiidea::where([['id', $id], ['id_user', auth()->user()->id]])->firstOrFail();
 
         $slash = DIRECTORY_SEPARATOR;
         $folderPath = '_upload_'.$slash.'_wikiideas_'.$slash.$wiki->code;

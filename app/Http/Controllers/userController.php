@@ -179,13 +179,15 @@ class userController extends Controller
 
         //
 //        if ($remote) return response()->json('no',403);
-        $message = 'کلمه عبور اشتباه می باشد';
-        return view('login', compact('message'));
+          return response()->json(['message' => 'کلمه عبور اشتباه می باشد'], 403);
+//        $message = 'کلمه عبور اشتباه می باشد';
+//        return view('login', compact('message'));
       }
     } else {
 //      if ($remote) return response()->json('no',403);
-      $message = 'کاربری با این مشخصات در سایت ثبت نام نکرده است';
-      return view('login', compact('message'));
+        return response()->json(['message' => 'کاربری با این مشخصات در سایت ثبت نام نکرده است'], 403);
+//      $message = 'کاربری با این مشخصات در سایت ثبت نام نکرده است';
+//      return view('login', compact('message'));
     }
   }
 
