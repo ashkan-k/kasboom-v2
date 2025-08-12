@@ -102,11 +102,15 @@
                                     <tbody>
 
                                     @foreach($courses as $course)
+                                        <?php
+                                        $slug= "/course/".$course?->getSlug();
+                                        ?>
+
                                         <tr>
                                             <td>{{ $course->title ?: '---' }}</td>
                                             <td>{{ number_format($course->price) }}</td>
                                             <td>
-                                                <a href="skill/take_course/{{ $course->id ?: '---' }}/{{ $course->getSlug() ?: '---' }}" target="_blank" class="btn btn-primary btn-sm">مشاهده و
+                                                <a href="{{ $slug }}" target="_blank" class="btn btn-primary btn-sm">مشاهده و
                                                     خرید</a>
                                             </td>
                                         </tr>

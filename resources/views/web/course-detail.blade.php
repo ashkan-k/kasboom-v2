@@ -405,7 +405,9 @@
                     $('#feddbackContent').val('');
 
                     ChangeButtonEnablingStatus(`id_btn_submit_bug`, 'enable');
-                    toastMessage('موفقیت', 'گزارش شما با موفقیت ثبت شد.', 'success')
+                    toastMessage('موفقیت', 'گزارش شما با موفقیت ثبت شد.', 'success');
+
+                    $('#modal-bugs').modal('hide');
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     ChangeButtonEnablingStatus(`id_btn_submit_bug`, 'enable');
@@ -449,6 +451,8 @@
                     'X-CSRF-TOKEN': csrfToken
                 },
                 success: function (response) {
+                    $('#modal-add-notebook').modal('hide');
+
                     $('#note_title').val('');
                     $('#note').val('');
 
