@@ -100,11 +100,15 @@
                             <div class="videos-list-content">
 
                                 @foreach($course?->lessons as $lesson)
+                                    <?php
+                                    $teacher= $course?->teacher ? $course?->teacher->fullname : 'کسبوم';
+                                    ?>
+
                                     <div class="item">
                                         <div class="c-body">
                                             <figure class="video-pic">
                                                 <div class="img-inner">
-                                                    <img src="{{ $course->poster_url }}" alt="{{ $lesson->title ?: '---' }}" />
+                                                    <img src="{{ $course->getMediumPoster() }}" alt="{{ $lesson->title ?: '---' }}" />
                                                 </div>
                                             </figure>
                                             <div class="info">
@@ -130,7 +134,7 @@
                                                 <ul class="file-info-list">
                                                     <li><span><i class="mdi mdi-account-outline"></i>مدرس
                                                                         :</span>
-                                                        مهناز افشار
+                                                        {{ $teacher }}
                                                     </li>
                                                     <li><span><i class="mdi mdi-clock-outline"></i>زمان دوره
                                                                         :</span>
@@ -145,16 +149,11 @@
                                                         @endif
 
                                                     </li>
-                                                    <li><span><i
-                                                                class="mdi mdi-file-download-outline"></i>حجم
-                                                                        دوره
-                                                                        :</span>
-                                                        {{ $lesson?->size ?: '---' }} مگابایت</li>
-                                                    <li><span><i
-                                                                class="mdi mdi-calendar-check-outline"></i>تاریخ
-                                                                        بروزرسانی
-                                                                        :</span>
-                                                        {{ jdate($lesson?->updated_at)->format('Y/m/d') }}</li>
+{{--                                                    <li><span><i--}}
+{{--                                                                class="mdi mdi-calendar-check-outline"></i>تاریخ--}}
+{{--                                                                        بروزرسانی--}}
+{{--                                                                        :</span>--}}
+{{--                                                        {{ jdate($lesson?->updated_at)->format('Y/m/d') }}</li>--}}
                                                     <li><span><i
                                                                 class="mdi mdi-information-outline"></i>وضعیت
                                                                         :</span>
@@ -216,7 +215,7 @@
                                                             <h6 class="desc">{{ $attach->memo ?: '---' }}</h6>
                                                         </div>
                                                         <div class="btn-action">
-                                                            <a href="{{ $attach->attachment_file ?: '---' }}" target="_blank" class="btn-download">
+                                                            <a href="_upload_/_courses_/{{$course->code}}/attachs/{{$attach->code}}/{{$attach->attachment_file}}" target="_blank" class="btn-download">
                                                                 <i class="mdi mdi-download"></i>دانلود
                                                             </a>
                                                         </div>

@@ -45,13 +45,13 @@
                             $slug= "/course/".$obj?->getSlug();
                             $teacher= $obj?->teacher ? $obj?->teacher->fullname : 'کسبوم';
                             $time=$obj?->minutes > 0 ? $obj?->hour.':'.$obj?->minutes : $obj?->hour;
-                            $link = $slug;
+                            $link = "/_upload_/_users_/{$row->user?->code}/certificates/{$row->cert_filename}";
                         }else{
                             $obj = $row->webinar;
                             $title = str_replace(' ', '_', $obj?->title);
                             $time = $obj?->minutes > 0 ? $obj?->hour . ':' . $obj?->minutes : $obj?->hour;
                             $teacher = $obj->teacher_name;
-                            $link = "/skill/webinar/$obj->id/$title";
+                            $link = "/_upload_/_users_/{$row->user?->code}/certificates/{$row->cert_filename}";
                         }
                         ?>
 
@@ -61,9 +61,9 @@
                                         <div class="img-container">
                                             <div class="img-inner">
                                                 @if($type == 'دوره')
-                                                    <img src="_upload_/_courses_/{{$obj?->code}}/medium_{{$obj?->image}}" alt="{{ $title ?: '---' }}" />
+                                                    <img src="{{ $obj?->getMediumPoster() }}" alt="{{ $title ?: '---' }}" />
                                                 @else
-                                                    <img src="_upload_/_webinars_/{{$obj->code}}/medium_{{$obj->image}}" alt="{{ $title ?: '---' }}"/>
+                                                    <img src="/_upload_/_webinars_/{{$obj->code}}/medium_{{$obj->image}}" alt="{{ $title ?: '---' }}"/>
                                                 @endif
                                             </div>
                                         </div>
@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
                                     <div class="c-footer">
-                                        <a href="{{ $link }}" target="_blank" class="btn-download">مشاهده دوره</a>
+                                        <a href="{{ $link }}" target="_blank" class="btn-download">دانلود گواهینامه</a>
                                     </div>
                                 </div>
                             </div>

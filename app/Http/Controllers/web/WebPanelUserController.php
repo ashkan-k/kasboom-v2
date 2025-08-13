@@ -17,7 +17,7 @@ use App\Models\Message;
 use App\Models\Note;
 use App\Models\Notification;
 use App\Models\Notify;
-use App\Models\Payment;
+use App\Models\payment;
 use App\Models\QuizQuestion;
 use App\Models\Sms;
 use App\Models\State;
@@ -136,6 +136,10 @@ class WebPanelUserController extends Controller
             $type = 'دوره';
         }
 
+        if (!in_array($type, ['دوره', 'وبینار'])){
+            $type = 'دوره';
+        }
+
         if ($type === 'دوره') {
             $query = classroom::where([
                 ['id_user', auth()->user()->id],
@@ -170,7 +174,7 @@ class WebPanelUserController extends Controller
 //        $order_by = request()->order_by;
 //        $allowedColumns = ['view_count', 'created_at'];
 
-        $query = Payment::where([["id_user", auth()->user()->id],["status", 1]]);
+        $query = payment::where([["id_user", auth()->user()->id],["status", 1]]);
         if ($search)
             $query->where(function($q) use ($search) {
                 $q->where('factor_id', $search)
@@ -191,7 +195,7 @@ class WebPanelUserController extends Controller
 
     public function paymentsDetails($transactionId)
     {
-        $transaction = Payment::where([
+        $transaction = payment::where([
             ['id_user', auth()->user()->id],['status', 1], ['id', $transactionId]
         ])->firstOrFail();
 
@@ -202,7 +206,7 @@ class WebPanelUserController extends Controller
     {
         $limit = 10;
         $search = request()->search;
-        $query = Payment::where([['referral_user', auth()->user()->id],['status', 1]])
+        $query = payment::where([['referral_user', auth()->user()->id],['status', 1]])
             ->with('user:id,name')
             ->select(
                 'referral_price', 'referral_user', 'status', 'id_user',
@@ -217,7 +221,7 @@ class WebPanelUserController extends Controller
 
         $transactions = $query->paginate($limit);
 
-        $data = Payment::where([['referral_user', auth()->user()->id], ['status', 1]])
+        $data = payment::where([['referral_user', auth()->user()->id], ['status', 1]])
             ->select(DB::raw("SUM(referral_price) as refPrice"), DB::raw("count(*) as refCount"))
             ->get();
 

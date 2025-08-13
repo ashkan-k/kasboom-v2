@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class course extends Model
@@ -87,6 +88,14 @@ class course extends Model
             return "_upload_/_courses_/".$this->code."/medium_".$this->image;
         else
             return "_upload_/_courses_/".$this->code."/".$this->image;
+    }
+
+    public function getMediumPoster()
+    {
+        if(File::exists("_upload_/_courses_/".$this->code."/medium_".$this->image))
+            return "/_upload_/_courses_/".$this->code."/medium_".$this->image;
+        else
+            return "/assets-v2/images/600x480.svg";
     }
 
     public function getTecherName()
