@@ -45,13 +45,13 @@
                             $slug= "/course/".$obj?->getSlug();
                             $teacher= $obj?->teacher ? $obj?->teacher->fullname : 'کسبوم';
                             $time=$obj?->minutes > 0 ? $obj?->hour.':'.$obj?->minutes : $obj?->hour;
-                            $link = "/_upload_/_users_/{$row->user?->code}/certificates/{$row->cert_filename}";
+                            $link = route('web.my-certificate-download', $obj->id ?: '---');
                         }else{
                             $obj = $row->webinar;
                             $title = str_replace(' ', '_', $obj?->title);
                             $time = $obj?->minutes > 0 ? $obj?->hour . ':' . $obj?->minutes : $obj?->hour;
                             $teacher = $obj->teacher_name;
-                            $link = "/_upload_/_users_/{$row->user?->code}/certificates/{$row->cert_filename}";
+                            $link = route('web.my-webinar-certificate-download', $obj->id ?: '---');
                         }
                         ?>
 

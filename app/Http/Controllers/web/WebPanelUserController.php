@@ -711,8 +711,8 @@ class WebPanelUserController extends Controller
         $course = Classroom::where([
             ['id_user', $user->id],
             ['id_course', $id],
-//            ['take_quiz', 1],
-//            ['certificate_status', 'صدور مدرک']
+            ['take_quiz', 1],
+            ['certificate_status', 'صدور مدرک']
         ])->with('course')->first();
 
         if (!$course) abort(403, 'دوره ای یافت نشد');
