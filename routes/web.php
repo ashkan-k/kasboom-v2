@@ -960,3 +960,9 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
         Route::post('store-profile', [WebPanelUserController::class, 'storeProfile'])->name('web.store-profile');
     });
 });
+
+Route::get('qrcode', [WebPanelUserController::class, 'qrcode']);
+
+Route::get('certificate/teacher/{type}/{id}', [WebPanelUserController::class, 'downloadCertificateForAllTeacher']);
+Route::get('certificate/{userCode}/course/{id}', [WebPanelUserController::class, 'downloadCertificateForAll']);
+Route::get('certificate/{userCode}/webinar/{id}', [WebPanelUserController::class, 'downloadCertificateForAllWebinar']);

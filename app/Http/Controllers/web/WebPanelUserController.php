@@ -20,7 +20,6 @@ use App\Models\Notify;
 use App\Models\payment;
 use App\Models\QuizQuestion;
 use App\Models\Sms;
-use App\Models\State;
 use App\Models\Survey;
 use App\Models\SurveyField;
 use App\Models\User;
@@ -30,14 +29,17 @@ use App\Models\UserQuiz;
 use App\Models\webinar;
 use App\Models\WebinarRegister;
 use App\Models\wikiidea;
+use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Morilog\Jalali\CalendarUtils;
+use Endroid\QrCode\QrCode;
 
 class WebPanelUserController extends Controller
 {
@@ -53,7 +55,7 @@ class WebPanelUserController extends Controller
         $subsid = null;
         $user = null;
 
-        if (Auth::check()){
+        if (Auth::check()) {
             $user = auth()->user();
             $courseCount = classroom::where("id_user", $user->id)->count();
             $messageCount = Message::where("type", "user")->where("id_target", $user->id)->count();
@@ -117,7 +119,7 @@ class WebPanelUserController extends Controller
         $search = arToFa(request()->search);
         $query = WebinarRegister::where("id_user", auth()->user()->id)->with('webinar');
         if ($search)
-            $query->whereHas('webinar', function($q) use ($search) {
+            $query->whereHas('webinar', function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
 
@@ -132,11 +134,11 @@ class WebPanelUserController extends Controller
         $search = arToFa(request()->search);
         $type = request()->type;
 
-        if (!$type){
+        if (!$type) {
             $type = 'دوره';
         }
 
-        if (!in_array($type, ['دوره', 'وبینار'])){
+        if (!in_array($type, ['دوره', 'وبینار'])) {
             $type = 'دوره';
         }
 
@@ -147,7 +149,7 @@ class WebPanelUserController extends Controller
                 ['certificate_status', 'صدور مدرک']
             ])->with('course');
             if ($search)
-                $query->whereHas('course', function($q) use ($search) {
+                $query->whereHas('course', function ($q) use ($search) {
                     $q->where('title', 'like', "%$search%");
                 });
         } elseif ($type === 'وبینار') {
@@ -157,12 +159,12 @@ class WebPanelUserController extends Controller
                 ['status', 1]
             ])->with('webinar');
             if ($search)
-                $query->whereHas('webinar', function($q) use ($search) {
+                $query->whereHas('webinar', function ($q) use ($search) {
                     $q->where('title', 'like', "%$search%");
                 });
         }
 
-       $certificates = $query->paginate($limit);
+        $certificates = $query->paginate($limit);
 
         return view('web.certificates', compact('certificates', 'type'));
     }
@@ -174,9 +176,9 @@ class WebPanelUserController extends Controller
 //        $order_by = request()->order_by;
 //        $allowedColumns = ['view_count', 'created_at'];
 
-        $query = payment::where([["id_user", auth()->user()->id],["status", 1]]);
+        $query = payment::where([["id_user", auth()->user()->id], ["status", 1]]);
         if ($search)
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('factor_id', $search)
                     ->orWhere('refID', $search)
                     ->orWhere('payment_for', 'like', "%$search%");
@@ -196,7 +198,7 @@ class WebPanelUserController extends Controller
     public function paymentsDetails($transactionId)
     {
         $transaction = payment::where([
-            ['id_user', auth()->user()->id],['status', 1], ['id', $transactionId]
+            ['id_user', auth()->user()->id], ['status', 1], ['id', $transactionId]
         ])->firstOrFail();
 
         return view('web.transaction-detail', compact('transaction'));
@@ -206,7 +208,7 @@ class WebPanelUserController extends Controller
     {
         $limit = 10;
         $search = request()->search;
-        $query = payment::where([['referral_user', auth()->user()->id],['status', 1]])
+        $query = payment::where([['referral_user', auth()->user()->id], ['status', 1]])
             ->with('user:id,name')
             ->select(
                 'referral_price', 'referral_user', 'status', 'id_user',
@@ -214,8 +216,8 @@ class WebPanelUserController extends Controller
             );
 
         if ($search) {
-            $query->where(function($q) use ($search) {
-                $q->where('factor_id', 'LIKE' , "%$search%");
+            $query->where(function ($q) use ($search) {
+                $q->where('factor_id', 'LIKE', "%$search%");
             });
         }
 
@@ -231,7 +233,8 @@ class WebPanelUserController extends Controller
         return view('web.transaction-ref', compact('transactions', 'refCount', 'refPrice'));
     }
 
-    public function CourseDetail($courseId){
+    public function CourseDetail($courseId)
+    {
         $course = course::findOrFail($courseId);
 
         $query = classroom::where([['id_user', auth()->user()->id], ['id_course', $courseId]]);
@@ -240,7 +243,7 @@ class WebPanelUserController extends Controller
                 $q->with([
                     'lessons' => function ($q) {
                         $q->select('id', 'lesson_number', 'id_course', 'title', 'cloud_url', 'poster_url',
-                            'cloud_json_url','cloud_mp4_url', 'hour', 'minutes', 'video', 'size', 'memo', 'isFree', 'status',
+                            'cloud_json_url', 'cloud_mp4_url', 'hour', 'minutes', 'video', 'size', 'memo', 'isFree', 'status',
                             'created_at', 'updated_at')
                             ->oldest('season')
                             ->orderby('lesson_number')
@@ -279,9 +282,9 @@ class WebPanelUserController extends Controller
             $attachDic[$attach->category][] = $attach;
 
         $notes = [];
-        foreach ($object?->course?->lessons as $lesson){
+        foreach ($object?->course?->lessons as $lesson) {
             $temp_arr = $lesson->note?->all();
-            if ($temp_arr){
+            if ($temp_arr) {
                 $notes = array_merge($notes, $temp_arr);
             }
         }
@@ -304,7 +307,7 @@ class WebPanelUserController extends Controller
         $idCourse = request()->idCourse;
         $userId = auth()->user()->id;
         $classroom = classroom::where([['id_course', $idCourse], ['id_user', $userId]])->first();
-        if(!$classroom)
+        if (!$classroom)
             return ['success' => false, 'message' => 'دوره ای یافت نشد'];
 
         $idLesson = request()->idLesson;
@@ -347,14 +350,15 @@ class WebPanelUserController extends Controller
     }
 
     //    bugs
-    public function bugStore() {
+    public function bugStore()
+    {
         $validator = Validator::make(request()->all(), [
             'feddbackGroup' => 'required|max:30',
             'feddbacktype' => 'required|in:course,skill,consult,shop,blog,landuse,idea,lesson',
             'feddbackContent' => 'required|max:500'
         ]);
-        if($validator->fails())
-            return ['success' => false,'message' => $validator->errors()->first()];
+        if ($validator->fails())
+            return ['success' => false, 'message' => $validator->errors()->first()];
 
         $type = request()->feddbacktype;
         $targetId = request()->targetId;
@@ -363,18 +367,17 @@ class WebPanelUserController extends Controller
         if ($type === 'course' || $type === 'lesson') {
             if ($type === 'course') {
                 $cours = course::find(request()->targetId);
-                if(!$cours) return ['success' => false,'message' => 'متاسفانه دوره ای یافت نشد'];
+                if (!$cours) return ['success' => false, 'message' => 'متاسفانه دوره ای یافت نشد'];
                 $courseId = request()->targetId;
-            }
-            else if ($type === 'lesson') {
+            } else if ($type === 'lesson') {
                 $lesson = lesson::find(request()->targetId);
-                if(!$lesson) return ['success' => false,'message' => 'متاسفانه کلاسی یافت نشد'];
+                if (!$lesson) return ['success' => false, 'message' => 'متاسفانه کلاسی یافت نشد'];
                 $courseId = $lesson->id_course;
             }
 
             $classroom = classroom::where([['id_course', $courseId], ['id_user', $userId]])->first();
             if (!$classroom)
-                return ['success' => false,'message' => 'شما عضو این دوره نیستید'];
+                return ['success' => false, 'message' => 'شما عضو این دوره نیستید'];
         }
 
         $store = new Bug;
@@ -385,29 +388,30 @@ class WebPanelUserController extends Controller
         $store->memo = request()->feddbackContent;
         $store->save();
 
-        return ['success' => true,'message' => 'گزارش شما با موفقیت ثبت شد . از گزارشتان متشکریم :)'];
+        return ['success' => true, 'message' => 'گزارش شما با موفقیت ثبت شد . از گزارشتان متشکریم :)'];
     }
 
     //    notes
-    public function storeCourseNote(){
+    public function storeCourseNote()
+    {
         $validator = Validator::make(request()->all(), [
             'questionSubject' => 'required|max:300',
             'noteMessage' => 'required'
         ]);
-        if($validator->fails())
-            return ['success' => false,'message' => $validator->errors()->first()];
+        if ($validator->fails())
+            return ['success' => false, 'message' => $validator->errors()->first()];
 
         $userId = auth()->user()->id;
         $idCourse = request()->idCourse;
         $idLesson = request()->idLesson;
 
         $classroom = classroom::where([['id_user', $userId], ['id_course', $idCourse]])->first();
-        if(!$classroom)
-            return ['success' => false,'message' => 'شما در این دوره ثبت نام نکرده اید'];
+        if (!$classroom)
+            return ['success' => false, 'message' => 'شما در این دوره ثبت نام نکرده اید'];
 
         $lesson = lesson::where([['id', $idLesson], ['id_course', $idCourse]])->first();
-        if(!$lesson)
-            return ['success' => false,'message' => 'درس مورد نظر یافت نشد'];
+        if (!$lesson)
+            return ['success' => false, 'message' => 'درس مورد نظر یافت نشد'];
 
         if (request()->id > 0) {
             $note = Note::where([
@@ -418,8 +422,7 @@ class WebPanelUserController extends Controller
             ])->first();
             if (!$note)
                 return ['success' => false, 'message' => 'یادداشتی جهت ویرایش یافت نشد'];
-        }
-        else {
+        } else {
             $note = new Note;
             $note->id_course = $idCourse;
             $note->id_lesson = $idLesson;
@@ -434,7 +437,8 @@ class WebPanelUserController extends Controller
         return ['success' => true, 'message' => 'ثبت یادداشت انجام شد', 'data' => $notes];
     }
 
-    public function deleteCourseNote(){
+    public function deleteCourseNote()
+    {
         $userId = auth()->user()->id;
         $idCourse = request()->idCourse;
         $idLesson = request()->idLesson;
@@ -456,7 +460,8 @@ class WebPanelUserController extends Controller
     }
 
     // survey
-    public function CourseSurvey($courseId){
+    public function CourseSurvey($courseId)
+    {
         classroom::where([
             ['id_user', auth()->user()->id], ['id_course', $courseId]
         ])->firstOrFail();
@@ -470,7 +475,8 @@ class WebPanelUserController extends Controller
         return view('web.course-survey', compact('survey', 'courseId'));
     }
 
-    public function CourseSurveyStore(Request $request, $courseId){
+    public function CourseSurveyStore(Request $request, $courseId)
+    {
         $request->validate([
             'ratings' => 'required|array', // اطمینان از وجود آرایه ratings
             'ratings.*' => 'integer|min:1|max:5', // هر امتیاز باید بین 1 تا 5 باشد
@@ -517,7 +523,7 @@ class WebPanelUserController extends Controller
             ['type', 'course']
         ])->first();
 
-        if (!$comment){
+        if (!$comment) {
             $comment = new comment();
             $comment->id_user = $userId;
             $comment->id_target = $courseId;
@@ -529,7 +535,7 @@ class WebPanelUserController extends Controller
         $comment->read_status = 1;
         $comment->save();
 
-        $fields = SurveyField::where('type','course')->pluck('id')->toArray();
+        $fields = SurveyField::where('type', 'course')->pluck('id')->toArray();
         $surveys = Survey::where('id_target', $courseId)
             ->whereIn('survey_field_id', $fields)->get();
 
@@ -548,7 +554,8 @@ class WebPanelUserController extends Controller
 
     // quiz
 
-    public function CourseQuiz($courseId){
+    public function CourseQuiz($courseId)
+    {
         $nowDate = date("Y-m-d");
         $nowdateshamsi = nowDateShamsi();
         $userId = auth()->user()->id;
@@ -562,10 +569,10 @@ class WebPanelUserController extends Controller
         if ((int)$course->have_certificate === 0)
             return back()->with('quiz_errors', 'این دوره آزمون آنلاین ندارد و  گواهینامه ای برای این دوره صادر نمی شود');
 
-        if($classroom->result !== 'finish') {
-            if($classroom->result === 'learning')
+        if ($classroom->result !== 'finish') {
+            if ($classroom->result === 'learning')
                 return back()->with('quiz_errors', 'برای شرکت در آزمون حتما باید تمامی درس های دوره ی آموزشی را مشاهده نمائید');
-            elseif($classroom->result === 'certificate')
+            elseif ($classroom->result === 'certificate')
                 return back()->with('quiz_errors', 'قبلا در آزمون این دوره شرکت کرده اید و گواهی پایان دوره برا شما صادر شده است');
         }
 
@@ -580,12 +587,11 @@ class WebPanelUserController extends Controller
             $classroom->save();
 
             return view('web.course-quiz', compact('course', 'quiz'));
-        }
-        else {
+        } else {
             $now = time();
             $your_date = strtotime($last_date_take_quize_miladi);
             $datediff = $now - $your_date;
-            $diff_days = (int) (abs((int)round($datediff / (60 * 60 * 24))));
+            $diff_days = (int)(abs((int)round($datediff / (60 * 60 * 24))));
             if ($diff_days >= 3) {
                 $quiz = QuizQuestion::where('id_course', $courseId)->inRandomOrder()->take(20)->get();
                 $course = course::where('id', $courseId)->select('id', 'code', 'title')->first();
@@ -596,15 +602,15 @@ class WebPanelUserController extends Controller
                 $classroom->save();
 
                 return view('web.course-quiz', compact('course', 'quiz'));
-            }
-            else {
-                $message = "شما بعد از " . ( 3 - $diff_days ) . " روز می توانید مجددا در آزمون شرکت کنید ";
+            } else {
+                $message = "شما بعد از " . (3 - $diff_days) . " روز می توانید مجددا در آزمون شرکت کنید ";
                 return back()->with('quiz_errors', $message);
             }
         }
     }
 
-    public function correctionQuiz(){
+    public function correctionQuiz()
+    {
         request()->validate([
             'courseId' => 'required|integer',
             'answer' => 'required|array',
@@ -628,7 +634,7 @@ class WebPanelUserController extends Controller
         $answerCount = count($answer) === 0 ? 20 : count($answer);
         $validTime = (($answerCount * 60) + 60) + strtotime($classroom->updated_at);
 
-        if($classroom->answer_status === 1 || ($classroom->answer_status === 0 && $validTime < time())){
+        if ($classroom->answer_status === 1 || ($classroom->answer_status === 0 && $validTime < time())) {
             $classroom->answer_status = 1;
             $classroom->save();
             return redirect(route('web.my-course-detail', $id_course))->with('quiz_errors', 'زمان آزمون تمام شد . شما نمی توانید در آزمون شرکت کنید');
@@ -638,9 +644,9 @@ class WebPanelUserController extends Controller
         $cnt_true_answer = 0;
         UserQuiz::where([['id_course', $id_course], ['id_user', $user->id]])->delete();
         foreach ($answer as $row) {
-            if(!$row['value'])
+            if (!$row['value'])
                 continue;
-            $ques_user_answer = (int) $row['value'];
+            $ques_user_answer = (int)$row['value'];
             $ques = QuizQuestion::where('id', $row['id'])->select('id', 'question', 'answer')->first();
             if ($ques_user_answer == (int)$ques->answer) {
                 $this->addUserQuesResult($user->id, $id_course, $row['id'], $ques_user_answer, 1);
@@ -673,14 +679,15 @@ class WebPanelUserController extends Controller
                 $query->select('id', 'question');
             }))->get();
 
-        $text = $user->name . " ارجمند " . "\n"."امتیاز کسب شده شما در آزمون دوره ( " . $course->title ." ) ". $score ." از 100 می باشد. "."\n"."تاریخ آزمون: ". $nowdateshamsi ."\n\n". "سامانه کسب بوم"."\n"."kasboom.ir";
+        $text = $user->name . " ارجمند " . "\n" . "امتیاز کسب شده شما در آزمون دوره ( " . $course->title . " ) " . $score . " از 100 می باشد. " . "\n" . "تاریخ آزمون: " . $nowdateshamsi . "\n\n" . "سامانه کسب بوم" . "\n" . "kasboom.ir";
         Sms::send($user->phonenumber, $text);
 
         session()->flash('quiz_correction_success_message', 'آزمون شما با موفقیت ثبت شد');
         return redirect(route('web.my-course-quiz-result', $id_course));
     }
 
-    function addUserQuesResult($id_user, $id_course, $id_ques, $user_answer, $answer){
+    function addUserQuesResult($id_user, $id_course, $id_ques, $user_answer, $answer)
+    {
         UserQuiz::updateOrInsert([
             'id_user' => $id_user,
             'id_course' => $id_course,
@@ -690,7 +697,8 @@ class WebPanelUserController extends Controller
         ]);
     }
 
-    public function getQuizResult ($course_id) {
+    public function getQuizResult($course_id)
+    {
         $user = auth()->user();
         $class_room = Classroom::where([['id_user', $user->id], ['id_course', $course_id]])->first();
 
@@ -706,7 +714,8 @@ class WebPanelUserController extends Controller
         return view('web.course-quiz-result', compact('course', 'user_quizs', 'class_room'));
     }
 
-    public function downloadCertificate ($id) {
+    public function downloadCertificate($id)
+    {
         $user = auth()->user();
         $course = Classroom::where([
             ['id_user', $user->id],
@@ -720,15 +729,14 @@ class WebPanelUserController extends Controller
         if ($course->id_certificate === null) {
             $idCertificate = (int)Classroom::where('id_user', auth()->user()->id)->max('id_certificate') + 1;
             $course->id_certificate = $idCertificate;
-            $course->name_certificate =  "$user->id/$idCertificate/" . 'الف' . '/400';
+            $course->name_certificate = "$user->id/$idCertificate/" . 'الف' . '/400';
             $course->save();
-        }
-        else $idCertificate = $course->id_certificate;
+        } else $idCertificate = $course->id_certificate;
 
         $string = url("certificate/$user->code/course/$idCertificate");
         $url = url("qrcode?string=$string");
 
-        if ($course->course->level === 'level1')     $level = 'مقدماتی';
+        if ($course->course->level === 'level1') $level = 'مقدماتی';
         elseif ($course->course->level === 'level2') $level = 'پیشرفته';
         elseif ($course->course->level === 'level3') $level = 'تکمیلی';
 
@@ -736,10 +744,11 @@ class WebPanelUserController extends Controller
         $minutes = (int)$course->course->minutes > 0 ? $course->course->minutes : '00';
         $time = $minutes . ' : ' . $hour;
 
-        return view('certificate/certificate', compact('course', 'time', 'minutes', 'level','url', 'user'));
+        return view('certificate/certificate', compact('course', 'time', 'minutes', 'level', 'url', 'user'));
     }
 
-    public function downloadCertificateForAll ($userCode, $id) {
+    public function downloadCertificateForAll($userCode, $id)
+    {
         $user = User::where('code', $userCode)->first();
         if (!$user)
             abort(403, 'گواهی نامعتبر است , کاربری با چنین مشخصاتی یافت نشد');
@@ -762,7 +771,7 @@ class WebPanelUserController extends Controller
         $string = url("certificate/$user->code/course/$idCertificate");
         $url = url("qrcode?string=$string");
 
-        if ($course->course->level === 'level1')     $level = 'مقدماتی';
+        if ($course->course->level === 'level1') $level = 'مقدماتی';
         elseif ($course->course->level === 'level2') $level = 'پیشرفته';
         elseif ($course->course->level === 'level3') $level = 'تکمیلی';
 
@@ -773,7 +782,8 @@ class WebPanelUserController extends Controller
         return view('certificate/certificate', compact('course', 'minutes', 'time', 'level', 'url', 'user'));
     }
 
-    public function downloadCertificateWebinar ($id) {
+    public function downloadCertificateWebinar($id)
+    {
         $user = auth()->user();
         $webinar = WebinarRegister::where([
             ['id_user', $user->id],
@@ -787,10 +797,9 @@ class WebPanelUserController extends Controller
         if ($webinar->id_certificate === null) {
             $idCertificate = (int)WebinarRegister::where('id_user', auth()->user()->id)->max('id_certificate') + 1;
             $webinar->id_certificate = $idCertificate;
-            $webinar->name_certificate =  "$user->id/$idCertificate/" . 'ب' . '/400';
+            $webinar->name_certificate = "$user->id/$idCertificate/" . 'ب' . '/400';
             $webinar->save();
-        }
-        else $idCertificate = $webinar->id_certificate;
+        } else $idCertificate = $webinar->id_certificate;
 
         $string = url("certificate/$user->code/webinar/$idCertificate");
         $url = url("qrcode?string=$string");
@@ -798,10 +807,11 @@ class WebPanelUserController extends Controller
         $minutes = (int)$webinar->webinar->minutes === 0 ? '00' : $webinar->webinar->minutes;
         $time = $minutes . ' : ' . $webinar->webinar->hour;
 
-        return view('certificate/certificateWebinar', compact('webinar', 'time', 'minutes','url', 'user'));
+        return view('certificate/certificateWebinar', compact('webinar', 'time', 'minutes', 'url', 'user'));
     }
 
-    public function downloadCertificateForAllWebinar ($userCode, $id) {
+    public function downloadCertificateForAllWebinar($userCode, $id)
+    {
         $user = User::where('code', $userCode)->first();
         if (!$user)
             abort(403, 'گواهی نامعتبر است , کاربری با چنین مشخصاتی یافت نشد');
@@ -829,14 +839,14 @@ class WebPanelUserController extends Controller
         return view('certificate/certificateWebinar', compact('webinar', 'minutes', 'time', 'url', 'user'));
     }
 
-    public function downloadCertificateForAllTeacher ($type, $id) {
+    public function downloadCertificateForAllTeacher($type, $id)
+    {
         $userId = '';
         if ($type === 'webinar') {
             $webinar = Webinar::find($id);
             if (!$webinar) abort(403, 'گواهی نامعتبر است .');
             $userId = $webinar->id_teacher;
-        }
-        elseif ($type === 'course') {
+        } elseif ($type === 'course') {
             $course = Course::find($id);
             if (!$course) abort(403, 'گواهی نامعتبر است .');
             $userId = $course->id_teacher;
@@ -845,14 +855,40 @@ class WebPanelUserController extends Controller
         if (!$user) abort(403, 'گواهی نامعتبر است , مدرس با چنین مشخصاتی یافت نشد .');
 
         $slash = DIRECTORY_SEPARATOR;
-        $fileName = '.'.$slash.'..'.$slash.'..'.$slash.'_upload_'.$slash.'_users_'.$slash . $user->code . $slash .'certificates' . $slash . $type . $slash . "$id.jpg";
+        $fileName = '.' . $slash . '..' . $slash . '..' . $slash . '_upload_' . $slash . '_users_' . $slash . $user->code . $slash . 'certificates' . $slash . $type . $slash . "$id.jpg";
         if (!file_exists($fileName)) abort(403, 'گواهی نامعتبر است .');
 
         return redirect(url($fileName));
     }
 
+    public function qrcode()
+    {
+        if (!isset($_GET['string'])) {
+            abort(404);
+        }
+
+        // ساخت QR Code همراه با تنظیمات
+        $qrCode = new QrCode(
+            data: $_GET['string'],
+            size: 300,          // سایز تصویر
+            margin: 10          // حاشیه
+        );
+
+        // Writer
+        $writer = new PngWriter();
+        $result = $writer->write($qrCode);
+
+        // خروجی تصویر برای <img src="...">
+        return Response::make(
+            $result->getString(),
+            200,
+            ['Content-Type' => $result->getMimeType()]
+        );
+    }
+
     //    discount - new version kasboom-coupon
-    public function discounts () {
+    public function discounts()
+    {
         $search = arToFa(request()->search);
 
         $query = KasboomCoupon::where([['status', 1], ['end_date', '>=', jdate()->format('Y/m/d')]])
@@ -862,14 +898,13 @@ class WebPanelUserController extends Controller
             });
 
         if ($search)
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
 
-        if (\request('status') == 'new'){
+        if (\request('status') == 'new') {
             $query = $query->where('status', 0);
-        }
-        elseif (\request('status') == 'expired'){
+        } elseif (\request('status') == 'expired') {
             $query = $query->where('status', 1);
         }
 
@@ -884,7 +919,7 @@ class WebPanelUserController extends Controller
         $search = arToFa(request()->search);
         $query = UserFavorite::where("id_user", auth()->user()->id);
         if ($search)
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
 
@@ -897,7 +932,8 @@ class WebPanelUserController extends Controller
         return view('web.wishlist', compact('wishlists'));
     }
 
-    public function wikiList(){
+    public function wikiList()
+    {
         $allowedColumns = ['view_count', 'created_at', 'total_score'];
 
         $limit = 10;
@@ -906,7 +942,7 @@ class WebPanelUserController extends Controller
 
         $query = wikiidea::where('id_user', auth()->user()->id)->with('category:id,title');
         if ($search)
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%")
                     ->orWhere('abstractMemo', 'like', "%$search%");
             });
@@ -922,7 +958,8 @@ class WebPanelUserController extends Controller
         return view('web.ideas', compact('ideas'));
     }
 
-    public function wikiCreate(){
+    public function wikiCreate()
+    {
         $cats = category::where([
             ['status', 1],
             ['type', 'idea'],
@@ -956,7 +993,7 @@ class WebPanelUserController extends Controller
             'id_state' => 'required|exists:kasboom_state,id',
         ]);
 
-       category::where([
+        category::where([
             ['status', 1],
             ['type', 'idea'],
             ['id', $data['id_category']],
@@ -972,8 +1009,7 @@ class WebPanelUserController extends Controller
             ])->firstOrFail();
 
             $code = $idea->code;
-        }
-        else {
+        } else {
             $code = generateIdeaCode();
             $idea = new wikiidea;
             $idea->code = $code;
@@ -992,8 +1028,8 @@ class WebPanelUserController extends Controller
             if (checkValidIP(request()->header('x-forwarded-for'))) {
                 $slash = DIRECTORY_SEPARATOR;
 //                $folderPath = '.'.$slash.'..'.$slash.'..'.$slash.'_upload_'.$slash.'_wikiideas_'.$slash.$code;
-                $folderPath = '_upload_'.$slash.'_wikiideas_'.$slash.$code;
-                if($id > 0 && $idea->image) {
+                $folderPath = '_upload_' . $slash . '_wikiideas_' . $slash . $code;
+                if ($id > 0 && $idea->image) {
                     File::delete($folderPath . $slash . $idea->image);
                     File::delete($folderPath . $slash . 'medium_' . $idea->image);
                     File::delete($folderPath . $slash . 'small_' . $idea->image);
@@ -1024,7 +1060,8 @@ class WebPanelUserController extends Controller
         return redirect(route('web.my-ideas'))->with('idea_submit_success', 'ثبت ایده با موفقیت انجام شد , پس از تایید مدیر انتشار خواهد یافت');
     }
 
-    public function wikiEdit($id){
+    public function wikiEdit($id)
+    {
         $object = wikiidea::where([['id_user', auth()->user()->id], ['id', $id]])
             ->with('category:id,title')->firstOrFail();
 
@@ -1039,11 +1076,12 @@ class WebPanelUserController extends Controller
         return view('web.ideas-form', compact('object', 'cats', 'states'));
     }
 
-    public function wikiDelete($id) {
+    public function wikiDelete($id)
+    {
         $wiki = wikiidea::where([['id', $id], ['id_user', auth()->user()->id]])->firstOrFail();
 
         $slash = DIRECTORY_SEPARATOR;
-        $folderPath = '_upload_'.$slash.'_wikiideas_'.$slash.$wiki->code;
+        $folderPath = '_upload_' . $slash . '_wikiideas_' . $slash . $wiki->code;
 
         deleteDirectory($folderPath);
         $wiki->delete();
@@ -1053,14 +1091,16 @@ class WebPanelUserController extends Controller
 
     //
 
-    public function InviteTeacher(){
+    public function InviteTeacher()
+    {
         $states = getState();
         $cats = category::where("status", "=", 1)->get();
 
         return view('web.invite-teacher-form', compact('states', 'cats'));
     }
 
-    public function storeInviteTeacher () {
+    public function storeInviteTeacher()
+    {
 
         $data = request()->all();
         Validator::validate($data, [
@@ -1088,13 +1128,13 @@ class WebPanelUserController extends Controller
 
         if (
             (!isset($data['id_cat_mega_1']) && !isset($data['id_cat_mega_2']))
-        ){
+        ) {
             throw ValidationException::withMessages(['category_error' => 'حتما یک مرحله از بخش تخصص را کامل پر کنید']);
         }
 
         $code = generateIdeaCode();
         $slash = DIRECTORY_SEPARATOR;
-        $folderPath = '_upload_'.$slash.'_inviteTeacher_'.$slash.$code;
+        $folderPath = '_upload_' . $slash . '_inviteTeacher_' . $slash . $code;
         $invite = new Invite;
 
 //        image resum

@@ -7,8 +7,8 @@
     <meta name="viewport">
     <title>گواهی نامه حضور در وبینار</title>
     <base href="{{asset('/')}}" />
-    <link rel="stylesheet" href="css/certificate/main.css?3">
-    <link rel="stylesheet" href="css/certificate/print.css?3">
+    <link rel="stylesheet" href="/certificate/main.css?3">
+    <link rel="stylesheet" href="/certificate/print.css?3">
 </head>
 
 <body>
@@ -18,11 +18,11 @@
             <button type="button" id="btn-print" onclick="javascript:window.print()" value="print">پرینت فاکتور</button>
         </div>
     <div class="certificate-content">
-       
+
         <div class="certificate-kasboom breds">
             <div class="crt-header">
                 <div class="logo">
-                    <img src="css/certificate/images/logo.svg" alt="logo">
+                    <img src="/certificate/images/logo.svg" alt="logo">
                 </div>
                 <div class="title">
                     <h1> گواهینامه حضور در وبینار آموزشی آنلاین</h1>
@@ -60,7 +60,7 @@
                 <div class="sign-content">
                     <div class="sign">
                         <div class="image">
-                            <img src="css/certificate/images/certificate-sign-kasboom.png" alt="sign-image">
+                            <img src="/certificate/images/certificate-sign-kasboom.png" alt="sign-image">
                         </div>
                         <h5>حسن نجفی - مدیرعامل سامانه جامع کسبوم</h5>
                     </div>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="sign">
                         <div class="image">
-                            <img src="css/certificate/images/logo-gharargah.png" alt="sign-image">
+                            <img src="/certificate/images/logo-gharargah.png" alt="sign-image">
                         </div>
                         <h5>قرارگاه جهادی حضرت خدیجه<span>(سلام‌الله‌علیها)</span></h5>
                     </div>
