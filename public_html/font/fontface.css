@@ -1,0 +1,99 @@
+@font-face {
+    font-family: 'IranNastaliq';
+    src: url('./IranNastaliq/IranNastaliq.eot');
+    src: url('./IranNastaliq/IranNastaliq.eot') format('embedded-opentype'),
+        url('./IranNastaliq/IranNastaliq.woff') format('woff'),
+        url('./IranNastaliq/IranNastaliq.ttf') format('truetype'),
+        url('./IranNastaliq/IranNastaliq.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Iran Yekan */
+@font-face {
+	font-family: IRANYEKAN;
+	font-style: normal;
+	font-weight: bold;
+	src: url('./eot/iranyekanwebboldfanum.eot');
+	src: url('./eot/iranyekanwebboldfanum.eot?#iefix') format('embedded-opentype'),
+		url('./woff/iranyekanwebboldfanum.woff') format('woff'),
+		url('./ttf/iranyekanwebboldfanum.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: IRANYEKAN;
+	font-style: normal;
+	font-weight: 100;
+	src: url('./eot/iranyekanwebthinfanum.eot');
+	src: url('./eot/iranyekanwebthinfanum.eot?#iefix') format('embedded-opentype'),
+		url('./woff/iranyekanwebthinfanum.woff') format('woff'),
+		url('./ttf/iranyekanwebthinfanum.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: IRANYEKAN;
+	font-style: normal;
+	font-weight: 300;
+	src: url('./eot/iranyekanweblightfanum.eot');
+	src: url('./eot/iranyekanweblightfanum.eot?#iefix') format('embedded-opentype'),
+		url('./woff/iranyekanweblightfanum.woff') format('woff'),
+		url('./ttf/iranyekanweblightfanum.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: IRANYEKAN;
+	font-style: normal;
+	font-weight: normal;
+	src: url('./eot/iranyekanwebregularfanum.eot');
+	src: url('./eot/iranyekanwebregularfanum.eot?#iefix') format('embedded-opentype'),
+		url('./woff/iranyekanwebregularfanum.woff') format('woff'),
+		url('./ttf/iranyekanwebregularfanum.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: IRANYEKAN;
+	font-style: normal;
+	font-weight: 500;
+	src: url('./eot/iranyekanwebmediumfanum.eot');
+	src: url('./eot/iranyekanwebmediumfanum.eot?#iefix') format('embedded-opentype'),
+		url('./woff/iranyekanwebmediumfanum.woff') format('woff'),
+		url('./ttf/iranyekanwebmediumfanum.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: IRANYEKAN;
+	font-style: normal;
+	font-weight: 800;
+	src: url('./eot/iranyekanwebextraboldfanum.eot');
+	src: url('./eot/iranyekanwebextraboldfanum.eot?#iefix') format('embedded-opentype'),
+		url('./woff/iranyekanwebextraboldfanum.woff') format('woff'),
+		url('./ttf/iranyekanwebextraboldfanum.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: IRANYEKAN;
+	font-style: normal;
+	font-weight: 900;
+	src: url('./eot/iranyekanwebblackfanum.eot');
+	src: url('./eot/iranyekanwebblackfanum.eot?#iefix') format('embedded-opentype'),
+		url('./woff/iranyekanwebblackfanum.woff') format('woff'),
+		url('./ttf/iranyekanwebblackfanum.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: IRANYEKAN;
+	font-style: normal;
+	font-weight: 950;
+	src: url('./eot/iranyekanwebextrablackfanum.eot');
+	src: url('./eot/iranyekanwebextrablackfanum.eot?#iefix') format('embedded-opentype'),
+		url('./woff/iranyekanwebextrablackfanum.woff') format('woff'),
+		url('./ttf/iranyekanwebextrablackfanum.ttf') format('truetype');
+}
+
+
+
+
+
+
+
