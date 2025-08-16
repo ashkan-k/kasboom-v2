@@ -941,15 +941,15 @@ Route::group(['prefix' => 'web', 'middleware' => 'auth'], function () {
         Route::post('/survey/{course_id}/store', [WebPanelUserController::class, 'CourseSurveyStore'])->name('web.my-course-survey-store');
 
         Route::get('/quiz/{course_id}', [WebPanelUserController::class, 'CourseQuiz'])->name('web.my-course-quiz');
-        Route::post('get-quiz-result', [WebPanelUserController::class, 'getQuizResult']);
+        Route::get('get-quiz-result/{course_id}', [WebPanelUserController::class, 'getQuizResult'])->name('web.my-course-quiz-result');
         Route::post('correction-quiz', [WebPanelUserController::class, 'correctionQuiz'])->name('web.my-course-quiz-correction');
     });
 
     // certificate
     Route::group(['prefix' => 'learning/certificate'], function () {
         Route::get('/', [WebPanelUserController::class, 'getCertificate'])->name('web.my-certificate');
-        Route::get('/download/{id}', [WebPanelUserController::class, 'downloadCertificate']);
-        Route::get('/download/webinar/{id}', [WebPanelUserController::class, 'downloadCertificateWebinar']);
+        Route::get('/download/{id}', [WebPanelUserController::class, 'downloadCertificate'])->name('web.my-certificate-download');
+        Route::get('/download/webinar/{id}', [WebPanelUserController::class, 'downloadCertificateWebinar'])->name('web.my-webinar-certificate-download');
     });
 
     //        setting

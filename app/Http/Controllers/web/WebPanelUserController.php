@@ -677,7 +677,7 @@ class WebPanelUserController extends Controller
         Sms::send($user->phonenumber, $text);
 
         session()->flash('quiz_correction_success_message', 'آزمون شما با موفقیت ثبت شد');
-        return redirect(route('web.my-course-detail', $id_course));
+        return redirect(route('web.my-course-quiz-result', $id_course));
     }
 
     function addUserQuesResult($id_user, $id_course, $id_ques, $user_answer, $answer){
@@ -688,6 +688,167 @@ class WebPanelUserController extends Controller
             'user_answer' => $user_answer,
             'answer' => $answer
         ]);
+    }
+
+    public function getQuizResult ($course_id) {
+        $user = auth()->user();
+        $class_room = Classroom::where([['id_user', $user->id], ['id_course', $course_id]])->first();
+
+        if (!$class_room)
+            abort(404, 'چیزی یافت نشد');
+
+        $course = Course::where('id', $course_id)->select('id', 'code', 'title')->first();
+        $user_quizs = UserQuiz::where([['id_user', $user->id], ['id_course', $course_id]])
+            ->with(array('questions' => function ($query) {
+                $query->select('id', 'question');
+            }))->get();
+
+        return view('web.course-quiz-result', compact('course', 'user_quizs', 'class_room'));
+    }
+
+    public function downloadCertificate ($id) {
+        $user = auth()->user();
+        $course = Classroom::where([
+            ['id_user', $user->id],
+            ['id_course', $id],
+//            ['take_quiz', 1],
+//            ['certificate_status', 'صدور مدرک']
+        ])->with('course')->first();
+
+        if (!$course) abort(403, 'دوره ای یافت نشد');
+
+        if ($course->id_certificate === null) {
+            $idCertificate = (int)Classroom::where('id_user', auth()->user()->id)->max('id_certificate') + 1;
+            $course->id_certificate = $idCertificate;
+            $course->name_certificate =  "$user->id/$idCertificate/" . 'الف' . '/400';
+            $course->save();
+        }
+        else $idCertificate = $course->id_certificate;
+
+        $string = url("certificate/$user->code/course/$idCertificate");
+        $url = url("qrcode?string=$string");
+
+        if ($course->course->level === 'level1')     $level = 'مقدماتی';
+        elseif ($course->course->level === 'level2') $level = 'پیشرفته';
+        elseif ($course->course->level === 'level3') $level = 'تکمیلی';
+
+        $hour = (int)$course->course->hour > 0 ? $course->course->hour : '00';
+        $minutes = (int)$course->course->minutes > 0 ? $course->course->minutes : '00';
+        $time = $minutes . ' : ' . $hour;
+
+        return view('certificate/certificate', compact('course', 'time', 'minutes', 'level','url', 'user'));
+    }
+
+    public function downloadCertificateForAll ($userCode, $id) {
+        $user = User::where('code', $userCode)->first();
+        if (!$user)
+            abort(403, 'گواهی نامعتبر است , کاربری با چنین مشخصاتی یافت نشد');
+
+        $course = Classroom::where([
+            ['id_user', $user->id],
+            ['id_certificate', $id],
+            ['take_quiz', 1],
+            ['certificate_status', 'صدور مدرک']
+        ])->with('course')->first();
+
+        if (!$course)
+            abort(403, 'گواهی نامعتبر است , دوره ای با چنین مشخصاتی یافت نشد');
+
+        if ($course->id_certificate === null)
+            abort(403, 'گواهی نامعتبر است , کاربر مورد نظر در این دوره گواهی دریافت نکرده است');
+        else
+            $idCertificate = $course->id_certificate;
+
+        $string = url("certificate/$user->code/course/$idCertificate");
+        $url = url("qrcode?string=$string");
+
+        if ($course->course->level === 'level1')     $level = 'مقدماتی';
+        elseif ($course->course->level === 'level2') $level = 'پیشرفته';
+        elseif ($course->course->level === 'level3') $level = 'تکمیلی';
+
+        $hour = (int)$course->course->hour > 0 ? $course->course->hour : '00';
+        $minutes = (int)$course->course->minutes > 0 ? $course->course->minutes : '00';
+        $time = $minutes . ' : ' . $hour;
+
+        return view('certificate/certificate', compact('course', 'minutes', 'time', 'level', 'url', 'user'));
+    }
+
+    public function downloadCertificateWebinar ($id) {
+        $user = auth()->user();
+        $webinar = WebinarRegister::where([
+            ['id_user', $user->id],
+            ['id_webinar', $id],
+            ['presence', 1],
+            ['status', 1]
+        ])->with('webinar')->first();
+
+        if (!$webinar) abort(403, 'وبیناری یافت نشد');
+
+        if ($webinar->id_certificate === null) {
+            $idCertificate = (int)WebinarRegister::where('id_user', auth()->user()->id)->max('id_certificate') + 1;
+            $webinar->id_certificate = $idCertificate;
+            $webinar->name_certificate =  "$user->id/$idCertificate/" . 'ب' . '/400';
+            $webinar->save();
+        }
+        else $idCertificate = $webinar->id_certificate;
+
+        $string = url("certificate/$user->code/webinar/$idCertificate");
+        $url = url("qrcode?string=$string");
+
+        $minutes = (int)$webinar->webinar->minutes === 0 ? '00' : $webinar->webinar->minutes;
+        $time = $minutes . ' : ' . $webinar->webinar->hour;
+
+        return view('certificate/certificateWebinar', compact('webinar', 'time', 'minutes','url', 'user'));
+    }
+
+    public function downloadCertificateForAllWebinar ($userCode, $id) {
+        $user = User::where('code', $userCode)->first();
+        if (!$user)
+            abort(403, 'گواهی نامعتبر است , کاربری با چنین مشخصاتی یافت نشد');
+
+        $webinar = WebinarRegister::where([
+            ['id_user', $user->id],
+            ['id_certificate', $id],
+            ['presence', 1],
+            ['status', 1]
+        ])->with('webinar')->first();
+
+        if (!$webinar)
+            abort(403, 'گواهی نامعتبر است , وبیناری با چنین مشخصاتی یافت نشد');
+
+        if ($webinar->id_certificate === null)
+            abort(403, 'گواهی نامعتبر است , کاربر مورد نظر در این وبینار گواهی دریافت نکرده است');
+        else
+            $idCertificate = $webinar->id_certificate;
+
+        $string = url("certificate/$user->code/webinar/$idCertificate");
+        $url = url("qrcode?string=$string");
+        $minutes = (int)$webinar->webinar->minutes === 0 ? '00' : $webinar->webinar->minutes;
+        $time = $minutes . ' : ' . $webinar->webinar->hour;
+
+        return view('certificate/certificateWebinar', compact('webinar', 'minutes', 'time', 'url', 'user'));
+    }
+
+    public function downloadCertificateForAllTeacher ($type, $id) {
+        $userId = '';
+        if ($type === 'webinar') {
+            $webinar = Webinar::find($id);
+            if (!$webinar) abort(403, 'گواهی نامعتبر است .');
+            $userId = $webinar->id_teacher;
+        }
+        elseif ($type === 'course') {
+            $course = Course::find($id);
+            if (!$course) abort(403, 'گواهی نامعتبر است .');
+            $userId = $course->id_teacher;
+        }
+        $user = User::where('id_teacher', $userId)->first();
+        if (!$user) abort(403, 'گواهی نامعتبر است , مدرس با چنین مشخصاتی یافت نشد .');
+
+        $slash = DIRECTORY_SEPARATOR;
+        $fileName = '.'.$slash.'..'.$slash.'..'.$slash.'_upload_'.$slash.'_users_'.$slash . $user->code . $slash .'certificates' . $slash . $type . $slash . "$id.jpg";
+        if (!file_exists($fileName)) abort(403, 'گواهی نامعتبر است .');
+
+        return redirect(url($fileName));
     }
 
     //    discount - new version kasboom-coupon

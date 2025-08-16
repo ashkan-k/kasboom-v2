@@ -38,24 +38,24 @@ class Sms
     public static function send($mobile, $text) {
 
 
-        $url = "http://sms.rajat.ir/send_line.php";
-        $client = new Client();
-        $response = $client->request('POST', $url, [
-            'verify' => false,
-            'form_params' => [
-                'to' => $mobile,
-                'from' => 5000298645,
-                'fori' => 2,
-                'username' => 15835,
-                'password' => 1583500,
-                'text' => $text,
-            ]
-        ]);
-        $status = $response->getStatusCode();
-        if ($status == 200)
-            return true;
-        else
-            return false;
+//        $url = "http://sms.rajat.ir/send_line.php";
+//        $client = new Client();
+//        $response = $client->request('POST', $url, [
+//            'verify' => false,
+//            'form_params' => [
+//                'to' => $mobile,
+//                'from' => 5000298645,
+//                'fori' => 2,
+//                'username' => 15835,
+//                'password' => 1583500,
+//                'text' => $text,
+//            ]
+//        ]);
+//        $status = $response->getStatusCode();
+//        if ($status == 200)
+//            return true;
+//        else
+//            return false;
 
 //
 //        $response = Http::get('http://sms.parsgreen.ir/UrlService/sendSMS.ashx', [

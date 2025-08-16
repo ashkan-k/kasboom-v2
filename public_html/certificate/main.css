@@ -1,0 +1,754 @@
+/*#region ----------------- General */
+@import url(../font/fontface.css);
+body {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    direction: rtl;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+h6,
+h5,
+h4,
+h3,
+h2,
+h1 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 2;
+}
+
+h1 {
+    font-size: calc(1.375rem + 1.5vw);
+}
+
+@media (min-width: 1200px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+}
+
+h2 {
+    font-size: calc(1.325rem + 0.9vw);
+}
+
+@media (min-width: 1200px) {
+    h2 {
+        font-size: 2rem;
+    }
+}
+
+h3 {
+    font-size: calc(1.3rem + 0.6vw);
+}
+
+@media (min-width: 1200px) {
+    h3 {
+        font-size: 1.75rem;
+    }
+}
+
+h4 {
+    font-size: calc(1.275rem + 0.3vw);
+}
+
+@media (min-width: 1200px) {
+    h4 {
+        font-size: 1.5rem;
+    }
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+nav ul {
+    list-style: none;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #cccccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+input,
+select {
+    vertical-align: middle;
+}
+
+img,
+svg {
+    vertical-align: middle;
+}
+
+label {
+    display: inline-block;
+}
+
+b,
+strong {
+    font-weight: bolder;
+}
+
+/*#endregion -------------- General */
+/*#region ----------------- Certificate */
+.certificate {
+    width: 297mm;
+    height: 210mm;
+    background-color: white;
+    background: url(./images/certificate-bg.jpg) repeat-y;
+    background-size: contain;
+    position: relative;
+}
+
+.certificate .cert-inner {
+    width: 240mm;
+    height: 100%;
+    margin-right: auto;
+}
+
+.certificate .cert-inner .logo .logo-inner {
+    background-color: #136049;
+    width: 20mm;
+    height: 28mm;
+    margin: 0 auto;
+    border-radius: 0 0 50mm 50mm;
+    position: relative;
+}
+
+.certificate .cert-inner .logo .logo-inner img {
+    width: 17mm;
+    position: absolute;
+    right: 50%;
+    bottom: 2mm;
+    -webkit-transform: translateX(50%);
+    transform: translateX(50%);
+}
+
+.certificate .cert-inner .cert-header {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 18% auto 18%;
+    grid-template-columns: 18% auto 18%;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.certificate .cert-inner .qr {
+    width: 20mm;
+    height: 20mm;
+    border: 2px solid #a87100;
+    padding: 3mm;
+    border-radius: 4mm;
+}
+
+.certificate .cert-inner .qr .qr-inner {
+    width: 20mm;
+}
+
+.certificate .cert-inner .qr .qr-inner img {
+    width: 100%;
+}
+
+.certificate .cert-inner .name-of-organization {
+    margin-top: 3mm;
+}
+
+.certificate .cert-inner .name-of-organization .name-inner {
+    text-align: center;
+    color: #136049;
+    font-family: IranNastaliq;
+}
+
+.certificate .cert-inner .name-of-organization .name-inner h4 {
+    font-size: 5mm;
+    margin-bottom: 0;
+    font-family: IranNastaliq;
+}
+
+.certificate .cert-inner .name-of-organization .name-inner h5 {
+    font-size: 6.7mm;
+    margin-bottom: 0;
+    position: relative;
+    display: inline-block;
+    font-family: IranNastaliq;
+}
+
+.certificate .cert-inner .name-of-organization .name-inner span {
+    position: absolute;
+    left: -5mm;
+    top: 0;
+    font-size: 4mm;
+    width: 6mm;
+    height: 6mm;
+    font-family: IranNastaliq;
+}
+
+.certificate .cert-inner .name-of-organization .name-inner span img {
+    width: 100%;
+}
+
+.certificate .cert-inner .date-content {
+    position: relative;
+    top: -4mm;
+}
+
+.certificate .cert-inner .date-content .date,
+.certificate .cert-inner .date-content .number {
+    font-size: 5mm;
+    margin-bottom: 0;
+    font-family: IranNastaliq;
+}
+
+.certificate .cert-inner .certificate-name {
+    text-align: center;
+    margin-top: 11mm;
+    position: relative;
+    font-family: IranNastaliq;
+}
+
+.certificate .cert-inner .certificate-name h1 {
+    font-size: 12.5mm;
+    display: inline-block;
+    color: #a87100;
+    position: relative;
+    margin-bottom: 0;
+    font-family: IranNastaliq;
+}
+
+.certificate .cert-inner .certificate-name h1::before {
+    content: "";
+    position: absolute;
+    right: -18mm;
+    top: 4mm;
+    background-image: url(./images/title-shape.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 16mm;
+    height: 16mm;
+}
+
+.certificate .cert-inner .certificate-name h1::after {
+    content: "";
+    position: absolute;
+    left: -18mm;
+    top: 4mm;
+    background-image: url(./images/title-shape.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 16mm;
+    height: 16mm;
+}
+
+.certificate .cert-inner .certificate-name .user-image {
+    position: absolute;
+    top: -11mm;
+    left: 28mm;
+    width: 25mm;
+    height: 32.18mm;
+    border: 2px solid #a87100;
+    border-radius: 4mm;
+    overflow: hidden;
+}
+
+.certificate .cert-inner .certificate-name .user-image img {
+    width: 100%;
+}
+
+.certificate .cert-inner .cert-text {
+    padding: 0 10mm;
+    margin-top: 5mm;
+    font-size: 1.5rem;
+    line-height: 15.5mm;
+    font-family: IranNastaliq;
+}
+
+.certificate .cert-inner .cert-text p {
+    text-indent: 8mm;
+    font-size: 1.5rem;
+    line-height: 15.5mm;
+    padding-left: 10mm;
+    text-align: justify;
+    font-family: IranNastaliq;
+}
+
+.certificate .cert-inner .cert-text .fill-text {
+    color: #a87100;
+    padding: 0 4mm;
+}
+
+.certificate .cert-inner .cert-sign {
+    text-align: left;
+    padding: 0 20mm;
+    position: relative;
+}
+
+.certificate .cert-inner .cert-sign .text {
+    text-align: center;
+    margin-right: auto;
+    display: inline-block;
+    font-family: IranNastaliq;
+}
+
+.certificate .cert-inner .cert-sign .text h6 {
+    font-size: 1.2rem;
+    font-family: IranNastaliq;
+}
+
+.certificate .cert-inner .cert-sign .sign {
+    position: absolute;
+    left: 27mm;
+    top: -5mm;
+}
+
+.certificate .cert-inner .cert-sign .sign img {
+    width: 25mm;
+}
+
+/*#endregion -------------- Certificate */
+/*#region ----------------- Kasboom Certificate */
+.certificate-wrapper {
+    background-color: white;
+    width: 100%;
+    height: 100vh;
+}
+
+.certificate-content {
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.certificate-kasboom {
+    width: 210mm;
+    height: 297mm;
+    position: relative;
+}
+
+.certificate-kasboom .crt-header {
+    position: relative;
+    background: url(./images/crt-header.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #004973;
+    opacity: 1;
+    padding: 65px 0 35px 0;
+    z-index: 50;
+}
+
+.certificate-kasboom .crt-header .logo {
+    width: 150px;
+    margin: 0 auto;
+}
+
+.certificate-kasboom .crt-header .logo img {
+    width: 100%;
+}
+
+.certificate-kasboom .crt-header .title {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.certificate-kasboom .crt-header .title h1 {
+    font-size: 37px;
+    font-weight: 800;
+    font-family: "IranNastaliq";
+    display: inline-block;
+    color: white;
+    position: relative;
+}
+
+.certificate-kasboom .crt-header .title h1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -70px;
+    background-image: url(./images/slimi-right.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 60px;
+    height: 60px;
+}
+
+.certificate-kasboom .crt-header .title h1::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -70px;
+    background-image: url(./images/slimi-left.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 60px;
+    height: 60px;
+}
+
+.certificate-kasboom .crt-body {
+    background-color: white;
+    position: relative;
+}
+
+.certificate-kasboom .shape-content {
+    position: relative;
+    top: -21px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    z-index: 50;
+}
+
+.certificate-kasboom .shape-content .shape-right,
+.certificate-kasboom .shape-content .shape-left {
+    width: 148px;
+    height: 44px;
+    position: relative;
+    background-color: #07c499;
+}
+
+.certificate-kasboom .shape-content .shape-right {
+    right: -1px;
+}
+
+.certificate-kasboom .shape-content .shape-left {
+    left: -1px;
+}
+
+.certificate-kasboom .shape-content .shape-right::before,
+.certificate-kasboom .shape-content .shape-left::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.certificate-kasboom .shape-content .shape-right::before {
+    left: -25px;
+    border-width: 22.2px 26px 22.3px 0;
+    border-color: transparent #07c499 transparent transparent;
+}
+
+.certificate-kasboom .shape-content .shape-left::before {
+    right: -25px;
+    border-width: 22.2px 0 22.3px 26px;
+    border-color: transparent transparent transparent #07c499;
+}
+
+.certificate-kasboom .qr-code {
+    position: absolute;
+    left: 32px;
+    top: 40px;
+}
+
+.certificate-kasboom .qr-code .image {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 10px auto;
+    border: 2px solid #07c499;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.certificate-kasboom .qr-code .image img {
+    width: 100%;
+}
+
+.certificate-kasboom .qr-code .date,
+.certificate-kasboom .qr-code .number {
+    font-size: 10px;
+    font-weight: 600;
+    color: #676c70;
+    font-family: IRANYEKAN;
+}
+
+.certificate-kasboom .description {
+    text-align: center;
+    font-family: IRANYEKAN;
+    margin-top: 10px;
+    padding: 0 120px;
+}
+
+.certificate-kasboom .description h5 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #676c70;
+}
+
+.certificate-kasboom .description .name {
+    display: inline-block;
+    border: 3px solid #07c499;
+    padding: 4px 30px;
+    margin-top: 10px;
+}
+
+.certificate-kasboom .description .name h4 {
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 0;
+    color: #676c70;
+}
+
+.certificate-kasboom .description .text {
+    margin-top: 30px;
+    padding: 0 0 10px 0;
+    border-bottom: 2px solid #004973;
+}
+
+.certificate-kasboom .description .text p {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: #676c70;
+    font-family: IRANYEKAN;
+    line-height: 37px;
+    text-align: justify;
+}
+
+.certificate-kasboom .description .text .fill-text {
+    color: #004973;
+    font-weight: 800;
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.certificate-kasboom .description .text-eng {
+    margin-top: 10px;
+    padding: 0 0 10px 0;
+}
+
+.certificate-kasboom .description .text-eng p {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: #676c70;
+    text-transform: capitalize;
+    font-family: IRANYEKAN;
+    line-height: 28px;
+    text-align: justify;
+}
+
+.certificate-kasboom .description .text-eng .fill-text {
+    color: #004973;
+    font-weight: 800;
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.certificate-kasboom .description.persian {
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+
+.certificate-kasboom .description.persian .text {
+    border: none;
+    padding-bottom: 30px;
+    margin-top: 50px;
+}
+
+.certificate-kasboom .description.persian .text p {
+    font-size: 15px;
+    line-height: 45px;
+}
+
+.certificate-kasboom .sign-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 70px;
+    margin-top: 25px;
+}
+
+.certificate-kasboom .sign-content .sign {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 33.33%;
+    flex: 0 0 33.33%;
+    width: 33.33%;
+    text-align: center;
+}
+
+.certificate-kasboom .sign-content .sign .image {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+.certificate-kasboom .sign-content .sign .image img {
+    width: 100%;
+}
+
+.certificate-kasboom .sign-content .sign h5 {
+    font-size: 11px;
+    font-weight: 600;
+    color: #676c70;
+    font-family: IRANYEKAN;
+    position: relative;
+    border-top: 2px solid #e2e3e4;
+    margin-bottom: 0;
+    padding-top: 10px;
+}
+
+.certificate-kasboom .sign-content .sign h5 span {
+    font-size: 9px;
+    position: relative;
+    top: -3px;
+    margin-right: 3px;
+}
+
+.certificate-kasboom .sign-content .hologram {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 33.33%;
+    flex: 0 0 33.33%;
+    width: 33.33%;
+    position: relative;
+    top: 30px;
+    opacity: 0;
+}
+
+.certificate-kasboom .sign-content .hologram .holo-inner {
+    border: 2px solid #e2e3e4;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-family: IRANYEKAN;
+}
+
+.certificate-kasboom .sign-content .hologram .holo-inner span {
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    color: #e2e3e4;
+}
+
+.certificate-kasboom .alert {
+    text-align: center;
+    margin-top: 55px;
+    padding-bottom: 20px;
+}
+
+.certificate-kasboom .alert h6 {
+    font-size: 11px;
+    font-weight: 400;
+    color: #676c70;
+    font-family: IRANYEKAN;
+    margin-bottom: 5px;
+}
+
+.certificate-kasboom .alert h6:last-child {
+    margin-bottom: 0;
+}
+
+.certificate-kasboom .alert h6.hidden {
+    display: none;
+}
+
+.button-action {
+    padding:10px 0;
+    text-align: center;
+}
+
+#btn-print {
+    background-color: #07c499;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    /*position: absolute;*/
+    /*right: 60px;*/
+    /*top: 40px;*/
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: IRANYEKAN;
+}
+
+/*#endregion -------------- Kasboom Certificate */
+/*#region ----------------- X - Catch Error */
+.bred {
+    border: 1px dashed red;
+}
+
+.bgreen {
+    border: 1px dashed green;
+}
+
+.bblue {
+    border: 1px dashed blue;
+}
+
+/*#endregion -------------- X - Catch Error */
