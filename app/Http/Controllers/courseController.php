@@ -1095,6 +1095,8 @@ class courseController extends Controller
   {
     $id_category = $request->id_category;
 
+    $cats = getCategory('course');
+
     $query = course::where('status', '=', 1)
       ->where("id_category", "=", $id_category)
       ->with(array('teacher' => function ($query) {
@@ -1102,6 +1104,10 @@ class courseController extends Controller
       }))
       ->select('id', 'title', 'image', 'price', 'hour', 'minutes', 'id_category', 'id_teacher', 'register_count', 'code', 'learn_type', 'discount', 'abstractMemo', 'score', 'discount', 'old_price')
       ->latest();
+
+    $courses = $query->get();
+
+      return view("course/course_category", compact('cats', 'courses'));
 
     return ($this->ajax_response(false, $query->get(), '', 'success'));
 

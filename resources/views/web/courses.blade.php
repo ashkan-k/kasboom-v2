@@ -48,7 +48,7 @@
                                 <a href="{{ route('web.my-course-detail', $course->id ?: '---') }}">
                                     <div class="img-container">
                                         <div class="img-inner">
-                                            <img src="_upload_/_courses_/{{$course?->code}}/medium_{{$course?->image}}" alt="{{ $course?->title ?: '---' }}" />
+                                            <img src="{{ $course->getMediumPoster() }}" alt="{{ $course?->title ?: '---' }}" />
                                         </div>
                                     </div>
                                     <div class="card-b">

@@ -24,7 +24,7 @@
                 <br>
                 <div class="display-1 mb-5">404</div>
                 <p class="h4 font-weight-normal mb-7 leading-normal" style="font-family: VazirMedium">متاسفانه! دوره آموزشی مورد نظر یافت نشد</p>
-                <a class="btn btn-primary" href="skill/courses" style="font-family: VazirMedium">
+                <a class="btn btn-primary" href="/skill/courses" style="font-family: VazirMedium">
                      جستجو دوره آموزشی
                 </a>
             </div>

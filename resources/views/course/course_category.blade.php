@@ -36,7 +36,7 @@
         @foreach($cats as $cat)
         <?php $title = str_replace(' ', '_', $cat->title); ?>
         <div class="card-category-courses">
-          <a href="category/{{ $cat->slug }}">
+          <a href="/category/{{ $cat->slug }}">
             <div class="cover">
               <img src="_upload_/_category_/images/{{$cat->type}}/{{$cat->image}}" alt="{{$cat->title}}">
             </div>

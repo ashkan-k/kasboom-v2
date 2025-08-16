@@ -215,7 +215,7 @@
                                                             <h6 class="desc">{{ $attach->memo ?: '---' }}</h6>
                                                         </div>
                                                         <div class="btn-action">
-                                                            <a href="_upload_/_courses_/{{$course->code}}/attachs/{{$attach->code}}/{{$attach->attachment_file}}" target="_blank" class="btn-download">
+                                                            <a href="/_upload_/_courses_/{{$course->code}}/attachs/{{$attach->code}}/{{$attach->attachment_file}}" target="_blank" class="btn-download">
                                                                 <i class="mdi mdi-download"></i>دانلود
                                                             </a>
                                                         </div>
